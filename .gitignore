@@ -1,0 +1,90 @@
+# CUSTOM
+.CFUserTextEncoding
+.MacOSX/
+.codeintel/
+.fontconfig/
+.gem/
+.Trash/
+.Xauthority
+.adobe/
+.bash_history
+.cache/
+.gitconfig
+.ievms/
+.lesshst
+.macports/
+.mysql_history
+.oh-my-zsh/
+.ssh/
+.subversion/
+.tmuxrc
+.viminfo
+.zcompdump
+.zsh-update
+.zsh_history
+Desktop/
+Documents/
+Downloads/
+Google Drive/
+Library/
+Movies/
+Music/
+Pictures/
+Public/
+VirtualBox VMs/
+bin/
+self-signed/
+
+
+config
+*.sublime-project
+*.sublime-workspace
+id_*
+
+# ===========================================================
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+._.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+.svn
+.AppleDouble
+._*
+
+*.tmproj
+
+# Vim swap files #
+##################
+*.swp
+*.swo
