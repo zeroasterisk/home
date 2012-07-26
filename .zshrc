@@ -99,7 +99,10 @@ zstyle ':completion:*:warnings' format "%B$fg[red]%}---- no match for: $fg[white
 zstyle ':completion:*' group-name ''
 
 # -----------------------------------------------------------
-# screen autotitle
+# screen / tmux
+# tmux doesn't like the autotitle atm :(
+export DISABLE_AUTO_TITLE="true"
+# screen custom autotitle function HOST|#
 function title {
   [ "$DISABLE_AUTO_TITLE" != "true" ] || return
   if [[ "$TERM" == screen* ]]; then
