@@ -66,7 +66,15 @@ filetype off
 set nocompatible   " don't be compatible with vi
 set vb t_vb=       " visual bell off
 set encoding=utf-8 " utf8
-let mapleader = ","
+let mapleader = ","   " sets the <leader> variable to ,
+" ; === : so we can just do ;w -- saves a keystroke
+nnoremap ; :
+" fixing a timeout slowness in tmux/screen
+set notimeout
+set ttimeout
+set timeoutlen=50
+" autosave on change of focus
+au FocusLost * :wa
 
 "files
 set backup                     " make backups
@@ -94,7 +102,12 @@ set incsearch
 " by automatically inserting a \v before any string you search for
 nnoremap / /\v
 vnoremap / /\v
-
+"  This gets rid of the distracting highlighting
+nnoremap <leader><space> :noh<cr>
+" make the tab key match bracket pairs. I use this to move around all the time
+" and <tab> is a hell of a lot easier to type than %
+nnoremap <tab> %
+vnoremap <tab> %
 
 "tabs/indent
 set autoindent     " auto/smart indent
@@ -107,11 +120,23 @@ set smarttab       " pressing tab also rounds to nearest (?unsure if i should ke
 set noexpandtab    """ put tabs in files.
 """set expandtab   """ don't put tabs in files, convert to spaces.
 """set softtabstop=4  " also use this when using spaces.
-autocmd BufWritePre *.py :%s/\s\+$//e " automatically deletes trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
+
+" split helpers
+" new horizontal split
+nnoremap <leader>s <C-w>s
+" new vertical split
+nnoremap <leader>w <C-w>v<C-w>l
+" split navigation mapped to CTRL (capslock remap?)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " interface
 set laststatus=2 " always show status line
 set ruler        " show character position
+set relativenumber " changes line numbers to relative ,# to toggle
 set title        " set window title
 set number       " line numbers
 set wildmenu                  " better completion
@@ -126,6 +151,15 @@ set showcmd                   " show when typing leader, etc.
 set ttyfast                   " fast connection
 set scrolloff=3               " keep 3 lines on the screen when scrolling
 autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
+" line wrap handling and guideline at 85 col
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+" makes Vim show invisible characters with the same characters that TextMate
+" uses
+set list
+set listchars=tab:▸\ ,eol:¬
 
 " make search results appear in the middle of the screen
 nmap n nzz
@@ -135,9 +169,12 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
-" i can't type
+" typeo corrections / remaps
 map :W :w
 map :Q :q
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 
 " allow cross-session copy paste with _Y _P
 nmap    _Y      :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
@@ -145,6 +182,7 @@ vmap    _Y      :w! ~/.vi_tmp<CR>
 nmap    _P      :r ~/.vi_tmp<CR>
 
 " color, syntax highlighting
+au BufRead,BufNewFile *.ctp setfiletype phtml " special handling for .ctp, odd (must be above filetype plugin indent on)
 filetype plugin indent on                   " enable ft+plugin detect
 syntax on                                   " syntax highlighting
 set t_Co=256                                " 256-colors
@@ -215,6 +253,24 @@ let g:pad_format = "text"
 let g:pad_window_height = 12
 let g:pad_search_backend = "ack"
 
-" shortcuts
-map <leader>' cs'"
-map <leader>" cs"'
+" -------------------------
+" custom shortcuts
+" ------------------------
+" ,ev edit vimrc file on the fly
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" surroud replace quotes
+map <leader>" cs'"
+map <leader>' cs"'
+" ,W strip all trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" ,a ack helper
+nnoremap <leader>a :Ack
+" ,ft HTML fold tag
+nnoremap <leader>ft Vatzf
+" ,S sort a list of CSS properties
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+" ,v reselect text that was just pasted
+nnoremap <leader>v V`]`
+" set relative numbers to ruler
+nnoremap <leader># :set relativenumber
+
