@@ -37,6 +37,7 @@ self-signed/
 
 
 config
+*private
 *.sublime-project
 *.sublime-workspace
 id_*
