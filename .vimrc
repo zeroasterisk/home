@@ -54,7 +54,19 @@ filetype off
     " Bundle 'https://github.com/Rip-Rip/clang_complete'
     " sudo apt-get install libclang1 libclang-dev
 
-    " User Bundles End
+	" phpComplete (PHP extras for omnicomplete)
+	Bundle 'git://github.com/shawncplus/phpcomplete.vim.git'
+
+	" SuperTab easier autocomplets
+	Bundle 'https://github.com/ervandew/supertab'
+    " note, I have insalled the 'word_complete' plugin
+	" http://www.vim.org/scripts/script.php?script_id=73
+	" and as such, supertab is a bit un-necissary...
+	" turn on word_complete all time (leader shortcuts below to toggle)
+	" autocmd BufEnter * call DoWordComplete()
+	" ^ disabled because it's a bit less than ideal, can still toggle on/off
+
+	" User Bundles End
     if iCanHazVundle == 0
         echo "Installing Bundles, please ignore key map error messages"
         echo ""
@@ -132,6 +144,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" To switch the buffer on the current selected window then I use Shift-Left and Shift-right
+map <S-Right> :bnext<CR>
+map <S-Left> :bprevious<CR>
 
 " interface
 set laststatus=2 " always show status line
@@ -140,7 +155,7 @@ set relativenumber " changes line numbers to relative ,# to toggle
 set title        " set window title
 set number       " line numbers
 set wildmenu                  " better completion
-set wildmode=list:longest     " show lots of stuff
+set wildmode=list:longest,full     " show lots of stuff
 set nolist                    " hidden characters off by default
 set listchars=tab:>-,trail:*  " show tabs as -->, trailing whitespace as * with list=on
 nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>  " f5 toggles line numbers
@@ -150,7 +165,7 @@ set showmatch                 " show matching brackets
 set showcmd                   " show when typing leader, etc.
 set ttyfast                   " fast connection
 set scrolloff=3               " keep 3 lines on the screen when scrolling
-autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
+"autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
 " line wrap handling and guideline at 85 col
 set wrap
 set textwidth=79
@@ -160,6 +175,21 @@ set colorcolumn=85
 " uses
 set list
 set listchars=tab:▸\ ,eol:¬
+
+" folding
+set foldmethod=indent
+set foldcolumn=0
+" http://vim.wikia.com/wiki/Folding
+augroup vimrc
+	au BufReadPre * setlocal foldmethod=indent
+	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " make search results appear in the middle of the screen
 nmap n nzz
@@ -172,6 +202,7 @@ nmap g# g#zz
 " typeo corrections / remaps
 map :W :w
 map :Q :q
+inoremap / /
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
@@ -209,6 +240,9 @@ let g:Powerline_symbols = 'fancy'
 nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
 let g:tagbar_autofocus = 1   " auto focus after opening tagbar
 let g:tagbar_autoclose = 1   " auto close after choosing a tag
+" autocomplet
+filetype plugin on
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 " turn off variables for php
 let g:tagbar_type_php = {
@@ -223,6 +257,7 @@ let g:tagbar_type_php = {
 
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_height = 20
 
 " cake config
 let g:cakephp_enable_auto_mode = 1     " auto detect cake project
@@ -271,6 +306,13 @@ nnoremap <leader>ft Vatzf
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 " ,v reselect text that was just pasted
 nnoremap <leader>v V`]`
-" set relative numbers to ruler
+" ,# set relative numbers to ruler
 nnoremap <leader># :set relativenumber
-
+" ,Y yank in word shortcut
+nnoremap <leader>Y yiw
+" ,R replace in word
+nnoremap <leader>R viwp
+" ,A turn off autocompelte on type
+nnoremap <leader>A :call EndWordComplete()
+" ,AA turn on autocompelte as you type (on by default)
+nnoremap <leader>AA :call DoWordComplete()
