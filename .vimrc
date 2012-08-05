@@ -1,77 +1,79 @@
 filetype off
 " Setting up Vundle - the vim plugin bundler
-    let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-        echo "Installing Vundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-        let iCanHazVundle=0
-    endif
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-    Bundle 'gmarik/vundle'
-    """" User Bundles Begin """"
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+	echo "Installing Vundle.."
+	echo ""
+	silent !mkdir -p ~/.vim/bundle
+	silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+	let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+"""" User Bundles Begin """"
 
-    " Syntastic - compiler checking for errors on the fly
-    Bundle 'Syntastic'
-    " Autoclose - Automatically close brackets
-    Bundle 'https://github.com/Townk/vim-autoclose/'
-    " Fugitive - GIT integration
-    Bundle 'https://github.com/tpope/vim-fugitive'
-    " Surround - change surrounding characters, tags
-    Bundle 'https://github.com/tpope/vim-surround/'
-    " HAML - Support for haml/sass/scss
-    Bundle 'https://github.com/tpope/vim-haml'
-    " Jellybeans - Color scheme
-    Bundle 'https://github.com/nanotech/jellybeans.vim'
-    " CTRL-P - Fuzzy file searching
-    Bundle 'https://github.com/kien/ctrlp.vim/'
-    " Ultisnips - text snippets
-    "!python:(
-    "Bundle 'https://github.com/SirVer/ultisnips'
-    " Powerline - badass status bar
-    Bundle 'https://github.com/Lokaltog/vim-powerline/'
-    " NerdCommenter - comment block commands
-    Bundle 'https://github.com/scrooloose/nerdcommenter'
-    " TagBar - ctags support
-    Bundle 'https://github.com/majutsushi/tagbar'
-	" Ack
-	Bundle 'https://github.com/mileszs/ack.vim'
-	" Matchit - % bounces on html tags
-	Bundle 'https://github.com/tsaleh/vim-matchit'
-	" Cake.vim - Hop between model/view/controller
-	Bundle 'https://github.com/violetyk/cake.vim'
-	" Gundo - Visual undo tree
-	Bundle 'http://github.com/sjl/gundo.vim.git'
-	" Vim pad - Note taking
-	Bundle 'https://github.com/fmoralesc/vim-pad'
-	" Evervim - evernote integration - doesn't seem to work.
-	" Bundle 'https://github.com/kakkyz81/evervim'
+" Syntastic - compiler checking for errors on the fly
+Bundle 'Syntastic'
+" Autoclose - Automatically close brackets
+Bundle 'https://github.com/Townk/vim-autoclose/'
+" Fugitive - GIT integration
+Bundle 'https://github.com/tpope/vim-fugitive'
+" Surround - change surrounding characters, tags
+Bundle 'https://github.com/tpope/vim-surround/'
+" HAML - Support for haml/sass/scss
+Bundle 'https://github.com/tpope/vim-haml'
+" RagTag matching for <?php ?>
+Bundle "https://github.com/tpope/vim-ragtag"
+" Jellybeans - Color scheme
+Bundle 'https://github.com/nanotech/jellybeans.vim'
+" CTRL-P - Fuzzy file searching
+Bundle 'https://github.com/kien/ctrlp.vim/'
+" Ultisnips - text snippets
+"!python:(
+"Bundle 'https://github.com/SirVer/ultisnips'
+" Powerline - badass status bar
+Bundle 'https://github.com/Lokaltog/vim-powerline/'
+" NerdCommenter - comment block commands
+Bundle 'https://github.com/scrooloose/nerdcommenter'
+" TagBar - ctags support
+Bundle 'https://github.com/majutsushi/tagbar'
+" Ack
+Bundle 'https://github.com/mileszs/ack.vim'
+" Matchit - % bounces on html tags
+Bundle 'https://github.com/tsaleh/vim-matchit'
+" Cake.vim - Hop between model/view/controller
+Bundle 'https://github.com/violetyk/cake.vim'
+" Gundo - Visual undo tree
+Bundle 'http://github.com/sjl/gundo.vim.git'
+" Vim pad - Note taking
+Bundle 'https://github.com/fmoralesc/vim-pad'
+" Evervim - evernote integration - doesn't seem to work.
+" Bundle 'https://github.com/kakkyz81/evervim'
 
-    " clang_complete - only for c/c++, no use for now.
-    " Bundle 'https://github.com/Rip-Rip/clang_complete'
-    " sudo apt-get install libclang1 libclang-dev
+" clang_complete - only for c/c++, no use for now.
+" Bundle 'https://github.com/Rip-Rip/clang_complete'
+" sudo apt-get install libclang1 libclang-dev
 
-	" phpComplete (PHP extras for omnicomplete)
-	Bundle 'git://github.com/shawncplus/phpcomplete.vim.git'
+" phpComplete (PHP extras for omnicomplete)
+Bundle 'git://github.com/shawncplus/phpcomplete.vim.git'
 
-	" SuperTab easier autocomplets
-	Bundle 'https://github.com/ervandew/supertab'
-    " note, I have insalled the 'word_complete' plugin
-	" http://www.vim.org/scripts/script.php?script_id=73
-	" and as such, supertab is a bit un-necissary...
-	" turn on word_complete all time (leader shortcuts below to toggle)
-	" autocmd BufEnter * call DoWordComplete()
-	" ^ disabled because it's a bit less than ideal, can still toggle on/off
+" SuperTab easier autocomplets
+Bundle 'https://github.com/ervandew/supertab'
+" note, I have insalled the 'word_complete' plugin
+" http://www.vim.org/scripts/script.php?script_id=73
+" and as such, supertab is a bit un-necissary...
+" turn on word_complete all time (leader shortcuts below to toggle)
+" autocmd BufEnter * call DoWordComplete()
+" ^ disabled because it's a bit less than ideal, can still toggle on/off
 
-	" User Bundles End
-    if iCanHazVundle == 0
-        echo "Installing Bundles, please ignore key map error messages"
-        echo ""
-        :BundleInstall
-    endif
+" User Bundles End
+if iCanHazVundle == 0
+	echo "Installing Bundles, please ignore key map error messages"
+	echo ""
+	:BundleInstall
+endif
 " Setting up Vundle - the vim plugin bundler end
 
 "basics
@@ -158,8 +160,8 @@ set wildmenu                  " better completion
 set wildmode=list:longest,full     " show lots of stuff
 set nolist                    " hidden characters off by default
 set listchars=tab:>-,trail:*  " show tabs as -->, trailing whitespace as * with list=on
-nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>  " f5 toggles line numbers
-nnoremap <F6> :set list!<cr>  " f6 toggles list
+" f5 toggles line numbers and copy/paste problem characters
+nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>:set list!<cr>
 set pastetoggle=<F1>          " f1 toggles paste
 set showmatch                 " show matching brackets
 set showcmd                   " show when typing leader, etc.
@@ -190,6 +192,7 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
+nnoremap <C-Space> zj
 
 " make search results appear in the middle of the screen
 nmap n nzz
@@ -307,7 +310,8 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 " ,v reselect text that was just pasted
 nnoremap <leader>v V`]`
 " ,# set relative numbers to ruler
-nnoremap <leader># :set relativenumber
+nnoremap <leader># :set relativenumber<cr>
+nnoremap <F4> :set relativenumber<cr>
 " ,Y yank in word shortcut
 nnoremap <leader>Y yiw
 " ,R replace in word
