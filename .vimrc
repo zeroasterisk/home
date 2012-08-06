@@ -136,20 +136,6 @@ set noexpandtab    """ put tabs in files.
 """set softtabstop=4  " also use this when using spaces.
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
 
-" split helpers
-" new horizontal split
-nnoremap <leader>s <C-w>s
-" new vertical split
-nnoremap <leader>w <C-w>v<C-w>l
-" split navigation mapped to CTRL (capslock remap?)
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" To switch the buffer on the current selected window then I use Shift-Left and Shift-right
-map <S-Right> :bnext<CR>
-map <S-Left> :bprevious<CR>
-
 " interface
 set laststatus=2 " always show status line
 set ruler        " show character position
@@ -177,6 +163,26 @@ set colorcolumn=85
 " uses
 set list
 set listchars=tab:▸\ ,eol:¬
+
+" remap arrow keys in insert mode, so that they escape and move
+inoremap <up> <esc>k
+inoremap <right> <esc>l
+inoremap <down> <esc>j
+inoremap <left> <esc>h
+
+" split helpers
+" new horizontal split
+nnoremap <leader>s <C-w>s
+" new vertical split
+nnoremap <leader>w <C-w>v<C-w>l
+" split navigation mapped to CTRL (capslock remap?)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" To switch the buffer on the current selected window then I use Shift-Left and Shift-right
+map <S-Right> :bnext<CR>
+map <S-Left> :bprevious<CR>
 
 " folding
 set foldmethod=indent
