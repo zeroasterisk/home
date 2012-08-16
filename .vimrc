@@ -97,9 +97,9 @@ set backupdir=~/.backup,/tmp   " backups go here
 " Command-line navigation
 cnoremap <C-x> <Right>
 cnoremap <C-z> <Left>
-" Alt+Left/Right to switch tabs
-nnoremap <A-Left> gT
-nnoremap <A-Right> gt
+" Ctrl+Left/Right to switch tabs
+nnoremap <C-Left> gT
+nnoremap <C-Right> gt
 " Control+Tab (+Shift, for reverse direction) to switch through tabs
 noremap <C-Tab> gt
 noremap <C-S-Tab> gT
@@ -156,6 +156,7 @@ set scrolloff=3               " keep 3 lines on the screen when scrolling
 "autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
 " line wrap handling and guideline at 85 col
 set wrap
+set whichwrap+=<,>,[,]
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=85
@@ -166,9 +167,12 @@ set listchars=tab:▸\ ,eol:¬
 
 " remap arrow keys in insert mode, so that they escape and move
 inoremap <up> <esc>k
-inoremap <right> <esc>l
 inoremap <down> <esc>j
-inoremap <left> <esc>h
+" remap Shift+arrow in insert mode, escape and move, includes left/right
+inoremap <S-up> <esc>k
+inoremap <S-down> <esc>j
+inoremap <S-right> <esc>ll
+inoremap <S-left> <esc>
 
 " split helpers
 " new horizontal split
@@ -180,9 +184,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" To switch the buffer on the current selected window then I use Shift-Left and Shift-right
-map <S-Right> :bnext<CR>
-map <S-Left> :bprevious<CR>
 
 " folding
 set foldmethod=indent
@@ -298,13 +299,29 @@ let g:pad_window_height = 12
 let g:pad_search_backend = "ack"
 
 " -------------------------
-" custom shortcuts
+"  fixing common mistakes
+"  ------------------------
+" for some reason, when switching tabs, I use p
+nnoremap np gT
+nnoremap nP gT
+
+" -------------------------
+" custom shortcuts: insert mode
+" ------------------------
+" this is a sexy little shortcut to break out of insert mode
+inoremap ;; <ESC>l
+" -------------------------
+" custom shortcuts: normal mode
 " ------------------------
 " ,ev edit vimrc file on the fly
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " surroud replace quotes
 map <leader>" cs'"
 map <leader>' cs"'
+" wrap word in single quotes
+nnoremap <leader>.' ysiw'
+" wrap word in double quotes
+nnoremap <leader>." ysiw"
 " ,W strip all trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " ,a ack helper
@@ -320,9 +337,7 @@ nnoremap <leader># :set relativenumber<cr>
 nnoremap <F4> :set relativenumber<cr>
 " ,Y yank in word shortcut
 nnoremap <leader>Y yiw
-" ,R replace in word
-nnoremap <leader>R viwp
-" ,A turn off autocompelte on type
-nnoremap <leader>A :call EndWordComplete()
-" ,AA turn on autocompelte as you type (on by default)
-nnoremap <leader>AA :call DoWordComplete()
+" ,R replace in word (keep the replacement in registry)
+nnoremap <leader>R viwpyiw
+" ,A move to end of line, back one character, enter insert mode
+nnoremap <leader>A $hi

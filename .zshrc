@@ -50,6 +50,10 @@ compdef GSR=git
 alias gti='git'
 
 
+# shortcuts and remaps
+alias vim='vim -p'
+alias vi='vim -p'
+
 # OSX Aliases
 
 # mysql
