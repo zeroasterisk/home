@@ -199,7 +199,8 @@ onoremap <F9> <C-C>za
 vnoremap <F9> zf
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
-nnoremap <C-Space> zj
+" unfold all zR
+nnoremap <C-f> zR
 
 " make search results appear in the middle of the screen
 nmap n nzz

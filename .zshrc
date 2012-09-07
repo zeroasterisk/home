@@ -58,15 +58,15 @@ alias vi='vim -p'
 
 # mysql
 alias mysql='/opt/local/bin/mysql5'
-alias start_mysql_alt='sudo /opt/local/bin/mysqld_safe5 &'
-alias stop_mysql_alt='/opt/local/bin/mysqladmin5 -u root -p shutdown'
-alias start_mysql='sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
-alias stop_mysql='/opt/local/bin/mysqladmin5 -u root -p shutdown'
+alias start_mysql_alt='echo "Sudo"; sudo /opt/local/bin/mysqld_safe5 &'
+alias stop_mysql_alt='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
+alias start_mysql='echo "Sudo"; sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
+alias stop_mysql='echo "MySQL Root Password"; 666666666666666666666666666666666666/opt/local/bin/mysqladmin5 -u root -p shutdown'
 
 # nginx
-alias start_nginx='sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
-alias stop_nginx='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
-alias restart_nginx='sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias start_nginx='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias stop_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
+alias restart_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
 
 # php
 alias start_php='php-cgi -q -b 127.0.0.1:9000 &'
@@ -119,6 +119,6 @@ function title {
 
 # -----------------------------------------------------------
 # PATH
-PATH=/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
+PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
 MANPATH="/opt/local/share/man:$MANPATH"
 EDITOR="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
