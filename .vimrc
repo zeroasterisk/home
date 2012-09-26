@@ -186,21 +186,21 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " folding
-set foldmethod=indent
-set foldcolumn=0
+" set foldmethod=indent
+" set foldcolumn=0
 " http://vim.wikia.com/wiki/Folding
-augroup vimrc
-	au BufReadPre * setlocal foldmethod=indent
-	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-augroup END
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
-" unfold all zR
-nnoremap <C-f> zR
+"augroup vimrc
+"	au BufReadPre * setlocal foldmethod=indent
+"	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+"augroup END
+"inoremap <F9> <C-O>za
+"nnoremap <F9> za
+"onoremap <F9> <C-C>za
+"vnoremap <F9> zf
+"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+"vnoremap <Space> zf
+"" unfold all zR
+"nnoremap <C-f> zR
 
 " make search results appear in the middle of the screen
 nmap n nzz
@@ -213,6 +213,8 @@ nmap g# g#zz
 " typeo corrections / remaps
 map :W :w
 map :Q :q
+nnoremap Q q
+nnoremap <C-q> q
 inoremap / /
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -286,6 +288,8 @@ nnoremap <leader>3 :Cviewtab<space>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>ge :Gedit<cr>
+" Gbrowes will link to cursor on github, visually select block and it will on github
+nnoremap <leader>gh :Gbrowse<cr>
 
 "  todo - figure out how to include custom ultisnips in .vimrc instead of .vim/
 "  pr( Debugger::trace() );

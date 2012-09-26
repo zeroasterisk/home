@@ -61,7 +61,7 @@ alias mysql='/opt/local/bin/mysql5'
 alias start_mysql_alt='echo "Sudo"; sudo /opt/local/bin/mysqld_safe5 &'
 alias stop_mysql_alt='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
 alias start_mysql='echo "Sudo"; sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
-alias stop_mysql='echo "MySQL Root Password"; 666666666666666666666666666666666666/opt/local/bin/mysqladmin5 -u root -p shutdown'
+alias stop_mysql='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
 
 # nginx
 alias start_nginx='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
