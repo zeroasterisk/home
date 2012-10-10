@@ -1,5 +1,6 @@
 filetype off
 " Setting up Vundle - the vim plugin bundler
+" type in :BundleInstall
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
@@ -176,9 +177,9 @@ inoremap <S-left> <esc>
 
 " split helpers
 " new horizontal split
-nnoremap <leader>s <C-w>s
+nnoremap <leader>H <C-w>s
 " new vertical split
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>V <C-w>v<C-w>l
 " split navigation mapped to CTRL (capslock remap?)
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
