@@ -98,6 +98,9 @@ http-clone = true
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [merge]
 	tool = diffmerge
+	conflictstyle = diff3
 [mergetool "diffmerge"]
 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
 	trustExitCode = true
+[credential]
+	helper = osxkeychain
