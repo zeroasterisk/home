@@ -1,0 +1,103 @@
+[user]
+name = alan bount
+email = alan@zeroasterisk.com
+
+[sendemail]
+smtpserver = smtp.gmail.com
+smtpserverport = 587
+smtpencryption = tls
+smtpuser = zeroasterisk@gmail.com
+
+[github]
+user = zeroasterisk
+
+
+
+[alias]
+st = status
+ci = commit -a -v
+br = branch
+bl = branch -l
+bd = branch -d
+bD = branch -D
+co = checkout
+nb = checkout -b
+df = diff
+lg = log -p
+up = pull --rebase
+u  = pull --rebase origin
+p  = push origin
+m  = merge --no-ff
+rc = rebase --continue
+ra = rebase --abort
+sl = stash list
+sa = stash apply
+sd = stash drop
+si = submodule init
+su = submodule update
+sa = submodule add
+ss = submodule sync
+repacker = repack -a -d -f --depth=250 --window=250
+ql = log --pretty=format:'%Cblue%h %Cred%cD %Creset%cn %Cgreen%s%Creset' --date-order --graph
+quicklog = log --pretty=format:'%Cblue%h %Cred%cD %Creset%cn %Cgreen%s%Creset' --date-order --graph
+changes = log --oneline --decorate
+changelog = show --name-only
+svnup = svn rebase
+svnpush = svn dcommit
+commitnumber = !git log --pretty=oneline | wc -l
+worddiff = diff --word-diff
+ignore = update-index --assume-unchanged
+undo = reset --soft HEAD^
+unstage = reset HEAD
+first = !sh -c 'git log origin/master --pretty=format:%H  --reverse | head -1'
+wtf = !git-wtf
+subup = submodule update
+sub = submodule add
+subinit = submodule init
+
+[core]
+whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+pager = less -FXRS -x2
+symlinks = true
+
+[color]
+ui = auto
+
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+meta = yellow bold
+frag = magenta bold
+old = red bold
+new = green bold
+whitespace = red reverse
+
+[color "status"]
+added = yellow
+changed = green
+untracked = cyan
+
+[branch]
+autosetupmerge = true
+
+[diff]
+renames = copies
+mnemonicprefix = true
+tool = diffmerge
+
+[push]
+default = current
+
+[hub]
+http-clone = true
+
+[difftool "diffmerge"]
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = diffmerge
+[mergetool "diffmerge"]
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	trustExitCode = true
