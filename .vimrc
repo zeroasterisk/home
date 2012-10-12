@@ -53,6 +53,10 @@ Bundle 'https://github.com/fmoralesc/vim-pad'
 " Evervim - evernote integration - doesn't seem to work.
 " Bundle 'https://github.com/kakkyz81/evervim'
 
+" vdebug - used with xdebug to walk through php code
+" http://www.vim.org/scripts/script.php?script_id=4170
+Bundle 'joonty/vdebug.git'
+
 " clang_complete - only for c/c++, no use for now.
 " Bundle 'https://github.com/Rip-Rip/clang_complete'
 " sudo apt-get install libclang1 libclang-dev
