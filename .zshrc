@@ -13,6 +13,7 @@ fi
 # Customize to your needs...
 # -----------------------------------------------------------
 # Aliases
+# git: should switch to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
 alias GR='git pull --rebase origin "$(git-branch-current 2> /dev/null)"'
 alias GU='git pull origin "$(git-branch-current 2> /dev/null)"'
 alias GP='git push origin "$(git-branch-current 2> /dev/null)"'
