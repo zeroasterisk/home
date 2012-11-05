@@ -20,6 +20,8 @@ alias GP='git push origin "$(git-branch-current 2> /dev/null)"'
 alias GS='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias GSR='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias gti='git'
+alias gs='git status'
+alias gd='git diff'
 
 
 # shortcuts and remaps
