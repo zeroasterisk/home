@@ -56,6 +56,7 @@ wtf = !git-wtf
 subup = submodule update
 sub = submodule add
 subinit = submodule init
+tags = describe --abbrev=0 --tags
 
 [core]
 whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -106,3 +107,5 @@ http-clone = true
 	trustExitCode = true
 [credential]
 	helper = osxkeychain
+[mergetool]
+	keepBackup = false
