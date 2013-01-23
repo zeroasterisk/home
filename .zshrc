@@ -14,14 +14,10 @@ fi
 # -----------------------------------------------------------
 # Aliases
 # git: should switch to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
-alias GR='git pull --rebase origin "$(git-branch-current 2> /dev/null)"'
-alias GU='git pull origin "$(git-branch-current 2> /dev/null)"'
-alias GP='git push origin "$(git-branch-current 2> /dev/null)"'
-alias GS='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
-alias GSR='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias gti='git'
 alias gs='git status'
 alias gd='git diff'
+alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 
 
 # shortcuts and remaps
@@ -63,5 +59,5 @@ EDITOR="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
 
 # -----------------------------------------------------------
 # Private
-source .zshrc_private
+source ~/.zshrc_private
 
