@@ -252,7 +252,7 @@ highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default se
 
 " use powerline symbols - requires patched font - see
 " https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
 
 " tagbars config
 nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
