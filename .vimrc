@@ -46,6 +46,8 @@ Bundle 'https://github.com/mileszs/ack.vim'
 Bundle 'https://github.com/tsaleh/vim-matchit'
 " Cake.vim - Hop between model/view/controller
 Bundle 'https://github.com/violetyk/cake.vim'
+" cakephp.vim more simple navigation helpers for cakephp
+Bundle 'git://github.com/ndreynolds/vim-cakephp.git'
 " Gundo - Visual undo tree
 Bundle 'http://github.com/sjl/gundo.vim.git'
 " Vim pad - Note taking
@@ -72,6 +74,10 @@ Bundle 'https://github.com/ervandew/supertab'
 " turn on word_complete all time (leader shortcuts below to toggle)
 " autocmd BufEnter * call DoWordComplete()
 " ^ disabled because it's a bit less than ideal, can still toggle on/off
+
+" Distpatch - async testing in vim in the background
+Bundle 'git://github.com/tpope/vim-dispatch.git'
+
 
 " User Bundles End
 if iCanHazVundle == 0
@@ -137,11 +143,12 @@ set shiftwidth=4   " << >> use 4
 set shiftround     " << >> find the nearest 'tabstop'
 set smarttab       " pressing tab also rounds to nearest (?unsure if i should keep this?)
 set noexpandtab    """ put tabs in files.
-"""set expandtab   """ don't put tabs in files, convert to spaces.
-"""set softtabstop=4  " also use this when using spaces.
+"set expandtab   """ don't put tabs in files, convert to spaces.
+"set softtabstop=4  " also use this when using spaces.
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
 
 " interface
+set undofile     " create <FILENAME>.un~ files whenever you edit a file
 set laststatus=2 " always show status line
 set ruler        " show character position
 set relativenumber " changes line numbers to relative ,# to toggle
@@ -231,7 +238,8 @@ vmap    _Y      :w! ~/.vi_tmp<CR>
 nmap    _P      :r ~/.vi_tmp<CR>
 
 " color, syntax highlighting
-au BufRead,BufNewFile *.ctp setfiletype phtml " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.ctp set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.dust set filetype=html " special handling for .dust
 filetype plugin indent on                   " enable ft+plugin detect
 syntax on                                   " syntax highlighting
 set t_Co=256                                " 256-colors
@@ -343,7 +351,6 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 " ,v reselect text that was just pasted
 nnoremap <leader>v V`]`
 " ,# set relative numbers to ruler
-nnoremap <leader># :set relativenumber<cr>
 nnoremap <F4> :set relativenumber<cr>
 " ,Y yank in word shortcut
 nnoremap <leader>Y yiw

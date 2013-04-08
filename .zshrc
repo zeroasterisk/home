@@ -13,6 +13,15 @@ fi
 # Customize to your needs...
 # -----------------------------------------------------------
 # Aliases
+
+
+# global Aliases for common terms
+alias -g MVC="models controllers views libs" # eg: ack term MVC
+
+# ackc = ack with a standardized set of folders to look in
+ackc() { ack "$*" models views controllers libs;  } # cake1x
+ackC() { ack "$*" Models Views Controllers Libs;  } # cake2x
+
 # git: should switch to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
 alias gti='git'
 alias gs='git status'

@@ -34,7 +34,10 @@ Public/
 VirtualBox VMs/
 bin/
 self-signed/
-
+.vim/
+.heroku/
+.android/
+*Dropbox*
 
 config
 *private
@@ -90,3 +93,13 @@ Thumbs.db
 ##################
 *.swp
 *.swo
+.cabal/
+.cups/
+.dvdcss/
+.dbshell
+lastpass*
+dev*
+.meteorite/
+.eclipse/
+.npm/
+.pearrc
