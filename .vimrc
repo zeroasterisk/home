@@ -16,7 +16,7 @@ Bundle 'gmarik/vundle'
 """" User Bundles Begin """"
 
 " Syntastic - compiler checking for errors on the fly
-Bundle 'Syntastic'
+Bundle 'git://github.com/scrooloose/syntastic.git'
 " Autoclose - Automatically close brackets
 Bundle 'https://github.com/Townk/vim-autoclose/'
 " Fugitive - GIT integration
@@ -27,6 +27,14 @@ Bundle 'https://github.com/tpope/vim-surround/'
 Bundle 'https://github.com/tpope/vim-haml'
 " RagTag matching for <?php ?>
 Bundle "https://github.com/tpope/vim-ragtag"
+" Auto sense the tabs/spaces/width from the file being edited
+"DISABLED Bundle "https://github.com/tpope/vim-sleuth"
+"using: ,,<space> & ,,<tab> to switch
+" align equals/colons
+Bundle "git://github.com/godlygeek/tabular.git"
+" Reasonable defaulting for vim
+Bundle "https://github.com/tpope/vim-sensible"
+
 " Jellybeans - Color scheme
 Bundle 'https://github.com/nanotech/jellybeans.vim'
 " CTRL-P - Fuzzy file searching
@@ -57,7 +65,7 @@ Bundle 'https://github.com/fmoralesc/vim-pad'
 
 " vdebug - used with xdebug to walk through php code
 " http://www.vim.org/scripts/script.php?script_id=4170
-Bundle 'joonty/vdebug.git'
+Bundle 'git://github.com/joonty/vdebug.git'
 
 " clang_complete - only for c/c++, no use for now.
 " Bundle 'https://github.com/Rip-Rip/clang_complete'
@@ -118,42 +126,45 @@ noremap <C-S-Tab> gT
 nnoremap <C-t> :tabnew<CR>
 
 "search
-set hlsearch    " highlight search results
 set ignorecase  " case insenstive search
+set hlsearch    " highlight search results
+set incsearch   " incremental search (as you type)
 set smartcase   " .. unless there's a capital
 set gdefault
-set incsearch
 " fix Vim’s horribly broken default regex handling
 " by automatically inserting a \v before any string you search for
 nnoremap / /\v
 vnoremap / /\v
 "  This gets rid of the distracting highlighting
 nnoremap <leader><space> :noh<cr>
-" make the tab key match bracket pairs. I use this to move around all the time
-" and <tab> is a hell of a lot easier to type than %
-nnoremap <tab> %
-vnoremap <tab> %
 
-"tabs/indent
-set autoindent     " auto/smart indent
-set smartindent    " ^^^
-set bs=2           " smart backspace
-set tabstop=4      " indent is 4 chars wide
-set shiftwidth=4   " << >> use 4
-set shiftround     " << >> find the nearest 'tabstop'
-set smarttab       " pressing tab also rounds to nearest (?unsure if i should keep this?)
-set noexpandtab    """ put tabs in files.
-"set expandtab   """ don't put tabs in files, convert to spaces.
-"set softtabstop=4  " also use this when using spaces.
+
+" tabs/indent
+:source ~/.vimrc-tabs
+" note: two spacing profiles exist
+" :source ~/.vimrc-spaces
+" :source ~/.vimrc-tabs
+" (look for shortcuts to switch, in the leader sections)
+nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
+nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
+if exists(":Tabularize")
+  nmap <leader><leader>= :Tabularize /=<CR>
+  vmap <leader><leader>= :Tabularize /=<CR>
+  nmap <leader><leader>: :Tabularize /:\zs<CR>
+  vmap <leader><leader>: :Tabularize /:\zs<CR>
+endif
+
+" strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
 
 " interface
+set undodir^=~/.vim/undo
 set undofile     " create <FILENAME>.un~ files whenever you edit a file
 set laststatus=2 " always show status line
 set ruler        " show character position
+"set number       " line numbers
 set relativenumber " changes line numbers to relative ,# to toggle
 set title        " set window title
-set number       " line numbers
 set wildmenu                  " better completion
 set wildmode=list:longest,full     " show lots of stuff
 set nolist                    " hidden characters off by default
@@ -214,6 +225,11 @@ nnoremap <C-l> <C-w>l
 "" unfold all zR
 "nnoremap <C-f> zR
 
+" make the tab key match bracket pairs. I use this to move around all the time
+" and <tab> is a hell of a lot easier to type than %
+nnoremap <S-tab> %
+vnoremap <S-tab> %
+
 " make search results appear in the middle of the screen
 nmap n nzz
 nmap N Nzz
@@ -239,9 +255,12 @@ nmap    _P      :r ~/.vi_tmp<CR>
 
 " color, syntax highlighting
 au BufRead,BufNewFile *.ctp set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.thtml set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
 au BufRead,BufNewFile *.dust set filetype=html " special handling for .dust
+au BufRead,BufNewFile *.scss set filetype=css " special handling for .dust
 filetype plugin indent on                   " enable ft+plugin detect
 syntax on                                   " syntax highlighting
+nohl                                        " start without highlighting
 set t_Co=256                                " 256-colors
 set background=dark                         " we're using a dark bg
 colors jellybeans                           " select colorscheme
@@ -269,6 +288,9 @@ let g:tagbar_autoclose = 1   " auto close after choosing a tag
 " autocomplet
 filetype plugin on
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+" Syntax of these languages is fussy over tabs Vs spaces
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " turn off variables for php
 let g:tagbar_type_php = {
@@ -328,11 +350,14 @@ nnoremap nP gT
 " ------------------------
 " this is a sexy little shortcut to break out of insert mode
 inoremap ;; <ESC>l
+nnoremap K 0YP
 " -------------------------
 " custom shortcuts: normal mode
 " ------------------------
 " ,ev edit vimrc file on the fly
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" ,rv reload the vimrc file on the fly
+nnoremap <leader>rv :source ~/.vimrc
 " surroud replace quotes
 map <leader>" cs'"
 map <leader>' cs"'
@@ -352,6 +377,7 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 nnoremap <leader>v V`]`
 " ,# set relative numbers to ruler
 nnoremap <F4> :set relativenumber<cr>
+nnoremap <F3> :set number<cr>
 " ,Y yank in word shortcut
 nnoremap <leader>Y yiw
 " ,R replace in word (keep the replacement in registry)
