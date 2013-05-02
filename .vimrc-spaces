@@ -1,0 +1,17 @@
+"tabs/indent
+set autoindent     " auto/smart indent
+set smartindent    " ^^^
+set bs=2           " smart backspace
+set tabstop=2      " indent is 4 chars wide
+set shiftwidth=2   " << >> use 4
+set softtabstop=2  " should match tabstop, handling differences in width
+set shiftround     " << >> find the nearest 'tabstop'
+set smarttab       " pressing tab also rounds to nearest
+set expandtab      " put spaces in files, instead of tabs. <<<
+" note: two spacing profiles exist
+" :source ~/.vimrc-spaces
+" :source ~/.vimrc-tabs
+" (look for shortcuts to switch, in the leader sections)
+"nnoremap <leader><leader><space> :source ~/.vimrc-spaces
+"nnoremap <leader><leader><tab> :source ~/.vimrc-tabs
+
