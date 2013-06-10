@@ -50,9 +50,12 @@ alias stop_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/o
 alias restart_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
 
 # php
-alias start_php='php-cgi -q -b 127.0.0.1:9000 &'
-alias stop_php='killall php-cgi'
-alias restart_php='killall php-cgi; php-cgi -q -b 127.0.0.1:9000 &'
+alias start_php='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
+alias stop_php='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
+alias restart_php='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php54-fpm.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
+alias start_phpcgi='php-cgi -q -b 127.0.0.1:9000 &'
+alias stop_phpcgi='killall php-cgi'
+alias restart_phpcgi='killall php-cgi; php-cgi -q -b 127.0.0.1:9000 &'
 
 # cakephp
 alias cake13="/Development/AO/cake/console/cake"
@@ -67,6 +70,8 @@ alias cake2="/Development/Metrics/lib/Cake/Console/cake"
 PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
 MANPATH="/opt/local/share/man:$MANPATH"
 EDITOR="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
 # -----------------------------------------------------------
 # Private
