@@ -15,33 +15,16 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 """" User Bundles Begin """"
 
-" Syntastic - compiler checking for errors on the fly
-Bundle 'git://github.com/scrooloose/syntastic.git'
-" Autoclose - Automatically close brackets
-Bundle 'https://github.com/Townk/vim-autoclose/'
-" Fugitive - GIT integration
-Bundle 'https://github.com/tpope/vim-fugitive'
-" Surround - change surrounding characters, tags
-Bundle 'https://github.com/tpope/vim-surround/'
-" HAML - Support for haml/sass/scss
-Bundle 'https://github.com/tpope/vim-haml'
-" RagTag matching for <?php ?>
-Bundle "https://github.com/tpope/vim-ragtag"
-" Auto sense the tabs/spaces/width from the file being edited
-"DISABLED Bundle "https://github.com/tpope/vim-sleuth"
-"using: ,,<space> & ,,<tab> to switch
-" align equals/colons
-Bundle "git://github.com/godlygeek/tabular.git"
 " Reasonable defaulting for vim
-Bundle "https://github.com/tpope/vim-sensible"
-
+Bundle "tpope/vim-sensible"
+Bundle "tpope/vim-unimpaired"
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 " Jellybeans - Color scheme
 Bundle 'https://github.com/nanotech/jellybeans.vim'
-" CTRL-P - Fuzzy file searching
-Bundle 'https://github.com/kien/ctrlp.vim/'
-" Ultisnips - text snippets
-"!python:(
-"Bundle 'https://github.com/SirVer/ultisnips'
+" Syntastic - compiler checking for errors on the fly
+Bundle 'git://github.com/scrooloose/syntastic.git'
 " Powerline - badass status bar
 Bundle 'https://github.com/Lokaltog/vim-powerline/'
 " NerdCommenter - comment block commands
@@ -50,32 +33,55 @@ Bundle 'https://github.com/scrooloose/nerdcommenter'
 Bundle 'https://github.com/majutsushi/tagbar'
 " Ack
 Bundle 'https://github.com/mileszs/ack.vim'
-" Matchit - % bounces on html tags
-Bundle 'https://github.com/tsaleh/vim-matchit'
-" Cake.vim - Hop between model/view/controller
-Bundle 'https://github.com/violetyk/cake.vim'
-" cakephp.vim more simple navigation helpers for cakephp
-Bundle 'git://github.com/ndreynolds/vim-cakephp.git'
-" Gundo - Visual undo tree
-Bundle 'http://github.com/sjl/gundo.vim.git'
+" Autoclose - Automatically close brackets
+Bundle 'https://github.com/Townk/vim-autoclose/'
+" CTRL-P - Fuzzy file searching
+Bundle 'https://github.com/kien/ctrlp.vim/'
+" SuperTab easier autocomplets
+Bundle 'https://github.com/ervandew/supertab'
 " Vim pad - Note taking
-Bundle 'https://github.com/fmoralesc/vim-pad'
+"DISABLED Bundle 'https://github.com/fmoralesc/vim-pad'
 " Evervim - evernote integration - doesn't seem to work.
 " Bundle 'https://github.com/kakkyz81/evervim'
+" Gundo - Visual undo tree
+"DISABLED Bundle 'http://github.com/sjl/gundo.vim.git'
+" Distpatch - async testing in vim in the background
+"DISABLED Bundle 'git://github.com/tpope/vim-dispatch.git'
+
+
+" -------------------
+" Language Specific Bundles
+"
+" HAML - Support for haml/sass/scss
+Bundle 'tpope/vim-haml'
+" RagTag matching for <?php ?>
+"DISABLED Bundle "tpope/vim-ragtag"
+" Auto sense the tabs/spaces/width from the file being edited
+"DISABLED Bundle "tpope/vim-sleuth"
+"using: ,,<space> & ,,<tab> to switch
+" align equals/colons
+Bundle "godlygeek/tabular"
+" Ultisnips - text snippets
+"!python (need python for this to work)
+"DISABLED Bundle 'https://github.com/SirVer/ultisnips'
+" Matchit - % bounces on html tags
+Bundle 'tsaleh/vim-matchit'
+" Cake.vim - Hop between model/view/controller
+"DISABLED Bundle 'https://github.com/violetyk/cake.vim'
+" cakephp.vim more simple navigation helpers for cakephp
+"DISABLED Bundle 'git://github.com/ndreynolds/vim-cakephp.git'
 
 " vdebug - used with xdebug to walk through php code
 " http://www.vim.org/scripts/script.php?script_id=4170
-Bundle 'git://github.com/joonty/vdebug.git'
+"DISABLED Bundle 'git://github.com/joonty/vdebug.git'
 
 " clang_complete - only for c/c++, no use for now.
 " Bundle 'https://github.com/Rip-Rip/clang_complete'
 " sudo apt-get install libclang1 libclang-dev
 
 " phpComplete (PHP extras for omnicomplete)
-Bundle 'git://github.com/shawncplus/phpcomplete.vim.git'
+Bundle 'shawncplus/phpcomplete.vim'
 
-" SuperTab easier autocomplets
-Bundle 'https://github.com/ervandew/supertab'
 " note, I have insalled the 'word_complete' plugin
 " http://www.vim.org/scripts/script.php?script_id=73
 " and as such, supertab is a bit un-necissary...
@@ -83,9 +89,16 @@ Bundle 'https://github.com/ervandew/supertab'
 " autocmd BufEnter * call DoWordComplete()
 " ^ disabled because it's a bit less than ideal, can still toggle on/off
 
-" Distpatch - async testing in vim in the background
-Bundle 'git://github.com/tpope/vim-dispatch.git'
-
+" --------- JS
+"  see: https://github.com/joyent/node/wiki/Vim-Plugins
+" Javascript Bundle (syntax and indent plugin)
+"DISABLED Bundle "vim-scripts/JavaScript-Indent"
+Bundle "pangloss/vim-javascript"
+Bundle "jelera/vim-javascript-syntax"
+"DISABLED Bundle "hallettj/jslint.vim"
+Bundle "walm/jshint.vim"
+Bundle "juvenn/mustache.vim"
+Bundle "maksimr/vim-jsbeautify"
 
 " User Bundles End
 if iCanHazVundle == 0
@@ -108,6 +121,21 @@ set ttimeout
 set timeoutlen=50
 " autosave on change of focus
 au FocusLost * :wa
+
+" tabs/indent
+:source ~/.vimrc-tabs
+" note: two spacing profiles exist
+" :source ~/.vimrc-spaces
+" :source ~/.vimrc-tabs
+" (look for shortcuts to switch, in the leader sections)
+nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
+nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
+if exists(":Tabularize")
+  nmap <leader><leader>= :Tabularize /=<CR>
+  vmap <leader><leader>= :Tabularize /=<CR>
+  nmap <leader><leader>: :Tabularize /:\zs<CR>
+  vmap <leader><leader>: :Tabularize /:\zs<CR>
+endif
 
 "files
 set backup                     " make backups
@@ -138,21 +166,6 @@ vnoremap / /\v
 "  This gets rid of the distracting highlighting
 nnoremap <leader><space> :noh<cr>
 
-
-" tabs/indent
-:source ~/.vimrc-tabs
-" note: two spacing profiles exist
-" :source ~/.vimrc-spaces
-" :source ~/.vimrc-tabs
-" (look for shortcuts to switch, in the leader sections)
-nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
-nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
-if exists(":Tabularize")
-  nmap <leader><leader>= :Tabularize /=<CR>
-  vmap <leader><leader>= :Tabularize /=<CR>
-  nmap <leader><leader>: :Tabularize /:\zs<CR>
-  vmap <leader><leader>: :Tabularize /:\zs<CR>
-endif
 
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
@@ -285,12 +298,24 @@ let g:Powerline_symbols = 'compatible'
 nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
 let g:tagbar_autofocus = 1   " auto focus after opening tagbar
 let g:tagbar_autoclose = 1   " auto close after choosing a tag
-" autocomplet
+
+" ------------------
+"  file type tweaks
 filetype plugin on
+" autocomplete for php
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd FileType make setlocal ts=2 sts=2 sw=2 expandtab
 " Syntax of these languages is fussy over tabs Vs spaces
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+" auto-enable JS folding - https://github.com/jelera/vim-javascript-syntax
+"DISABLED autocmd FileType javascript call JavaScriptFold()
+" Auto-Beautify - https://github.com/maksimr/vim-jsbeautify
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+" TODO PHP Beautify <c-f>
 
 " turn off variables for php
 let g:tagbar_type_php = {
@@ -303,21 +328,29 @@ let g:tagbar_type_php = {
     \ ],
 \ }
 
+" syntastic language checkers
+let g:syntastic_javascript_checker = "closurecompiler"
+let g:syntastic_javascript_closure_compiler_path = "~/bin/closure-compiler.jar"
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
 
 " cake config
-let g:cakephp_enable_auto_mode = 1     " auto detect cake project
-nnoremap <leader>1 :Cmodeltab<cr>      " open model in new tab
-nnoremap <leader>2 :Ccontrollertab<cr> " open controller in new tab
-nnoremap <leader>3 :Cviewtab<space>
+"let g:cakephp_enable_auto_mode = 1     " auto detect cake project
+"nnoremap <leader>1 :Cmodeltab<cr>      " open model in new tab
+"nnoremap <leader>2 :Ccontrollertab<cr> " open controller in new tab
+"nnoremap <leader>3 :Cviewtab<space>
 " ^^^open view in new tab - you must type function name :(
 
 "todo: usetagbar to figure out the current view to open
 "function! Asdf()
 	"let l:foo = tagbar#currenttag('%s', '')
 "endfunction
+
+" ---------------
+" General remaps/aliases
 
 " fugitive config
 nnoremap <leader>gd :Gdiff<cr>
@@ -337,6 +370,11 @@ let g:pad_dir = "~/notes/"
 let g:pad_format = "text"
 let g:pad_window_height = 12
 let g:pad_search_backend = "ack"
+
+" javascript bundle
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
 " -------------------------
 "  fixing common mistakes

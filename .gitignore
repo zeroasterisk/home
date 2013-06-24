@@ -38,6 +38,21 @@ self-signed/
 .heroku/
 .android/
 *Dropbox*
+.ghc/
+.htoprc
+.itmstransporter/
+.meteor/
+.netrc
+.node-gyp/
+.putty/
+.zcompcache/
+.zcompdump.zwc
+.zhistory
+.zlogin
+.zlogout
+.zprofile
+Scripts/git-stats.rb
+Source/
 
 config
 *private
@@ -93,6 +108,7 @@ Thumbs.db
 ##################
 *.swp
 *.swo
+*.un~
 .cabal/
 .cups/
 .dvdcss/

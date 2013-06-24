@@ -63,7 +63,8 @@ alias cake_ao="/Development/AO/cake/console/cake"
 alias cake="/Development/AO/cake/console/cake"
 alias cake2="/Development/Metrics/lib/Cake/Console/cake"
 
-
+# other OSXy
+alias audio_restart="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' |awk '{print $1}'`"
 
 # -----------------------------------------------------------
 # PATH
