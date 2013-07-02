@@ -21,32 +21,36 @@ Bundle "tpope/vim-unimpaired"
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
-" Jellybeans - Color scheme
-Bundle 'https://github.com/nanotech/jellybeans.vim'
-" Syntastic - compiler checking for errors on the fly
-Bundle 'git://github.com/scrooloose/syntastic.git'
+" Color scheme
+Bundle 'nanotech/jellybeans.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'marcus/vim-mustang'
+" EasyMotion soper-movement helper
+Bundle 'Lokaltog/vim-easymotion'
 " Powerline - badass status bar
-Bundle 'https://github.com/Lokaltog/vim-powerline/'
+Bundle 'Lokaltog/vim-powerline'
 " NerdCommenter - comment block commands
-Bundle 'https://github.com/scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdcommenter'
+" Syntastic - compiler checking for errors on the fly
+Bundle 'scrooloose/syntastic'
 " TagBar - ctags support
-Bundle 'https://github.com/majutsushi/tagbar'
+Bundle 'majutsushi/tagbar'
 " Ack
-Bundle 'https://github.com/mileszs/ack.vim'
+Bundle 'mileszs/ack.vim'
 " Autoclose - Automatically close brackets
-Bundle 'https://github.com/Townk/vim-autoclose/'
+Bundle 'Townk/vim-autoclose'
 " CTRL-P - Fuzzy file searching
-Bundle 'https://github.com/kien/ctrlp.vim/'
+Bundle 'kien/ctrlp.vim'
 " SuperTab easier autocomplets
-Bundle 'https://github.com/ervandew/supertab'
+Bundle 'ervandew/supertab'
 " Vim pad - Note taking
-"DISABLED Bundle 'https://github.com/fmoralesc/vim-pad'
+"DISABLED Bundle 'fmoralesc/vim-pad'
 " Evervim - evernote integration - doesn't seem to work.
-" Bundle 'https://github.com/kakkyz81/evervim'
+" Bundle 'kakkyz81/evervim'
 " Gundo - Visual undo tree
-"DISABLED Bundle 'http://github.com/sjl/gundo.vim.git'
+"DISABLED Bundle 'sjl/gundo.vim.git'
 " Distpatch - async testing in vim in the background
-"DISABLED Bundle 'git://github.com/tpope/vim-dispatch.git'
+"DISABLED Bundle 'tpope/vim-dispatch.git'
 
 
 " -------------------
@@ -282,6 +286,12 @@ highlight nonText ctermbg=NONE              " use terminal background
 au BufRead,BufNewFile *.txt set ft=sh       " opens .txt w/highlight
 highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default search higlighting colors
 
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
 " ultisnips config
 "set runtimepath+=~/.vim/bundle/ultisnips      " include filepath
 ">>?"let g:UltiSnipsUsePythonVersion = 2           " force to use python2, not 3
@@ -298,6 +308,8 @@ let g:Powerline_symbols = 'compatible'
 nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
 let g:tagbar_autofocus = 1   " auto focus after opening tagbar
 let g:tagbar_autoclose = 1   " auto close after choosing a tag
+" recommended by: http://stackoverflow.com/questions/15425800/ctags-jsctags-doctorjs-tagbar-step-by-step
+"set tags=./tags,tags;/,~/.ctags
 
 " ------------------
 "  file type tweaks
@@ -329,8 +341,8 @@ let g:tagbar_type_php = {
 \ }
 
 " syntastic language checkers
-let g:syntastic_javascript_checker = "closurecompiler"
-let g:syntastic_javascript_closure_compiler_path = "~/bin/closure-compiler.jar"
+"let g:syntastic_javascript_checker = "closurecompiler"
+"let g:syntastic_javascript_closure_compiler_path = "~/bin/closure-compiler.jar"
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
 " ctrlp config - persistant cache
@@ -403,6 +415,8 @@ map <leader>' cs"'
 nnoremap <leader>.' ysiw'
 " wrap word in double quotes
 nnoremap <leader>." ysiw"
+" duplicate current word, after a colon
+nnoremap <leader>.. yiwea:<SPACE><ESC>p
 " ,W strip all trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " ,a ack helper
