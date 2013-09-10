@@ -51,7 +51,8 @@ Bundle 'ervandew/supertab'
 "DISABLED Bundle 'sjl/gundo.vim.git'
 " Distpatch - async testing in vim in the background
 "DISABLED Bundle 'tpope/vim-dispatch.git'
-
+" Puppet Syntax
+Bundle 'puppetlabs/puppet-syntax-vim'
 
 " -------------------
 " Language Specific Bundles
