@@ -317,18 +317,17 @@ let g:tagbar_autoclose = 1   " auto close after choosing a tag
 filetype plugin on
 " autocomplete for php
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
-autocmd FileType make setlocal ts=2 sts=2 sw=2 expandtab
-" Syntax of these languages is fussy over tabs Vs spaces
+" Syntax of these languages is fussy over tabs Vs spaces (or I like em this way)
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-" auto-enable JS folding - https://github.com/jelera/vim-javascript-syntax
-"DISABLED autocmd FileType javascript call JavaScriptFold()
-" Auto-Beautify - https://github.com/maksimr/vim-jsbeautify
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
+" Beautify by filetype
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " TODO PHP Beautify <c-f>
+" auto-enable JS folding - https://github.com/jelera/vim-javascript-syntax
+"DISABLED autocmd FileType javascript call JavaScriptFold()
 
 " turn off variables for php
 let g:tagbar_type_php = {

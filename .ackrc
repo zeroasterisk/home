@@ -1,4 +1,7 @@
+--type-set=php=.php
 --type-set=ctp=.ctp
+--type-set=less=.less
+--type-set=less=.lessimport
 --type-set=thtml=.thtml
 --type-set=sass=.sass
 --type-set=sass=.scss
