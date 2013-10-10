@@ -436,3 +436,4 @@ nnoremap <leader>Y yiw
 nnoremap <leader>R viwpyiw
 " ,A move to end of line, back one character, enter insert mode
 nnoremap <leader>A $hi
+

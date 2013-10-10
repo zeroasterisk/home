@@ -59,6 +59,10 @@ alias start_phpcgi='php-cgi -q -b 127.0.0.1:9000 &'
 alias stop_phpcgi='killall php-cgi'
 alias restart_phpcgi='killall php-cgi; php-cgi -q -b 127.0.0.1:9000 &'
 
+alias start_redis='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.redis.plist'
+alias stop_redis='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.redis.plist'
+alias restart_redis='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.redis.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.redis.plist'
+
 # cakephp
 alias cake13="/Development/AO/cake/console/cake"
 alias cake_ao="/Development/AO/cake/console/cake"
