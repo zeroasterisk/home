@@ -435,7 +435,7 @@ nnoremap nP gT
 " custom shortcuts: insert mode
 " ------------------------
 " this is a sexy little shortcut to break out of insert mode
-inoremap ;; <ESC>l
+"inoremap ;; <ESC>l
 nnoremap K 0YP
 " -------------------------
 " custom shortcuts: normal mode

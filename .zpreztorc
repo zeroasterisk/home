@@ -80,13 +80,10 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
 # --------------------
-# sorin = default theme
-zstyle ':prezto:module:prompt' theme 'sorin'
-# sorin = matt's theme
-#zstyle ':prezto:module:prompt' theme 'steeef'
-
+# sorin = default theme (>>>)
+# steeef = matt's theme (2 line)
 # pws = presentation (very small prompt)
-#zstyle ':prezto:module:prompt' theme 'pws'
+zstyle ':prezto:module:prompt' theme 'steeef'
 
 #
 # Screen
