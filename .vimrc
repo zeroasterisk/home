@@ -271,6 +271,12 @@ nmap    _Y      :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
 vmap    _Y      :w! ~/.vi_tmp<CR>
 nmap    _P      :r ~/.vi_tmp<CR>
 
+" OS X paste (pretty poor implementation)
+if has('mac')
+    noremap  √ :r!pbpaste<CR>
+    noremap! √ <Esc>√
+endif
+
 " color, syntax highlighting
 au BufRead,BufNewFile *.ctp set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
 au BufRead,BufNewFile *.thtml set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
@@ -315,12 +321,32 @@ let g:tagbar_autoclose = 1   " auto close after choosing a tag
 " ------------------
 "  file type tweaks
 filetype plugin on
-" autocomplete for php
+
+"------ Filetypes ------"
+" JavaScript
+" autocmd BufRead,BufNewFile *.json setfiletype javascript
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
+let javascript_enable_domhtmlcss=1
+" Vimscript
+autocmd FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+" Shell
+autocmd FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+" Lisp
+autocmd Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp expandtab shiftwidth=2 tabstop=8 softtabstop=2
+" Ruby
+autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+" PHP: autocomplete
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+" PHP
+autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+" X?HTML & XML
+autocmd FileType html,xhtml,xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+" CSS
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 " Syntax of these languages is fussy over tabs Vs spaces (or I like em this way)
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
 " Beautify by filetype
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
@@ -343,7 +369,12 @@ let g:tagbar_type_php = {
 " syntastic language checkers
 "let g:syntastic_javascript_checker = "closurecompiler"
 "let g:syntastic_javascript_closure_compiler_path = "~/bin/closure-compiler.jar"
-let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+let g:syntastic_python_checkers=['pylint']
+" vim syntax/style checking for CakePHP
+"   pear channel-discover pear.cakephp.org;
+"   pear install --alldeps cakephp/CakePHP_CodeSniffer;
+let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
+
 
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
@@ -363,6 +394,11 @@ let g:ctrlp_max_height = 20
 
 " ---------------
 " General remaps/aliases
+
+" Quickly set comma or semicolon at the end of the string
+inoremap ,, <End>,
+inoremap ;; <End>;
+au FileType python inoremap :: <End>:
 
 " fugitive config
 nnoremap <leader>gd :Gdiff<cr>
