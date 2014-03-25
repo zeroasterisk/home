@@ -44,8 +44,8 @@ alias gm='git merge'
 alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 
-alias deploy='ssh cakedeployer@app0 ahm-deploy' # branch/tag  env  site/all  y
-alias deploy_fix='ssh cakedeployer@app0 "rmdir ~/.ahm.deploy.lock"'
+alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
+alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
 
 # shortcuts and remaps
 alias vim='vim -p'

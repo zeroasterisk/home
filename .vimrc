@@ -23,8 +23,11 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 " Color scheme
 Bundle 'nanotech/jellybeans.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'marcus/vim-mustang'
+"Bundle 'altercation/vim-colors-solarized'
+"Bundle 'marcus/vim-mustang'
+"Bundle 'Lokaltog/vim-distinguished'
+"Bundle 'w0ng/vim-hybrid'
+"Bundle 'yearofmoo/Vim-Darkmate'
 " EasyMotion soper-movement helper
 Bundle 'Lokaltog/vim-easymotion'
 " Powerline - badass status bar
@@ -144,7 +147,6 @@ endif
 
 "files
 set backup                     " make backups
-set backupdir=~/.backup,/tmp   " backups go here
 
 " Command-line navigation
 cnoremap <C-x> <Right>
@@ -278,26 +280,48 @@ if has('mac')
 endif
 
 " color, syntax highlighting
-au BufRead,BufNewFile *.ctp set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.ctp set filetype=php   " special handling for .ctp, odd (must be above filetype plugin indent on)
 au BufRead,BufNewFile *.thtml set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
 au BufRead,BufNewFile *.dust set filetype=html " special handling for .dust
-au BufRead,BufNewFile *.scss set filetype=css " special handling for .dust
+au BufRead,BufNewFile *.scss set filetype=css  " special handling for .dust
+au BufRead,BufNewFile *.txt set ft=sh          " opens .txt w/highlight
 filetype plugin indent on                   " enable ft+plugin detect
-syntax on                                   " syntax highlighting
+syntax enable                                   " syntax highlighting
 nohl                                        " start without highlighting
-set t_Co=256                                " 256-colors
+"set t_Co=256                                " 256-colors
 set background=dark                         " we're using a dark bg
-colors jellybeans                           " select colorscheme
-highlight Normal ctermbg=NONE               " use terminal background
-highlight nonText ctermbg=NONE              " use terminal background
-au BufRead,BufNewFile *.txt set ft=sh       " opens .txt w/highlight
-highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default search higlighting colors
+colorscheme jellybeans
+"highlight Normal ctermbg=NONE               " use terminal background
+"highlight nonText ctermbg=NONE              " use terminal background
+"highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default search higlighting colors
+
 
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
+
+" Set font accourding to OS
+if has('gui_macvim')
+  set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline:h12
+  set linespace=5
+elseif has('gui_gtk') || has('gui_gtk2')
+  set guifont="Ubuntu Mono":h15
+  set linespace=3
+elseif has('gui_win32')
+  set guifont=Consolas\ for\ Powerline\ FixedD:h13
+  set linespace=3
+else
+  set guifont=Iconsolata-dz\ for\ Powerline:h15
+  set linespace=3
+endif
+
+" centralized backup directory
+set backupdir=~/.vim/tmp,.
+set directory=~/.vim/tmp,.
+
+
 
 " ultisnips config
 "set runtimepath+=~/.vim/bundle/ultisnips      " include filepath
