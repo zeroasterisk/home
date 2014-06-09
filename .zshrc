@@ -98,7 +98,8 @@ alias cake2="/Development/Metrics/lib/Cake/Console/cake"
 
 # other OSXy
 alias audio_restart="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' |awk '{print $1}'`"
-
+alias spotlight_start="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
+alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 # -----------------------------------------------------------
 # PATH
 PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH

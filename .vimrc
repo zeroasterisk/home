@@ -56,6 +56,8 @@ Bundle 'ervandew/supertab'
 "DISABLED Bundle 'tpope/vim-dispatch.git'
 " Puppet Syntax
 Bundle 'puppetlabs/puppet-syntax-vim'
+" PHP plugin (ensuring latest)
+Bundle '2072/PHP-Indenting-for-VIm'
 
 " -------------------
 " Language Specific Bundles
@@ -403,6 +405,7 @@ let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakeP
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
 
 " cake config
 "let g:cakephp_enable_auto_mode = 1     " auto detect cake project
