@@ -58,6 +58,11 @@ Bundle 'ervandew/supertab'
 Bundle 'puppetlabs/puppet-syntax-vim'
 " PHP plugin (ensuring latest)
 Bundle '2072/PHP-Indenting-for-VIm'
+" Git diffs in gutter
+Bundle 'airblade/vim-gitgutter'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
+Bundle 'goldfeld/vim-seek'
 
 " -------------------
 " Language Specific Bundles
@@ -73,20 +78,20 @@ Bundle 'tpope/vim-haml'
 Bundle "godlygeek/tabular"
 " Ultisnips - text snippets
 "!python (need python for this to work)
-"DISABLED Bundle 'https://github.com/SirVer/ultisnips'
+"DISABLED Bundle 'SirVer/ultisnips'
 " Matchit - % bounces on html tags
-Bundle 'tsaleh/vim-matchit'
+Bundle 'vim-scripts/matchit.zip'
 " Cake.vim - Hop between model/view/controller
-"DISABLED Bundle 'https://github.com/violetyk/cake.vim'
+"DISABLED Bundle 'violetyk/cake.vim'
 " cakephp.vim more simple navigation helpers for cakephp
-"DISABLED Bundle 'git://github.com/ndreynolds/vim-cakephp.git'
+"DISABLED Bundle 'ndreynolds/vim-cakephp.git'
 
 " vdebug - used with xdebug to walk through php code
 " http://www.vim.org/scripts/script.php?script_id=4170
-"DISABLED Bundle 'git://github.com/joonty/vdebug.git'
+"DISABLED Bundle 'joonty/vdebug.git'
 
 " clang_complete - only for c/c++, no use for now.
-" Bundle 'https://github.com/Rip-Rip/clang_complete'
+" Bundle 'Rip-Rip/clang_complete'
 " sudo apt-get install libclang1 libclang-dev
 
 " phpComplete (PHP extras for omnicomplete)
@@ -131,6 +136,8 @@ set ttimeout
 set timeoutlen=50
 " autosave on change of focus
 au FocusLost * :wa
+" vim-javascipt adds $ as a keyword
+setlocal iskeyword-=$
 
 " tabs/indent
 :source ~/.vimrc-tabs
@@ -353,6 +360,7 @@ filetype plugin on
 " autocmd BufRead,BufNewFile *.json setfiletype javascript
 autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
+autocmd FileType javascript setlocal iskeyword+=$
 let javascript_enable_domhtmlcss=1
 " Vimscript
 autocmd FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
@@ -364,6 +372,7 @@ autocmd Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp expand
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 " PHP: autocomplete
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal iskeyword-=$
 " PHP
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
 " X?HTML & XML
