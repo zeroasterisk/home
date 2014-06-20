@@ -60,9 +60,12 @@ Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle '2072/PHP-Indenting-for-VIm'
 " Git diffs in gutter
 Bundle 'airblade/vim-gitgutter'
+" webapi toolkit, with basic http/curl/wget & xml,html,json parsing and more
 Bundle 'mattn/webapi-vim'
+" create gists from text blocks
 Bundle 'mattn/gist-vim'
-Bundle 'goldfeld/vim-seek'
+" Movement by maping `s` to an `f` which looks for 2 characters
+"Bundle 'goldfeld/vim-seek'
 
 " -------------------
 " Language Specific Bundles
@@ -136,8 +139,6 @@ set ttimeout
 set timeoutlen=50
 " autosave on change of focus
 au FocusLost * :wa
-" vim-javascipt adds $ as a keyword
-setlocal iskeyword-=$
 
 " tabs/indent
 :source ~/.vimrc-tabs
@@ -358,9 +359,7 @@ filetype plugin on
 "------ Filetypes ------"
 " JavaScript
 " autocmd BufRead,BufNewFile *.json setfiletype javascript
-autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 noexpandtab
-autocmd FileType javascript setlocal iskeyword+=$
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 ts=2 sts=2 sw=2 noexpandtab
 let javascript_enable_domhtmlcss=1
 " Vimscript
 autocmd FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
@@ -372,7 +371,6 @@ autocmd Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp expand
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 " PHP: autocomplete
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType php setlocal iskeyword-=$
 " PHP
 autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
 " X?HTML & XML
@@ -389,6 +387,13 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " TODO PHP Beautify <c-f>
 " auto-enable JS folding - https://github.com/jelera/vim-javascript-syntax
 "DISABLED autocmd FileType javascript call JavaScriptFold()
+
+" vim-javascipt adds $ as a keyword
+augroup phpjsfix
+    autocmd!
+    autocmd FileType javascript setlocal iskeyword+=$
+    autocmd FileType php setlocal iskeyword-=$
+augroup END
 
 " turn off variables for php
 let g:tagbar_type_php = {
