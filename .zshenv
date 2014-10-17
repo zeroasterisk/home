@@ -6,24 +6,23 @@
 #
 
 #
-# Browser
+# ENV Exports/Configs
 #
+
+export DOCKER_HOST=tcp://192.168.59.103:2375
+GRADLE_HOME="/opt/local/share/java/gradle"
+#"/Development/Mobile/android-sdk-macosx"
+### Added by the Heroku Toolbelt
+
+export EDITOR='vim'
+#export VISUAL='vim'
+export VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+export PAGER='less'
+
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
-
-#
-# Editors
-#
-
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
-
-#
-# Language
-#
 
 if [[ -z "$LANG" ]]; then
   eval "$(locale)"

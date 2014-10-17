@@ -24,9 +24,6 @@ bindkey -v
 # -----------------------------------------------------------
 # Aliases
 
-alias s='sudo'
-alias d='dirs -v'
-
 # global Aliases for common terms
 alias -g MVC="models controllers views libs" # eg: ack term MVC
 
@@ -51,11 +48,16 @@ alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
 alias vim='vim -p'
 alias vi='vim -p'
 alias v='vim -p'
+alias m='meteor'
+alias c='cordova'
+alias s='sudo'
+alias d='dirs -v'
+
 
 # OSX Aliases
 
 # mysql
-alias mysql='/opt/local/bin/mysql5'
+#alias mysql='/opt/local/bin/mysql5'
 alias start_mysql_alt='echo "Sudo"; sudo /opt/local/bin/mysqld_safe5 &'
 alias stop_mysql_alt='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
 alias start_mysql='echo "Sudo"; sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
@@ -103,20 +105,18 @@ alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com
 # -----------------------------------------------------------
 # PATH
 PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
+PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
+PATH=$PATH:$HOME/opt/local/heroku/bin
+PATH=$PATH:$HOME/.rvm/bin
+export PATH=$PATH
+
 MANPATH="/opt/local/share/man:$MANPATH"
-EDITOR=vim
 #VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
-VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-GRADLE_HOME="/opt/local/share/java/gradle"
-#"/Development/Mobile/android-sdk-macosx"
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 # -----------------------------------------------------------
 # Private
 source ~/.zshrc_private
 
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

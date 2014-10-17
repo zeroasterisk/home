@@ -57,7 +57,8 @@ Bundle 'ervandew/supertab'
 " Puppet Syntax
 Bundle 'puppetlabs/puppet-syntax-vim'
 " PHP plugin (ensuring latest)
-Bundle '2072/PHP-Indenting-for-VIm'
+"Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'StanAngeloff/php.vim'
 " Git diffs in gutter
 Bundle 'airblade/vim-gitgutter'
 " webapi toolkit, with basic http/curl/wget & xml,html,json parsing and more
@@ -148,11 +149,17 @@ au FocusLost * :wa
 " (look for shortcuts to switch, in the leader sections)
 nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
 nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
+
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 if exists(":Tabularize")
-  nmap <leader><leader>= :Tabularize /=<CR>
-  vmap <leader><leader>= :Tabularize /=<CR>
-  nmap <leader><leader>: :Tabularize /:\zs<CR>
-  vmap <leader><leader>: :Tabularize /:\zs<CR>
+  nmap <F11> :Tabularize /=.<CR>
+  vmap <F11> :Tabularize /=.<CR>
+  nmap <C-=> :Tabularize /=.<CR>
+  vmap <C-=> :Tabularize /=.<CR>
+  nmap <leader>= :Tabularize /=.<CR>
+  vmap <leader>= :Tabularize /=.<CR>
+  nmap <leader>: :Tabularize /:\zs<CR>
+  vmap <leader>: :Tabularize /:\zs<CR>
 endif
 
 "files
@@ -414,7 +421,10 @@ let g:syntastic_python_checkers=['pylint']
 "   pear channel-discover pear.cakephp.org;
 "   pear install --alldeps cakephp/CakePHP_CodeSniffer;
 let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
-
+" HTML extra tads
+let g:syntastic_html_tidy_blocklevel_tags = ['template']
+let g:syntastic_html_tidy_empty_tags = ['span']
+let g:syntastic_html_tidy_ignore_errors = ['trimming empty <span>']
 
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
@@ -481,6 +491,12 @@ nnoremap K 0YP
 " -------------------------
 " custom shortcuts: normal mode
 " ------------------------
+
+" yank to clipboard shortcut
+nnoremap <leader>y "*y
+" paste from clipboard shortcut
+nnoremap <leader>v "*v
+
 " ,ev edit vimrc file on the fly
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " ,rv reload the vimrc file on the fly
@@ -523,5 +539,8 @@ nnoremap <leader>A $hi
 " 6. format as with `let @x = '...'`
 
 " find array( .. and matching ), replace with [ ... ]
+" http://screencast.com/t/1TTpJvpiuEq
 let @p = '/array\(diwma%mb`ar[`br]'
+
+
 
