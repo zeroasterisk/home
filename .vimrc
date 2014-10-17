@@ -514,3 +514,14 @@ nnoremap <leader>R viwpyiw
 " ,A move to end of line, back one character, enter insert mode
 nnoremap <leader>A $hi
 
+" custom saved macros
+" 1. start record `qq`
+" 2. do stuff
+" 3. stop recording `q` (test macro)
+" 4. `:e ~/.vimrc`
+" 5. `"qp` pastes the escaped macro
+" 6. format as with `let @x = '...'`
+
+" find array( .. and matching ), replace with [ ... ]
+let @p = '/array\(diwma%mb`ar[`br]'
+
