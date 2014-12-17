@@ -45,7 +45,7 @@ alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
 alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
 
 # shortcuts and remaps
-alias vim='vim -p'
+#alias vim='vim -p'
 alias vi='vim -p'
 alias v='vim -p'
 alias m='meteor'
@@ -120,3 +120,6 @@ source ~/.zshrc_private
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# added by travis gem
+[ -f /Users/admin/.travis/travis.sh ] && source /Users/admin/.travis/travis.sh
