@@ -53,6 +53,30 @@ self-signed/
 .zprofile
 Scripts/git-stats.rb
 Source/
+iMacros/
+Applications/
+Source/
+Scripts/
+# Have to force to include the wanted ones
+.my*
+.rvm
+.sh_*
+.vim*
+.rnd
+*history*
+portify/
+tmp/
+pear/
+opt/
+google/
+.thumbnails
+.travis/
+.*
+.vagrant.d/
+*.cfg
+*.bak
+
+
 
 config
 *private
