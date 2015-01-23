@@ -99,3 +99,20 @@
 
 " }
 
+" Remaps before {
+
+    inoremap <S-up> <esc>k
+    inoremap <S-down> <esc>j
+    inoremap <S-right> <esc>ll
+    inoremap <S-left> <esc>
+
+    " vim-javascipt adds $ as a keyword
+    set iskeyword-=$
+    augroup phpjsfix
+        autocmd!
+        autocmd FileType javascript setlocal iskeyword+=$
+        autocmd FileType php setlocal iskeyword-=$
+    augroup END
+
+" }
+

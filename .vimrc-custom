@@ -1,6 +1,13 @@
+" config if available {
+    if filereadable(expand("~/.vimrc-0-setup"))
+        source ~/.vimrc-0-setup
+    endif
+" }
+
 filetype off
 " Setting up Vundle - the vim plugin bundler
 " type in :BundleInstall
+let $GIT_SSL_NO_VERIFY = 'true'
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
@@ -46,6 +53,8 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'kien/ctrlp.vim'
 " SuperTab easier autocomplets
 Bundle 'ervandew/supertab'
+" considering: https://github.com/Valloric/YouCompleteMe
+" Bundle 'Valloric/YouCompleteMe'
 " Vim pad - Note taking
 "DISABLED Bundle 'fmoralesc/vim-pad'
 " Evervim - evernote integration - doesn't seem to work.
