@@ -22,88 +22,11 @@ fi
 bindkey -v
 
 # -----------------------------------------------------------
-# Aliases
-
-# global Aliases for common terms
-alias -g MVC="models controllers views libs" # eg: ack term MVC
-
-# ackc = ack with a standardized set of folders to look in
-ackc() { ack "$*" models views controllers libs config;  } # cake1x
-ackC() { ack "$*" Model View Controller Lib Config;  } # cake2x
-
-# git: should switch to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
-alias gti='git'
-alias g='git'
-alias gs='git status'
-alias gd='git diff'
-alias gp='git push'
-alias gm='git merge'
-alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
-alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
-
-alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
-alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
-
-# shortcuts and remaps
-#alias vim='vim -p'
-alias vi='vim -p'
-alias v='vim -p'
-alias m='meteor'
-alias c='cordova'
-alias s='sudo'
-alias d='dirs -v'
-
-
-# OSX Aliases
-
-# mysql
-#alias mysql='/opt/local/bin/mysql5'
-alias start_mysql_alt='echo "Sudo"; sudo /opt/local/bin/mysqld_safe5 &'
-alias stop_mysql_alt='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
-alias start_mysql='echo "Sudo"; sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
-alias stop_mysql='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
-
-alias percona='/opt/local/bin/mysql5'
-alias start_percona='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.percona-server.plist'
-alias stop_percona='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.percona-server.plist'
-alias restart_percona='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.percona-server.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.percona-server.plist'
-
-# redis
-
-
-# elasticsearch
-alias start_elasticsearch='cd /opt/custom/elasticsearch && ./bin/elasticsearch -p /opt/custom/elasticsearch/es.pid'
-alias stop_elasticsearch='kill -TERM $(cat /opt/custom/elasticsearch/es.pid)'
-
-# nginx
-alias start_nginx='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
-alias stop_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist'
-alias restart_nginx='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.nginx.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.nginx.plist'
-
-# php
-alias start_php='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
-alias stop_php='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
-alias restart_php='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.php54-fpm.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.php54-fpm.plist'
-alias start_phpcgi='php-cgi -q -b 127.0.0.1:9000 &'
-alias stop_phpcgi='killall php-cgi'
-alias restart_phpcgi='killall php-cgi; php-cgi -q -b 127.0.0.1:9000 &'
-
-alias start_redis='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.redis.plist'
-alias stop_redis='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.redis.plist'
-alias restart_redis='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.redis.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.redis.plist'
-
-# cakephp
-alias cake13="/Development/AO/cake/console/cake"
-alias cake_ao="/Development/AO/cake/console/cake"
-alias cake="/Development/AO/cake/console/cake"
-alias cake2="/Development/Metrics/lib/Cake/Console/cake"
-
-# other OSXy
-alias audio_restart="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' |awk '{print $1}'`"
-alias spotlight_start="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
-alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
-# -----------------------------------------------------------
 # PATH
+[ -f ~/.zsh_path ] && source ~/.zsh_path
+[ -f ~/.zsh_path.osx ] && source ~/.zsh_path.osx
+[ -f ~/.zsh_path.ubuntu ] && source ~/.zsh_path.ubuntu
+
 PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
 PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
 PATH=$PATH:$HOME/opt/local/heroku/bin
@@ -114,8 +37,14 @@ MANPATH="/opt/local/share/man:$MANPATH"
 #VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
 
 # -----------------------------------------------------------
+# Aliases
+[ -f ~/.zsh_alias ] && source ~/.zsh_alias
+[ -f ~/.zsh_alias.osx ] && source ~/.zsh_alias.osx
+[ -f ~/.zsh_alias.ubuntu ] && source ~/.zsh_alias.ubuntu
+
+# -----------------------------------------------------------
 # Private
-source ~/.zshrc_private
+[ -f ~/.zshrc_private ] && source ~/.zshrc_private
 
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
