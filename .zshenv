@@ -9,6 +9,9 @@
 # ENV Exports/Configs
 #
 
+#udo port select --set python python33
+
+
 export DOCKER_HOST=tcp://192.168.59.103:2375
 GRADLE_HOME="/opt/local/share/java/gradle"
 #"/Development/Mobile/android-sdk-macosx"
@@ -16,8 +19,12 @@ GRADLE_HOME="/opt/local/share/java/gradle"
 
 export EDITOR='vim'
 #export VISUAL='vim'
-export VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-export PAGER='less'
+#export VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+export VISUAL='vim'
+#export PAGER='less'
+export PAGER=vimpager
+alias less=$PAGER
+alias zless=$PAGER
 
 
 if [[ "$OSTYPE" == darwin* ]]; then

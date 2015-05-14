@@ -31,6 +31,7 @@ PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bi
 PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
 PATH=$PATH:$HOME/opt/local/heroku/bin
 PATH=$PATH:$HOME/.rvm/bin
+PATH="$PATH:$HOME/.composer/vendor/bin"
 export PATH=$PATH
 
 MANPATH="/opt/local/share/man:$MANPATH"

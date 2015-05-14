@@ -41,7 +41,7 @@ sl = stash list
 sa = stash apply
 sd = stash drop
 si = submodule init
-su = submodule update
+su = submodule update --init --recursive
 sa = submodule add
 ss = submodule sync
 repacker = repack -a -d -f --depth=250 --window=250
