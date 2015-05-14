@@ -7,3 +7,6 @@
 [submodule ".tmux-powerline"]
 	path = .tmux-powerline
 	url = git://github.com/erikw/tmux-powerline.git
+[submodule ".spf13-vim-3"]
+	path = .spf13-vim-3
+	url = https://github.com/spf13/spf13-vim.git
