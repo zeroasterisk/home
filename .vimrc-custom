@@ -52,6 +52,9 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 " TagBar - ctags support
 Bundle 'majutsushi/tagbar'
+" EasyTags - ctags manager
+Bundle 'xolox/vim-easytags'
+Bundle 'xolox/vim-misc'
 " Ack
 Bundle 'mileszs/ack.vim'
 " Autoclose - Automatically close brackets
@@ -134,10 +137,18 @@ Bundle 'shawncplus/phpcomplete.vim'
 "DISABLED Bundle "vim-scripts/JavaScript-Indent"
 Bundle "pangloss/vim-javascript"
 Bundle "jelera/vim-javascript-syntax"
+" JavaScript ctags generator for tagbar
+"DISABLED Bundle "ramitos/jsctags"
+" Tern based JavaScript editing (needed for jsctags)
+"DISABLED Bundle "marijnh/tern_for_vim"
+" JavaScript validation via jslint/jshint
 "DISABLED Bundle "hallettj/jslint.vim"
-Bundle "walm/jshint.vim"
-Bundle "juvenn/mustache.vim"
+"DISABLED Bundle "walm/jshint.vim"
+Bundle "Shutnik/jshint2.vim"
+" JS Beautify vim plugin
 Bundle "maksimr/vim-jsbeautify"
+" Mustache syntax
+Bundle "juvenn/mustache.vim"
 
 " User Bundles End
 if iCanHazVundle == 0
@@ -388,8 +399,6 @@ let g:Powerline_symbols = 'compatible'
 nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
 let g:tagbar_autofocus = 1   " auto focus after opening tagbar
 let g:tagbar_autoclose = 1   " auto close after choosing a tag
-" recommended by: http://stackoverflow.com/questions/15425800/ctags-jsctags-doctorjs-tagbar-step-by-step
-"set tags=./tags,tags;/,~/.ctags
 
 " QuickFix panel shortcuts for opening files
 let g:qfenter_open_map = ['<CR>', '<2-LeftMouse>']

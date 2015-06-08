@@ -4,13 +4,10 @@
 #     included from .zshrc
 
 # global Aliases for common terms
-alias -g MVC="models controllers views libs" # eg: ack term MVC
+alias -g MVC="Model Controller View Lib" # eg: ag term MVC
 
-# ackc = ack with a standardized set of folders to look in
-ackc() { ack "$*" models views controllers libs config;  } # cake1x
-ackC() { ack "$*" Model View Controller Lib Config;  } # cake2x
-
-# git: should switch to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
+# git: switched to zpresto aliases: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
+#   gws, gwd, gp, gfr
 alias gti='git'
 alias g='git'
 alias gs='git status'
@@ -19,10 +16,6 @@ alias gp='git push'
 alias gm='git merge'
 alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
-
-alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
-alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
-
 # shortcuts and remaps
 #alias vim='vim -p'
 alias vi='vim -p'
@@ -32,18 +25,10 @@ alias c='cordova'
 alias s='sudo'
 alias d='dirs -v'
 
+# ahm
+alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
+alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
 
-# OSX Aliases
 
 
-# cakephp
-alias cake13="/Development/AO/cake/console/cake"
-alias cake_ao="/Development/AO/cake/console/cake"
-alias cake="/Development/AO/cake/console/cake"
-alias cake2="/Development/Metrics/lib/Cake/Console/cake"
-
-# other OSXy
-alias audio_restart="sudo kill -9 `ps ax|grep 'coreaudio[a-z]' |awk '{print $1}'`"
-alias spotlight_start="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
-alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 

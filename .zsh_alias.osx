@@ -45,7 +45,21 @@ if [[ "$OSTYPE" == darwin* ]]; then
 	alias spotlight_start="sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 	alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 
+	# mongodb
+	# https://github.com/codeforamerica/ohana-api/wiki/Installing-MongoDB-with-MacPorts-on-OS-X
+	alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf --httpinterface"
 
+	mongostop_func () {
+	local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
+	if [[ $mongopid =~ [[:digit:]] ]]; then
+		sudo kill -15 $mongopid;
+		echo mongod process $mongopid terminated;
+	else
+		echo mongo process $mongopid not exist;
+	fi
+	}
+
+	alias mongostop="mongostop_func"
 
 	# python 2.7
 	export PATH=${PATH}:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin
