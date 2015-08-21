@@ -50,11 +50,13 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdcommenter'
 " Syntastic - compiler checking for errors on the fly
 Bundle 'scrooloose/syntastic'
+" EditorConfig file support in vim
+Bundle 'editorconfig/editorconfig-vim'
 " TagBar - ctags support
 Bundle 'majutsushi/tagbar'
 " EasyTags - ctags manager
-Bundle 'xolox/vim-easytags'
-Bundle 'xolox/vim-misc'
+"Bundle 'xolox/vim-easytags'
+"Bundle 'xolox/vim-misc'
 " Ack
 Bundle 'mileszs/ack.vim'
 " Autoclose - Automatically close brackets
