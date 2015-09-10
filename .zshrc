@@ -12,14 +12,9 @@ fi
 
 # Customize to your needs...
 # ===============================
-
-# -----------------------------------------------------------
-# vim movement on zsh lines
-# http://www.techrepublic.com/blog/linux-and-open-source/using-vi-key-bindings-in-bash-and-zsh/193/
-# press [ESC] (as you would in vim) and use vi key commands to navigate the
-# command line, such as $ to go the end of the line or 0 to go to the beginning
-# of the line.
-bindkey -v
+[ -f ~/.zsh_config ] && source ~/.zsh_config
+[ -f ~/.zsh_config.osx ] && source ~/.zsh_config.osx
+[ -f ~/.zsh_config.ubuntu ] && source ~/.zsh_config.ubuntu
 
 # -----------------------------------------------------------
 # PATH
@@ -27,15 +22,6 @@ bindkey -v
 [ -f ~/.zsh_path.osx ] && source ~/.zsh_path.osx
 [ -f ~/.zsh_path.ubuntu ] && source ~/.zsh_path.ubuntu
 
-PATH=~/bin:/usr/bin/local:/usr/local/bin:/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
-PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
-PATH=$PATH:$HOME/opt/local/heroku/bin
-PATH=$PATH:$HOME/.rvm/bin
-PATH="$PATH:$HOME/.composer/vendor/bin"
-export PATH=$PATH
-
-MANPATH="/opt/local/share/man:$MANPATH"
-#VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
 
 # -----------------------------------------------------------
 # Aliases
@@ -52,4 +38,6 @@ MANPATH="/opt/local/share/man:$MANPATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # added by travis gem
-[ -f /Users/admin/.travis/travis.sh ] && source /Users/admin/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+

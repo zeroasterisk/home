@@ -1,0 +1,23 @@
+# -----------------------------------------------------------
+# Config
+#   ALL OS
+#     included from .zshrc
+#     look for .zsh_config.osx and .zsh_config.ubuntu
+
+# -----------------------------------------------------------
+# vim movement on zsh lines
+# http://www.techrepublic.com/blog/linux-and-open-source/using-vi-key-bindings-in-bash-and-zsh/193/
+# press [ESC] (as you would in vim) and use vi key commands to navigate the
+# command line, such as $ to go the end of the line or 0 to go to the beginning
+# of the line.
+bindkey -v
+
+
+
+
+
+GRADLE_HOME="/opt/local/share/java/gradle"
+
+NPM_PACKAGES="~/.npm-packages"
+NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+PATH="$NPM_PACKAGES/bin:$PATH"

@@ -90,12 +90,7 @@ changed = green
 untracked = cyan
 
 [branch]
-autosetupmerge = true
-
-[diff]
-renames = copies
-mnemonicprefix = true
-tool = diffmerge
+  autosetupmerge = true
 
 [push]
 default = current
@@ -103,17 +98,34 @@ default = current
 [hub]
 http-clone = true
 
-[difftool "diffmerge"]
-	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
-[merge]
-	tool = diffmerge
-	conflictstyle = diff3
-[mergetool "diffmerge"]
-	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
-	trustExitCode = true
 [credential]
 	helper = osxkeychain
-[mergetool]
-	keepBackup = false
 [init]
 	templatedir = ~/.git_template
+
+# beyond compare (must purchase)
+# http://www.scootersoftware.com/support.php?zz=kb_vcs_osx#git
+[diff]
+  renames = copies
+  mnemonicprefix = true
+  tool = bc3
+#tool = diffmerge
+
+[merge]
+	tool = bc3
+[mergetool]
+	bc3 = trustExitCode
+
+# diffmerge
+# http://adventuresincoding.com/2010/04/how-to-setup-git-to-use-diffmerge/
+#[difftool "diffmerge"]
+#	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+#[merge]
+#	tool = diffmerge
+#	conflictstyle = diff3
+#[mergetool "diffmerge"]
+#	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+#	trustExitCode = true
+#[mergetool]
+#	keepBackup = false
+

@@ -4,14 +4,17 @@
 #     included from .zshrc
 if [[ "$OSTYPE" == darwin* ]]; then
 
+	alias vim=/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim
+
 	# mysql
-	#alias mysql='/opt/local/bin/mysql5'
+	alias mysql='/opt/local/lib/percona/bin/mysql'
+	alias mysqladmin='/opt/local/lib/percona/bin/mysqladmin'
 	alias start_mysql_alt='echo "Sudo"; sudo /opt/local/bin/mysqld_safe5 &'
 	alias stop_mysql_alt='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
 	alias start_mysql='echo "Sudo"; sudo -u _mysql /opt/local/libexec/mysqld &; sudo ln -s /opt/local/var/run/mysql5/mysqld.sock  /tmp/mysql.sock'
 	alias stop_mysql='echo "MySQL Root Password"; /opt/local/bin/mysqladmin5 -u root -p shutdown'
 
-	alias percona='/opt/local/bin/mysql5'
+	alias percona='/opt/local/lib/percona/bin/mysql'
 	alias start_percona='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.percona-server.plist'
 	alias stop_percona='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.percona-server.plist'
 	alias restart_percona='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.percona-server.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.percona-server.plist'

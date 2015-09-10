@@ -11,9 +11,7 @@
 
 #udo port select --set python python33
 
-
-export DOCKER_HOST=tcp://192.168.59.103:2375
-GRADLE_HOME="/opt/local/share/java/gradle"
+#
 #"/Development/Mobile/android-sdk-macosx"
 ### Added by the Heroku Toolbelt
 
