@@ -16,8 +16,8 @@ bindkey -v
 
 
 
-GRADLE_HOME="/opt/local/share/java/gradle"
+export GRADLE_HOME="/opt/local/share/java/gradle"
 
-NPM_PACKAGES="~/.npm-packages"
-NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-PATH="$NPM_PACKAGES/bin:$PATH"
+export NPM_PACKAGES="$HOME/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$NPM_PACKAGES/bin:$PATH"
