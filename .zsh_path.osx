@@ -1,1 +1,4 @@
-PATH=$PATH:/opt/local/lib/percona/bin/
+PATH=/opt/local/lib/percona/bin:$PATH
+PATH=/usr/local/git/bin:$PATH
+
+export PATH=$PATH

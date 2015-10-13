@@ -143,10 +143,6 @@ Bundle "jelera/vim-javascript-syntax"
 "DISABLED Bundle "ramitos/jsctags"
 " Tern based JavaScript editing (needed for jsctags)
 "DISABLED Bundle "marijnh/tern_for_vim"
-" JavaScript validation via jslint/jshint
-"DISABLED Bundle "hallettj/jslint.vim"
-"DISABLED Bundle "walm/jshint.vim"
-Bundle "Shutnik/jshint2.vim"
 " JS Beautify vim plugin
 Bundle "maksimr/vim-jsbeautify"
 " Mustache syntax
@@ -192,7 +188,7 @@ nnoremap <leader><space> :noh<cr>
 
 
 " tabs/indent
-:source ~/.vimrc-tabs
+:source ~/.vimrc-spaces
 " note: two spacing profiles exist
 " :source ~/.vimrc-spaces
 " :source ~/.vimrc-tabs
@@ -460,8 +456,7 @@ let g:tagbar_type_php = {
 \ }
 
 " syntastic language checkers
-"let g:syntastic_javascript_checker = "closurecompiler"
-"let g:syntastic_javascript_closure_compiler_path = "~/bin/closure-compiler.jar"
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers=['pylint']
 " vim syntax/style checking for CakePHP
 "   pear channel-discover pear.cakephp.org;
