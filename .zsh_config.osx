@@ -12,5 +12,11 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
 	export VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
 
+  # renamed user account "admin" to "alan"
+  # but the HOME is not different :(
+  if [[ -f /Users/alan/.zsh_config.osx ]]; then
+    export HOME=/Users/alan
+  fi
+
 fi
 

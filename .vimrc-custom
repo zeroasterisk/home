@@ -411,24 +411,25 @@ filetype plugin on
 "------ Filetypes ------"
 " JavaScript
 " autocmd BufRead,BufNewFile *.json setfiletype javascript
-autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 ts=2 sts=2 sw=2 noexpandtab
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 let javascript_enable_domhtmlcss=1
 " Vimscript
 autocmd FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 " Shell
 autocmd FileType sh setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 " Lisp
-autocmd Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp expandtab shiftwidth=2 tabstop=8 softtabstop=2
+autocmd Filetype lisp,scheme setlocal equalprg=~/.vim/bin/lispindent.lisp
+autocmd Filetype lisp,scheme setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 " Ruby
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 " PHP: autocomplete
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 " PHP
-autocmd FileType php setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 " X?HTML & XML
 autocmd FileType html,xhtml,xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 " CSS
-autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 " Syntax of these languages is fussy over tabs Vs spaces (or I like em this way)
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
