@@ -18,5 +18,12 @@ if [[ "$OSTYPE" == darwin* ]]; then
     export HOME=/Users/alan
   fi
 
+  # CHROME_BIN for Selenium testing
+  #   so that we can test on Canary, and use Chrome
+  CANARY_BIN="/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+  if [[ -f $CANARY_BIN ]]; then
+    CHROME_BIN=$CANARY_BIN
+  fi
+
 fi
 
