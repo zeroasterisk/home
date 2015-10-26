@@ -1,15 +1,20 @@
 {
-    "rules": {
-        "indent": [2, 2],
-        "quotes": [2, "double"],
-        "linebreak-style": [2, "unix"],
-        "semi": [2, "always"],
-        "no-undef": 0,
-        "no-console": 0
-    },
+  "parser": "babel-eslint",
     "env": {
-        "node": true,
-        "browser": true
+      "browser": true,
+      "node": true
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "indent": [2, 2],
+      "quotes": [2, "double"],
+      "linebreak-style": [2, "unix"],
+      "semi": [2, "always"],
+      "no-undef": 0,
+      "no-console": 0,
+      "no-underscore-dangle": 0
     },
     "extends": "eslint:recommended"
 }
