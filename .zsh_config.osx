@@ -22,10 +22,13 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   # CHROME_BIN for Selenium testing
   #   so that we can test on Canary, and use Chrome
-  CANARY_BIN="/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
-  if [[ -f $CANARY_BIN ]]; then
-    CHROME_BIN=$CANARY_BIN
-  fi
+  #CANARY_BIN="/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+  #if [[ -f $CANARY_BIN ]]; then
+    #CHROME_BIN=$CANARY_BIN
+  #fi
 
 fi
+
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+
 

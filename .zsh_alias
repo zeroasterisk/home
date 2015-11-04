@@ -25,9 +25,14 @@ alias c='cordova'
 alias s='sudo'
 alias d='dirs -v'
 
-# ahm
-alias deploy='ssh cakedeployer@appx ahm-deploy' # branch/tag  env  site/all  y
-alias deploy_fix='ssh cakedeployer@appx "rmdir ~/.ahm.deploy.lock"'
+# docker-machine
+alias dm='docker-machine'
+alias dma='docker-machine active'
+alias dm-ssh='docker-machine ssh `docker-machine active`'
+alias dm-ip='docker-machine ip `docker-machine active`'
+alias dm-env='docker-machine env `docker-machine active`'
+alias dm-inspect='docker-machine inspect `docker-machine active`'
+alias dm-config='docker-machine config `docker-machine active`'
 
 
 
