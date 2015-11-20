@@ -50,20 +50,27 @@ if [[ "$OSTYPE" == darwin* ]]; then
 	alias spotlight_stop="sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist"
 
 	# mongodb
+  #
+
+	alias percona='/opt/local/lib/percona/bin/mysql'
+	alias start_mongo='echo "Sudo"; sudo launchctl load -w /Library/LaunchDaemons/org.macports.mongodb.plist'
+	alias stop_mongo='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.mongodb.plist'
+	alias restart_mongo='echo "Sudo"; sudo launchctl unload -w /Library/LaunchDaemons/org.macports.mongodb.plist; sudo launchctl load -w /Library/LaunchDaemons/org.macports.mongodb.plist'
+  #
 	# https://github.com/codeforamerica/ohana-api/wiki/Installing-MongoDB-with-MacPorts-on-OS-X
-	alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf --httpinterface"
+	#alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf --httpinterface"
 
-	mongostop_func () {
-	local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
-	if [[ $mongopid =~ [[:digit:]] ]]; then
-		sudo kill -15 $mongopid;
-		echo mongod process $mongopid terminated;
-	else
-		echo mongo process $mongopid not exist;
-	fi
-	}
+	#mongostop_func () {
+	#local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
+	#if [[ $mongopid =~ [[:digit:]] ]]; then
+		#sudo kill -15 $mongopid;
+		#echo mongod process $mongopid terminated;
+	#else
+		#echo mongo process $mongopid not exist;
+	#fi
+	#}
 
-	alias mongostop="mongostop_func"
+	#alias mongostop="mongostop_func"
 
 	# python 2.7
 	export PATH=${PATH}:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin

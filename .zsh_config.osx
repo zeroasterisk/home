@@ -29,6 +29,13 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
 fi
 
+
+# VirtualBox default settings for docker-machine
+#   4 CPU, 6 G RAM, 80 G HDD
+VIRTUALBOX_CPU_COUNT=4
+VIRTUALBOX_MEMORY_SIZE=6144
+VIRTUALBOX_DISK_SIZE=80000
+
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
 

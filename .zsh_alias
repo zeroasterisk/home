@@ -23,9 +23,13 @@ alias v='vim -p'
 alias m='meteor'
 alias c='cordova'
 alias s='sudo'
-alias d='dirs -v'
 
 # docker-machine
+alias d='docker'
+[ -f ~/.zsh_alias.docker ] && source ~/.zsh_alias.docker
+
+# docker-machine
+alias d='docker'
 alias dm='docker-machine'
 alias dma='docker-machine active'
 alias dm-ssh='docker-machine ssh `docker-machine active`'
