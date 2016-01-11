@@ -1,9 +1,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = git@github.com:zeroasterisk/prezto.git
-[submodule "bin/williams-misc-git-tools"]
-	path = bin/williams-misc-git-tools
-	url = git://gitorious.org/willgit/mainline.git
 [submodule ".tmux-powerline"]
 	path = .tmux-powerline
 	url = git://github.com/erikw/tmux-powerline.git
