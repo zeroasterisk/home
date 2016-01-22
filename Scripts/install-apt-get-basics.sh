@@ -16,6 +16,28 @@ apt-get install -y build-essential libssl-dev \
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+# docker
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+if [[ $V == "14.04" ]]
+then
+	echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >> /etc/apt/sources.list.d/docker.list
+fi
+if [[ $V == "15.05" ]]
+then
+	echo "deb https://apt.dockerproject.org/repo ubuntu-vivid main" >> /etc/apt/sources.list.d/docker.list
+fi
+if [[ $V == "15.10" ]]
+then
+	echo "deb https://apt.dockerproject.org/repo ubuntu-wily main" >> /etc/apt/sources.list.d/docker.list
+fi
+apt-get update
+apt-get purge lxc-docker
+apt-cache policy docker-engine
+apt-get install linux-image-extra-$(uname -r)
+
+# reboot
+# sudo apt-get install docker-engine
+
 # elixir
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 sudo apt-get update
