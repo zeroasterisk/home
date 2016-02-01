@@ -45,10 +45,11 @@ sudo apt-get update
 sudo apt-get install -y esl-erlang elixir
 
 # pip python packages
-sudo apt-get install -y python-pip python-dev build-essential 
-sudo pip install --upgrade pip 
-sudo pip install -U pip setuptools 
+sudo apt-get install -y python-pip python-dev build-essential
+sudo pip install --upgrade pip
+sudo pip install -U pip setuptools
 sudo pip install wheel
+sudo pip install ansible
 
 if [[ $V -gt 12 ]]
 then
