@@ -10,13 +10,14 @@ fi
 apt-get update
 apt-get install -y build-essential libssl-dev \
     git zsh tmux htop \
-    npm ruby python perl golang \
+    ruby python perl golang \
     mtr nmap
 
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # docker
+rm -rf /etc/apt/sources.list.d/docker.list
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 if [[ $V == "14.04" ]]
 then
@@ -33,7 +34,7 @@ fi
 apt-get update
 apt-get purge lxc-docker
 apt-cache policy docker-engine
-apt-get install linux-image-extra-$(uname -r)
+apt-get install -y linux-image-extra-$(uname -r)
 
 # reboot
 # sudo apt-get install docker-engine
@@ -41,12 +42,13 @@ apt-get install linux-image-extra-$(uname -r)
 # elixir
 wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
 sudo apt-get update
-sudo apt-get install -y esl-erlang
-sudo apt-get install -y elixir
+sudo apt-get install -y esl-erlang elixir
 
 # pip python packages
-pip install -U pip setuptools
-pip install wheel
+sudo apt-get install -y python-pip python-dev build-essential 
+sudo pip install --upgrade pip 
+sudo pip install -U pip setuptools 
+sudo pip install wheel
 
 if [[ $V -gt 12 ]]
 then
