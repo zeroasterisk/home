@@ -1,23 +1,29 @@
 {
   "parser": "babel-eslint",
-    "env": {
-      "browser": true,
-      "node": true
-    },
-    "plugins": [
-      "jquery",
-      "angular",
-      "meteor",
-      "react"
-    ],
-    "rules": {
-      "indent": [2, 2],
-      "quotes": [2, "single"],
-      "linebreak-style": [2, "unix"],
-      "semi": [2, "always"],
-      "no-undef": 0,
-      "no-console": 0,
-      "no-underscore-dangle": 0
-    },
-    "extends": "eslint:recommended"
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "ecmascript": 6,
+    "jsx": true
+  },
+  "plugins": [
+    "angular",
+    "meteor",
+    "react"
+  ],
+  "rules": {
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "strict": 0,
+    "no-unused-vars": 0,
+    "camelcase": 0,
+    "no-undef": 0,
+    "no-console": 0,
+    "no-underscore-dangle": 0
+  },
+  "extends": "eslint:recommended"
 }

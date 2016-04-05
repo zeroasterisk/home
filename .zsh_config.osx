@@ -27,6 +27,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
     #CHROME_BIN=$CANARY_BIN
   #fi
 
+  export ANDROID_HOME=/Users/alan/Library/Android/sdk
+  export JAVA_HOME=$(/usr/libexec/java_home)
+
+
 fi
 
 

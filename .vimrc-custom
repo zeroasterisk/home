@@ -105,9 +105,7 @@ Bundle 'tpope/vim-haml'
 "using: ,,<space> & ,,<tab> to switch
 " align equals/colons
 Bundle "godlygeek/tabular"
-" Ultisnips - text snippets
-"!python (need python for this to work)
-"DISABLED Bundle 'SirVer/ultisnips'
+"
 " Matchit - % bounces on html tags
 Bundle 'vim-scripts/matchit.zip'
 " Cake.vim - Hop between model/view/controller
@@ -124,7 +122,7 @@ Bundle 'violetyk/cake.vim'
 " sudo apt-get install libclang1 libclang-dev
 
 " phpComplete (PHP extras for omnicomplete)
-Bundle 'shawncplus/phpcomplete.vim'
+" Bundle 'shawncplus/phpcomplete.vim'
 
 " note, I have insalled the 'word_complete' plugin
 " http://www.vim.org/scripts/script.php?script_id=73
@@ -133,18 +131,23 @@ Bundle 'shawncplus/phpcomplete.vim'
 " autocmd BufEnter * call DoWordComplete()
 " ^ disabled because it's a bit less than ideal, can still toggle on/off
 
+" SnipMate and its dependencies:
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+
+" Other sets of snippets (optional):
+Bundle "honza/vim-snippets"
+
 " --------- JS
 "  see: https://github.com/joyent/node/wiki/Vim-Plugins
-" Javascript Bundle (syntax and indent plugin)
-"DISABLED Bundle "vim-scripts/JavaScript-Indent"
+Bundle "mxw/vim-jsx"
 Bundle "pangloss/vim-javascript"
 Bundle "jelera/vim-javascript-syntax"
-" JavaScript ctags generator for tagbar
-"DISABLED Bundle "ramitos/jsctags"
-" Tern based JavaScript editing (needed for jsctags)
-"DISABLED Bundle "marijnh/tern_for_vim"
 " JS Beautify vim plugin
 Bundle "maksimr/vim-jsbeautify"
+" vim-react-snippets:
+Bundle "justinj/vim-react-snippets"
 " Mustache syntax
 Bundle "juvenn/mustache.vim"
 
@@ -445,6 +448,7 @@ augroup phpjsfix
     autocmd FileType php setlocal iskeyword-=$
 augroup END
 
+
 " turn off variables for php
 let g:tagbar_type_php = {
     \ 'kinds' : [
@@ -519,6 +523,9 @@ let g:pad_search_backend = "ack"
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+
+" JavaScript JSX/React
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " -------------------------
 "  fixing common mistakes
