@@ -9,4 +9,4 @@
 	url = https://github.com/spf13/spf13-vim.git
 [submodule "Scripts/docker-cleanup-volumes"]
 	path = Scripts/docker-cleanup-volumes
-	url = https://github.com/dsanders11/docker-cleanup-volumes.git
+	url = https://github.com/chadoe/docker-cleanup-volumes.git
