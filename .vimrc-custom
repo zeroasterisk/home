@@ -151,6 +151,10 @@ Bundle "justinj/vim-react-snippets"
 " Mustache syntax
 Bundle "juvenn/mustache.vim"
 
+" --------- elixir
+"  see: https://github.com/elixir-lang/vim-elixir
+Bundle "elixir-lang/vim-elixir"
+
 " User Bundles End
 if iCanHazVundle == 0
 	echo "Installing Bundles, please ignore key map error messages"
@@ -384,13 +388,13 @@ if exists(":Tab")
 endif
 
 
-" ultisnips config
-"set runtimepath+=~/.vim/bundle/ultisnips      " include filepath
-">>?"let g:UltiSnipsUsePythonVersion = 2           " force to use python2, not 3
-"let g:UltiSnipsListSnippets="<c-j>"           " list snippets with control-j, the default control-tab doesn't work in putty
-"let g:UltiSnipsExpandTrigger="<tab>"          " tab expands
-"let g:UltiSnipsJumpForwardTrigger="<tab>"     " use tab to go to next part of the snipper
-"let g:UltiSnipsJumpBackwardTrigger="<s-tab>"  " use shift-tab to go back
+" snipmate config
+imap <C-j> <Plug>snipMateNextOrTrigger
+smap <C-j> <Plug>snipMateNextOrTrigger
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+imap <A-J> <Plug>snipMateNextOrTrigger
+smap <A-J> <Plug>snipMateNextOrTrigger
 
 " use powerline symbols - requires patched font - see
 " https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
