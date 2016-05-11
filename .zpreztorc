@@ -34,7 +34,7 @@ zstyle ':prezto:load' pmodule \
   'haskell' \
   'history' \
   'history-substring-search' \
-  'macports' \
+  'homebrew' \
   'node' \
   'osx' \
   'prompt' \

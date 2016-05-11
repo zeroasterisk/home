@@ -11,8 +11,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
 	export DOCKER_MACHINE_NAME="default"
 
 	#export VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
-	export VISUAL="/Applications/SublimeText.app/Contents/SharedSupport/bin/subl"
-	#export VISUAL="/Applications/MacPorts/MacVim.app/Contents/MacOS/MacVim"
+	#export VISUAL="/Applications/SublimeText.app/Contents/SharedSupport/bin/subl"
+	export VISUAL="/Applications/MacVim.app/Contents/MacOS/MacVim"
 
   # renamed user account "admin" to "alan"
   # but the HOME is not different :(
