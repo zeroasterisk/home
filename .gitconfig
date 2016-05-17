@@ -116,13 +116,16 @@ http-clone = true
 
 # diffmerge
 # http://adventuresincoding.com/2010/04/how-to-setup-git-to-use-diffmerge/
+[diff]
+  tool = diffmerge
 [difftool "diffmerge"]
-  cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+  cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
 [merge]
   tool = diffmerge
   conflictstyle = diff3
 [mergetool "diffmerge"]
-  cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+  # cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
   trustExitCode = true
 [mergetool]
   keepBackup = false
