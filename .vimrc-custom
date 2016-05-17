@@ -57,8 +57,10 @@ Bundle 'majutsushi/tagbar'
 " EasyTags - ctags manager
 "Bundle 'xolox/vim-easytags'
 "Bundle 'xolox/vim-misc'
-" Ack
-Bundle 'mileszs/ack.vim'
+" Vim + Ag / Ack / Grep
+Bundle 'rking/ag.vim'
+" Vim Multiple Cursors
+Bundle 'terryma/vim-multiple-cursors'
 " Autoclose - Automatically close brackets
 Bundle 'Townk/vim-autoclose'
 " CTRL-P - Fuzzy file searching
@@ -517,11 +519,17 @@ nnoremap <leader>gh :Gbrowse<cr>
 " gundo
 nnoremap <F9> :GundoToggle<CR>
 
+" ag / ack / grep
+nnoremap <C-f> :Ag
+nnoremap <C-h> :AgAdd
+let g:ag_working_path_mode="r"
+
 " vimpad
 let g:pad_dir = "~/notes/"
 let g:pad_format = "text"
 let g:pad_window_height = 12
-let g:pad_search_backend = "ack"
+let g:pad_search_backend = "ag"
+
 
 " javascript bundle
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -574,8 +582,8 @@ nnoremap <leader>." ysiw"
 nnoremap <leader>.. yiwea:<SPACE><ESC>p
 " ,W strip all trailing whitespace
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" ,a ack helper
-nnoremap <leader>a :Ack
+" ,a ag helper
+nnoremap <leader>a :Ag
 " ,ft HTML fold tag
 nnoremap <leader>ft Vatzf
 " ,S sort a list of CSS properties

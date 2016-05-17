@@ -54,3 +54,5 @@ if [ -f /Users/alan/.tnsrc ]; then
     source /Users/alan/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
