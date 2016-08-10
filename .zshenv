@@ -19,8 +19,8 @@ export EDITOR='vim'
 #export VISUAL='vim'
 #export VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
 export VISUAL='vim'
-#export PAGER='less'
-export PAGER=vimpager
+export PAGER='less'
+#export PAGER=vimpager
 alias less=$PAGER
 alias zless=$PAGER
 

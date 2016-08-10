@@ -68,6 +68,7 @@ whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 pager = less -FXRS -x2
 symlinks = true
 editor = vim
+	autocrlf = input
 
 [color]
 ui = auto

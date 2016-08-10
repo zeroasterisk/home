@@ -141,6 +141,11 @@ Bundle "garbas/vim-snipmate"
 " Other sets of snippets (optional):
 Bundle "honza/vim-snippets"
 
+" Config for editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_exclude_patterns = ['scp://.*']
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " --------- JS
 "  see: https://github.com/joyent/node/wiki/Vim-Plugins
 Bundle "mxw/vim-jsx"
@@ -197,7 +202,7 @@ nnoremap <leader><space> :noh<cr>
 
 
 " tabs/indent
-:source ~/.vimrc-spaces
+":source ~/.vimrc-spaces
 " note: two spacing profiles exist
 " :source ~/.vimrc-spaces
 " :source ~/.vimrc-tabs
@@ -271,6 +276,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" locations list / Quickfix (next/prev error)
+nnoremap <C-S-right> <esc>:lnext<CR>
+nnoremap <C-S-left> <esc>:lprevious<CR>
+
 
 " folding
 " set foldmethod=indent
@@ -410,7 +420,7 @@ let g:tagbar_autoclose = 1   " auto close after choosing a tag
 " QuickFix panel shortcuts for opening files
 let g:qfenter_open_map = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<Leader><CR>', '<C-v>']
-let g:qfenter_hopen_map = ['<Leader><Space>', '<C-h>']
+" let g:qfenter_hopen_map = ['<Leader><Space>', '<C-h>']
 let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 
 " ------------------
@@ -420,7 +430,7 @@ filetype plugin on
 "------ Filetypes ------"
 " JavaScript
 " autocmd BufRead,BufNewFile *.json setfiletype javascript
-autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+"autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 let javascript_enable_domhtmlcss=1
 " Vimscript
 autocmd FileType vim setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
@@ -477,6 +487,14 @@ let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakeP
 let g:syntastic_html_tidy_blocklevel_tags = ['template']
 let g:syntastic_html_tidy_empty_tags = ['span']
 let g:syntastic_html_tidy_ignore_errors = ['trimming empty <span>']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 
 " ctrlp config - persistant cache
 let g:ctrlp_clear_cache_on_exit = 0
@@ -521,7 +539,7 @@ nnoremap <F9> :GundoToggle<CR>
 
 " ag / ack / grep
 nnoremap <C-f> :Ag
-nnoremap <C-h> :AgAdd
+nnoremap <C-g> :AgAdd
 let g:ag_working_path_mode="r"
 
 " vimpad
@@ -549,16 +567,16 @@ nnoremap nP gT
 " -------------------------
 " custom shortcuts: insert mode
 " ------------------------
-" this is a sexy little shortcut to break out of insert mode
-"inoremap ;; <ESC>l
-nnoremap K 0YP
-
+" this is a sexy little shortcut to break out of insert mode and save
+inoremap ;; <ESC>l :w<cr>
 
 " -------------------------
 " custom shortcuts: normal mode
 " ------------------------
+" save
+nnoremap ;; :w<cr>
 
-" :suw = "write as sudo"
+" :suw = write as sudo
 " http://www.catonmat.net/blog/top-ten-one-liners-from-commandlinefu-explained/
 :nmap :suw :w !sudo tee %
 
@@ -574,10 +592,11 @@ nnoremap <leader>rv :source ~/.vimrc
 " surroud replace quotes
 map <leader>" cs'"
 map <leader>' cs"'
-" wrap word in single quotes
+map <leader>` cs'`
+" wrap word in quotes
 nnoremap <leader>.' ysiw'
-" wrap word in double quotes
 nnoremap <leader>." ysiw"
+nnoremap <leader>.` ysiw`
 " duplicate current word, after a colon
 nnoremap <leader>.. yiwea:<SPACE><ESC>p
 " ,W strip all trailing whitespace
@@ -607,7 +626,7 @@ nnoremap <leader>g :grep -r <C-R>/ .<CR>:cw<CR>
 nnoremap <leader>G :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 " Use ag if it exists instead of grep for :grep
 if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor
 endif
 "
 " CakePHP Testing
