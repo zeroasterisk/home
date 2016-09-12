@@ -45,7 +45,8 @@ Bundle 'nanotech/jellybeans.vim'
 " EasyMotion soper-movement helper
 Bundle 'Lokaltog/vim-easymotion'
 " Powerline - badass status bar
-Bundle 'Lokaltog/vim-powerline'
+" (installed via pip, not this)
+" Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 " NerdCommenter - comment block commands
 Bundle 'scrooloose/nerdcommenter'
 " Syntastic - compiler checking for errors on the fly
@@ -53,20 +54,26 @@ Bundle 'scrooloose/syntastic'
 " EditorConfig file support in vim
 Bundle 'editorconfig/editorconfig-vim'
 " TagBar - ctags support
-Bundle 'majutsushi/tagbar'
+" Bundle 'majutsushi/tagbar'
 " EasyTags - ctags manager
-"Bundle 'xolox/vim-easytags'
-"Bundle 'xolox/vim-misc'
+" Bundle 'xolox/vim-easytags'
+" Bundle 'xolox/vim-misc'
 " Vim + Ag / Ack / Grep
 Bundle 'rking/ag.vim'
 " Vim Multiple Cursors
 Bundle 'terryma/vim-multiple-cursors'
 " Autoclose - Automatically close brackets
 Bundle 'Townk/vim-autoclose'
+" Autoclose Tags - Automatically close HTMLish tags
+Bundle 'alvan/vim-closetag'
 " CTRL-P - Fuzzy file searching
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 " SuperTab easier autocomplets
 Bundle 'ervandew/supertab'
+" neocomplete autocomplete
+"   WARNING requires vim w/ lua
+"   https://github.com/Shougo/neocomplete.vim
+Bundle 'Shougo/neocomplete'
 " considering: https://github.com/Valloric/YouCompleteMe
 " Bundle 'Valloric/YouCompleteMe'
 " Vim pad - Note taking
@@ -151,6 +158,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 Bundle "mxw/vim-jsx"
 Bundle "pangloss/vim-javascript"
 Bundle "jelera/vim-javascript-syntax"
+Bundle "1995eaton/vim-better-javascript-completion"
 " JS Beautify vim plugin
 Bundle "maksimr/vim-jsbeautify"
 " vim-react-snippets:
@@ -240,6 +248,8 @@ set colorcolumn=85
 " uses
 set list
 set listchars=tab:▸\ ,eol:¬
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
@@ -410,18 +420,106 @@ smap <A-J> <Plug>snipMateNextOrTrigger
 
 " use powerline symbols - requires patched font - see
 " https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-let g:Powerline_symbols = 'compatible'
+" let g:Powerline_symbols = 'compatible'
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
 
 " tagbars config
-nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
-let g:tagbar_autofocus = 1   " auto focus after opening tagbar
-let g:tagbar_autoclose = 1   " auto close after choosing a tag
+" nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
+" let g:tagbar_autofocus = 1   " auto focus after opening tagbar
+" let g:tagbar_autoclose = 1   " auto close after choosing a tag
+" turn off variables for php
+" let g:tagbar_type_php = {
+"     \ 'kinds' : [
+"         \ 'i:interfaces',
+"         \ 'c:classes',
+"         \ 'd:constant definitions:0:0',
+"         \ 'f:functions',
+"         \ 'j:javascript functions',
+"     \ ],
+" \ }
 
 " QuickFix panel shortcuts for opening files
 let g:qfenter_open_map = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<Leader><CR>', '<C-v>']
 " let g:qfenter_hopen_map = ['<Leader><Space>', '<C-h>']
 let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
+
+" ------------------
+"  AutoComplete via https://github.com/Shougo/neocomplete.vim
+
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " ------------------
 "  file type tweaks
@@ -465,18 +563,9 @@ augroup phpjsfix
 augroup END
 
 
-" turn off variables for php
-let g:tagbar_type_php = {
-    \ 'kinds' : [
-        \ 'i:interfaces',
-        \ 'c:classes',
-        \ 'd:constant definitions:0:0',
-        \ 'f:functions',
-        \ 'j:javascript functions',
-    \ ],
-\ }
-
 " syntastic language checkers
+" let g:syntastic_javascript_checkers = ['eslint', 'standard']
+" let g:syntastic_javascript_checkers = ['standard']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers=['pylint']
 " vim syntax/style checking for CakePHP
@@ -487,9 +576,9 @@ let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakeP
 let g:syntastic_html_tidy_blocklevel_tags = ['template']
 let g:syntastic_html_tidy_empty_tags = ['span']
 let g:syntastic_html_tidy_ignore_errors = ['trimming empty <span>']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" disabled/w/powerline set statusline+=%#warningmsg#
+" disabled/w/powerline set statusline+=%{SyntasticStatuslineFlag()}
+" disabled/w/powerline set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 1
@@ -497,9 +586,18 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 
 " ctrlp config - persistant cache
+let g:ctrlp_working_path_mode = 'raw'
+let g:ctrlp_root_markers = ['settings.json']
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules|tmp|logs|log|swagger)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " PHP PSR-2 Code Formatter
 " https://github.com/stephpy/vim-php-cs-fixer
