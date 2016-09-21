@@ -64,6 +64,8 @@ Bundle 'rking/ag.vim'
 Bundle 'terryma/vim-multiple-cursors'
 " Autoclose - Automatically close brackets
 Bundle 'Townk/vim-autoclose'
+" Sparkup lets you write HTML code faster
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Autoclose Tags - Automatically close HTMLish tags
 Bundle 'alvan/vim-closetag'
 " CTRL-P - Fuzzy file searching
@@ -102,43 +104,13 @@ Bundle 'stephpy/vim-php-cs-fixer'
 " QuickFix panel open controls
 Bundle 'yssl/QFEnter'
 
-" -------------------
-" Language Specific Bundles
-"
-" HAML - Support for haml/sass/scss
-Bundle 'tpope/vim-haml'
-" RagTag matching for <?php ?>
-"DISABLED Bundle "tpope/vim-ragtag"
 " Auto sense the tabs/spaces/width from the file being edited
-"DISABLED Bundle "tpope/vim-sleuth"
+" Bundle "tpope/vim-sleuth"
 "using: ,,<space> & ,,<tab> to switch
 " align equals/colons
 Bundle "godlygeek/tabular"
-"
 " Matchit - % bounces on html tags
 Bundle 'vim-scripts/matchit.zip'
-" Cake.vim - Hop between model/view/controller
-Bundle 'violetyk/cake.vim'
-" cakephp.vim more simple navigation helpers for cakephp
-"DISABLED Bundle 'ndreynolds/vim-cakephp.git'
-
-" vdebug - used with xdebug to walk through php code
-" http://www.vim.org/scripts/script.php?script_id=4170
-"DISABLED Bundle 'joonty/vdebug.git'
-
-" clang_complete - only for c/c++, no use for now.
-" Bundle 'Rip-Rip/clang_complete'
-" sudo apt-get install libclang1 libclang-dev
-
-" phpComplete (PHP extras for omnicomplete)
-" Bundle 'shawncplus/phpcomplete.vim'
-
-" note, I have insalled the 'word_complete' plugin
-" http://www.vim.org/scripts/script.php?script_id=73
-" and as such, supertab is a bit un-necissary...
-" turn on word_complete all time (leader shortcuts below to toggle)
-" autocmd BufEnter * call DoWordComplete()
-" ^ disabled because it's a bit less than ideal, can still toggle on/off
 
 " SnipMate and its dependencies:
 Bundle "MarcWeber/vim-addon-mw-utils"
@@ -148,10 +120,15 @@ Bundle "garbas/vim-snipmate"
 " Other sets of snippets (optional):
 Bundle "honza/vim-snippets"
 
-" Config for editorconfig
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-let g:EditorConfig_exclude_patterns = ['scp://.*']
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" -------------------
+" Language Specific Bundles
+"
+" HAML - Support for haml/sass/scss
+" Bundle 'tpope/vim-haml'
+" RagTag matching for <?php ?>
+" Bundle "tpope/vim-ragtag"
+" Graphvix dot file syntax and editing
+Bundle 'wannesm/wmgraphviz.vim'
 
 " --------- JS
 "  see: https://github.com/joyent/node/wiki/Vim-Plugins
@@ -165,6 +142,8 @@ Bundle "maksimr/vim-jsbeautify"
 Bundle "justinj/vim-react-snippets"
 " Mustache syntax
 Bundle "juvenn/mustache.vim"
+" JS libraries for libs
+Bundle "othree/javascript-libraries-syntax.vim"
 
 " --------- elixir
 "  see: https://github.com/elixir-lang/vim-elixir
@@ -185,6 +164,9 @@ set encoding=utf-8 " utf8
 let mapleader = ","   " sets the <leader> variable to ,
 " ; === : so we can just do ;w -- saves a keystroke
 nnoremap ; :
+" highlight current line/col
+set cursorline
+set cursorcolumn
 " fixing a timeout slowness in tmux/screen
 set notimeout
 set ttimeout
@@ -564,10 +546,12 @@ augroup END
 
 
 " syntastic language checkers
-" let g:syntastic_javascript_checkers = ['eslint', 'standard']
-" let g:syntastic_javascript_checkers = ['standard']
 let g:syntastic_javascript_checkers = ['eslint']
+" SWITCH TO STANDARD w/ ,,s
+nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
+nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
 let g:syntastic_python_checkers=['pylint']
+"vlet g:syntastic_handlebars_checkers  = ['handlebars']
 " vim syntax/style checking for CakePHP
 "   pear channel-discover pear.cakephp.org;
 "   pear install --alldeps cakephp/CakePHP_CodeSniffer;
@@ -575,15 +559,18 @@ let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakeP
 " HTML extra tads
 let g:syntastic_html_tidy_blocklevel_tags = ['template']
 let g:syntastic_html_tidy_empty_tags = ['span']
-let g:syntastic_html_tidy_ignore_errors = ['trimming empty <span>']
-" disabled/w/powerline set statusline+=%#warningmsg#
-" disabled/w/powerline set statusline+=%{SyntasticStatuslineFlag()}
-" disabled/w/powerline set statusline+=%*
+let g:syntastic_html_tidy_ignore_errors = [
+      \  '<html> attribute "lang" lacks value',
+      \  '<a> attribute "href" lacks value',
+      \  'trimming empty <span>',
+      \  'trimming empty <h1>'
+      \ ]
 
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+" let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }
 
 " ctrlp config - persistant cache
 let g:ctrlp_working_path_mode = 'raw'
@@ -646,6 +633,13 @@ let g:pad_format = "text"
 let g:pad_window_height = 12
 let g:pad_search_backend = "ag"
 
+" Config for editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_exclude_patterns = ['scp://.*']
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+" Javascript libraries autocomplete
+let g:used_javascript_libs = 'underscore,react,chai,jasmine,handlebars'
 
 " javascript bundle
 let g:html_indent_inctags = "html,body,head,tbody"

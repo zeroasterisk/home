@@ -94,7 +94,7 @@ untracked = cyan
   autosetupmerge = true
 
 [push]
-default = current
+	default = current
 
 [hub]
 http-clone = true
