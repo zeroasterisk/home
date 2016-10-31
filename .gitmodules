@@ -4,9 +4,6 @@
 [submodule ".tmux-powerline"]
 	path = .tmux-powerline
 	url = https://github.com/erikw/tmux-powerline.git
-[submodule ".spf13-vim-3"]
-	path = .spf13-vim-3
-	url = https://github.com/spf13/spf13-vim.git
 [submodule "Scripts/docker-cleanup-volumes"]
 	path = Scripts/docker-cleanup-volumes
 	url = https://github.com/chadoe/docker-cleanup-volumes.git
