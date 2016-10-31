@@ -41,13 +41,13 @@ Bundle 'nanotech/jellybeans.vim'
 "Bundle 'yearofmoo/Vim-Darkmate'
 " EasyMotion soper-movement helper
 Bundle 'Lokaltog/vim-easymotion'
-" Powerline - badass status bar
-" (installed via pip, not this)
-" Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'vim-airline/vim-airline'
+Bundle 'vim-airline/vim-airline-themes'
 " NerdCommenter - comment block commands
 Bundle 'scrooloose/nerdcommenter'
-" ALE - lint checking on the fly (async alternative to syntastic)
-Bundle 'w0rp/ale'
+" syntastic - linter FTW (fast in neovim, slow as balls in vim)
+" Alternative w0rp/ale - but less configurable (in my 1 day of playing with it)
+Bundle 'scrooloose/syntastic'
 " EditorConfig file support in vim
 Bundle 'editorconfig/editorconfig-vim'
 " TagBar - ctags support
@@ -400,13 +400,6 @@ smap <C-J> <Plug>snipMateNextOrTrigger
 imap <A-J> <Plug>snipMateNextOrTrigger
 smap <A-J> <Plug>snipMateNextOrTrigger
 
-" use powerline symbols - requires patched font - see
-" https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts
-" let g:Powerline_symbols = 'compatible'
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
 " tagbars config
 " nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
 " let g:tagbar_autofocus = 1   " auto focus after opening tagbar
@@ -544,36 +537,33 @@ augroup phpjsfix
     autocmd FileType php setlocal iskeyword-=$
 augroup END
 
+let g:airline#extensions#tabline#enabled = 1
 
-" ale language checkers / linter config
-let g:ale_linters = {
-   'javascript': ['eslint'],
-}
 " syntastic language checkers
-" let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 " SWITCH TO STANDARD w/ ,,s
-" nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
-" nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
+nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
+nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
 " let g:syntastic_python_checkers=['pylint']
-"vlet g:syntastic_handlebars_checkers  = ['handlebars']
+let g:syntastic_handlebars_checkers  = ['handlebars']
 " vim syntax/style checking for CakePHP
 "   pear channel-discover pear.cakephp.org;
 "   pear install --alldeps cakephp/CakePHP_CodeSniffer;
-" let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
+let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
 " HTML extra tads
-" let g:syntastic_html_tidy_blocklevel_tags = ['template']
-" let g:syntastic_html_tidy_empty_tags = ['span']
-" let g:syntastic_html_tidy_ignore_errors = [
-"      \  '<html> attribute "lang" lacks value',
-"      \  '<a> attribute "href" lacks value',
-"      \  'trimming empty <span>',
-"      \  'trimming empty <h1>'
-"      \ ]
-" let g:syntastic_always_populate_loc_list = 0
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }
+let g:syntastic_html_tidy_blocklevel_tags = ['template']
+let g:syntastic_html_tidy_empty_tags = ['span']
+let g:syntastic_html_tidy_ignore_errors = [
+      \  '<html> attribute "lang" lacks value',
+      \  '<a> attribute "href" lacks value',
+      \  'trimming empty <span>',
+      \  'trimming empty <h1>'
+      \ ]
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }
 
 " ctrlp config - persistant cache
 let g:ctrlp_working_path_mode = 'raw'
