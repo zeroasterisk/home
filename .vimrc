@@ -1,12 +1,18 @@
-" config if available {
-    if filereadable(expand("~/.vimrc-0-before"))
-        source ~/.vimrc-0-before
-    endif
-    if filereadable(expand("~/.vimrc-1-setup"))
-        source ~/.vimrc-1-setup
-    endif
+" Alan Vim Config: https://github.com/zeroasterisk/home {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " }
 
+" config if available {
+    if filereadable(expand("~/.vimrc-before"))
+        source ~/.vimrc-before
+    endif
+    if filereadable(expand("~/.vimrc-setup"))
+        source ~/.vimrc-setup
+    endif
+    if filereadable(expand("~/.vimrc-init"))
+        source ~/.vimrc-init
+    endif
+" }
 
 filetype off
 "
@@ -143,18 +149,6 @@ au FocusLost * :wa
 "files
 set backup      " make backups
 
-"search
-set ignorecase  " case insenstive search
-set hlsearch    " highlight search results
-set incsearch   " incremental search (as you type)
-set smartcase   " .. unless there's a capital
-set gdefault
-" fix Vim’s horribly broken default regex handling
-" by automatically inserting a \v before any string you search for
-nnoremap / /\v
-vnoremap / /\v
-"  This gets rid of the distracting highlighting
-nnoremap <leader><space> :noh<cr>
 
 
 " tabs/indent
@@ -166,150 +160,262 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
 nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
 
-" interface
-set undodir^=~/.vim/undo
-set undofile     " create <FILENAME>.un~ files whenever you edit a file
-set laststatus=2 " always show status line
-set ruler        " show character position
-"set number       " line numbers
-set relativenumber " changes line numbers to relative ,# to toggle
-set title        " set window title
-set wildmenu                  " better completion
-set wildmode=list:longest,full     " show lots of stuff
-set nolist                    " hidden characters off by default
-set listchars=tab:>-,trail:*  " show tabs as -->, trailing whitespace as * with list=on
-" f5 toggles line numbers and copy/paste problem characters
-nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>:set list!<cr>
-set pastetoggle=<F1>          " f1 toggles paste
-set showmatch                 " show matching brackets
-set showcmd                   " show when typing leader, etc.
-set ttyfast                   " fast connection
-set scrolloff=3               " keep 3 lines on the screen when scrolling
-"autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
-" line wrap handling and guideline at 85 col
-set wrap
-set whichwrap+=<,>,[,]
-set textwidth=79
-set formatoptions=qrn1
-set colorcolumn=85
-" makes Vim show invisible characters with the same characters that TextMate
-" uses
-set list
-set listchars=tab:▸\ ,eol:¬
+" vim UI/UX interface {
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+    set tabpagemax=15               " Only show 15 tabs
+    set showmode                    " Display the current mode
+    set cursorline                  " Highlight current line
+    set backspace=indent,eol,start  " Backspace for dummies
+    set linespace=0                 " No extra spaces between rows
+    set nu                          " Line numbers on
+    set showmatch                   " Show matching brackets/parenthesis
+    set incsearch                   " Find as you type search
+    set hlsearch                    " Highlight search terms
+    set winminheight=0              " Windows can be 0 line high
+    set ignorecase                  " Case insensitive search
+    set smartcase                   " Case sensitive when uc present
+    set gdefault
+    set wildmenu                    " Show list instead of just completing
+    set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+    set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+    set scrolljump=5                " Lines to scroll when cursor leaves screen
+    set scrolloff=3                 " Minimum lines to keep above and below cursor
+    set foldenable                  " Auto fold code
+    set list
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set undodir^=~/.vim/undo
+    set undofile     " create <FILENAME>.un~ files whenever you edit a file
+    set laststatus=2 " always show status line
+    set ruler        " show character position
+    "set number       " line numbers
+    set relativenumber " changes line numbers to relative ,# to toggle
+    set title        " set window title
+    " f5 toggles line numbers and copy/paste problem characters
+    nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>:set list!<cr>
+    set pastetoggle=<F1>          " f1 toggles paste
+    set showcmd                   " show when typing leader, etc.
+    set ttyfast                   " fast connection
+    "autocmd FileType * setlocal formatoptions-=ro " I hate auto comments
+    " line wrap handling and guideline at 85 col
+    set wrap
+    set whichwrap+=<,>,[,]
+    set textwidth=79
+    set formatoptions=qrn1
+    set colorcolumn=85
+    " makes Vim show invisible characters with the same characters that TextMate
+    " uses
+    set list
+    set listchars=tab:▸\ ,eol:¬
 
-" strip trailing spaces on save
-autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
+    set wildignore+=*/tmp/*,*/node_modules/*,*.*1,*.so,*.swp,*.zip
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-" Command-line navigation
-cnoremap <C-x> <Right>
-cnoremap <C-z> <Left>
-" Ctrl+Left/Right to switch tabs
-nnoremap <C-Left> gT
-nnoremap <C-Right> gt
-" Control+Tab (+Shift, for reverse direction) to switch through tabs
-noremap <C-Tab> gt
-noremap <C-S-Tab> gT
-" Control+t for new tab
-nnoremap <C-t> :tabnew<CR>
-
-
-" remap arrow keys in insert mode, so that they escape and move
-inoremap <up> <esc>k
-inoremap <down> <esc>j
-" remap Shift+arrow in insert mode, escape and move, includes left/right
-inoremap <S-up> <esc>k
-inoremap <S-down> <esc>j
-inoremap <S-right> <esc>ll
-inoremap <S-left> <esc>
-
-" split helpers
-" new horizontal split
-nnoremap <leader>H <C-w>s
-" new vertical split
-nnoremap <leader>V <C-w>v<C-w>l
-" split navigation mapped to CTRL (capslock remap?)
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" locations list / Quickfix (next/prev error)
-nnoremap <C-S-right> <esc>:lnext<CR>
-nnoremap <C-S-left> <esc>:lprevious<CR>
+    " strip trailing spaces on save
+    autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
 
 
-" folding
-" set foldmethod=indent
-" set foldcolumn=0
-" http://vim.wikia.com/wiki/Folding
-"augroup vimrc
-"	au BufReadPre * setlocal foldmethod=indent
-"	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-"augroup END
-"inoremap <F9> <C-O>za
-"nnoremap <F9> za
-"onoremap <F9> <C-C>za
-"vnoremap <F9> zf
-"nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-"vnoremap <Space> zf
-"" unfold all zR
-"nnoremap <C-f> zR
+    highlight clear SignColumn      " SignColumn should match background
+    highlight clear LineNr          " Current line number row will have same background color in relative mode
+    "highlight clear CursorLineNr    " Remove highlight color from current line number
 
-" make the tab key match bracket pairs. I use this to move around all the time
-" and <tab> is a hell of a lot easier to type than %
-nnoremap <S-tab> %
-vnoremap <S-tab> %
+    if has('cmdline_info')
+        set ruler                   " Show the ruler
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+        set showcmd                 " Show partial commands in status line and
+                                    " Selected characters/lines in visual mode
+    endif
 
-" make search results appear in the middle of the screen
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-nmap g# g#zz
+    nohl                                        " start without highlighting
+    "set t_Co=256                                " 256-colors
+    set background=dark                         " we're using a dark bg
+    colorscheme jellybeans
+    "highlight Normal ctermbg=NONE               " use terminal background
+    "highlight nonText ctermbg=NONE              " use terminal background
+    "highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default search higlighting colors
 
-" toggle between 'normal' and 'cursor always centered'
-nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+" }
 
-" typeo corrections / remaps
-map :W :w
-map :Q :q
-nnoremap Q q
-nnoremap <C-q> q
-inoremap / /
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+" General {
 
-" allow cross-session copy paste with _Y _P
-nmap    _Y      :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
-vmap    _Y      :w! ~/.vi_tmp<CR>
-nmap    _P      :r ~/.vi_tmp<CR>
+    set background=dark         " Assume a dark background
+    " if !has('gui')
+        "set term=$TERM          " Make arrow and other keys work
+    " endif
+    filetype plugin indent on   " Automatically detect file types.
+    syntax on                   " Syntax highlighting
+    set mouse=a                 " Automatically enable mouse usage
+    set mousehide               " Hide the mouse cursor while typing
+    scriptencoding utf-8
 
-" OS X paste (pretty poor implementation)
-if has('mac')
-    noremap  √ :r!pbpaste<CR>
-    noremap! √ <Esc>√
-endif
+    if has('clipboard')
+        if has('unnamedplus')  " When possible use + register for copy-paste
+            set clipboard=unnamed,unnamedplus
+        else         " On mac and Windows, use * register for copy-paste
+            set clipboard=unnamed
+        endif
+    endif
 
-" color, syntax highlighting
-au BufRead,BufNewFile *.ctp set filetype=php   " special handling for .ctp, odd (must be above filetype plugin indent on)
-au BufRead,BufNewFile *.thtml set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
-au BufRead,BufNewFile *.dust set filetype=html " special handling for .dust
-au BufRead,BufNewFile *.scss set filetype=css  " special handling for .dust
-au BufRead,BufNewFile *.txt set ft=sh          " opens .txt w/highlight
-filetype plugin indent on                   " enable ft+plugin detect
-syntax enable                                   " syntax highlighting
-nohl                                        " start without highlighting
-"set t_Co=256                                " 256-colors
-set background=dark                         " we're using a dark bg
-colorscheme jellybeans
-"highlight Normal ctermbg=NONE               " use terminal background
-"highlight nonText ctermbg=NONE              " use terminal background
-"highlight Search ctermfg=0 ctermbg=122      " i don't like jellybeans default search higlighting colors
+    " Most prefer to automatically switch to the current file directory when
+    " a new buffer is opened; to prevent this behavior, add the following to
+    " your .vimrc.before.local file:
+    "   let g:spf13_no_autochdir = 1
+    if !exists('g:spf13_no_autochdir')
+        autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+        " Always switch to the current file directory
+    endif
 
+    "set autowrite                       " Automatically write a file when leaving a modified buffer
+    set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+    set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+    set virtualedit=onemore             " Allow for cursor beyond last character
+    set history=2000                    " Store a ton of history (default is 20)
+    set spell                           " Spell checking on
+    set hidden                          " Allow buffer switching without saving
+    set iskeyword-=.                    " '.' is an end of word designator
+    set iskeyword-=#                    " '#' is an end of word designator
+    set iskeyword-=-                    " '-' is an end of word designator
+
+    " Instead of reverting the cursor to the last position in the buffer, we
+    " set it to the first line when editing a git commit message
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
+    " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
+    " Restore cursor to file position in previous editing session
+    function! ResCur()
+        if line("'\"") <= line("$")
+            normal! g`"
+            return 1
+        endif
+    endfunction
+
+    augroup resCur
+        autocmd!
+        autocmd BufWinEnter * call ResCur()
+    augroup END
+
+    " Setting up the directories {
+        set backup                  " Backups are nice ...
+        if has('persistent_undo')
+            set undofile                " So is persistent undo ...
+            set undolevels=2000         " Maximum number of changes that can be undone
+            set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+        endif
+
+        " Add exclusions to mkview and loadview
+        " eg: *.*, svn-commit.tmp
+        let g:skipview_files = [
+            \ '\[example pattern\]'
+            \ ]
+    " }
+
+" }
+
+" Aliases UI/UX interface functionality {
+
+    " search
+    " fix Vim’s horribly broken default regex handling
+    " by automatically inserting a \v before any string you search for
+    nnoremap / /\v
+    vnoremap / /\v
+    "  This gets rid of the distracting highlighting
+    nnoremap <leader><space> :noh<cr>
+
+    " movement
+    " remap arrow keys in insert mode, so that they escape and move
+    inoremap <up> <esc>k
+    inoremap <down> <esc>j
+
+    " Command-line navigation
+    cnoremap <C-x> <Right>
+    cnoremap <C-z> <Left>
+    " Ctrl+Left/Right to switch tabs
+    nnoremap <C-Left> gT
+    nnoremap <C-Right> gt
+    " Control+Tab (+Shift, for reverse direction) to switch through tabs
+    noremap <C-Tab> gt
+    noremap <C-S-Tab> gT
+    " Control+t for new tab
+    nnoremap <C-t> :tabnew<CR>
+
+    " remap Shift+arrow in insert mode, escape and move, includes left/right
+    inoremap <S-up> <esc>k
+    inoremap <S-down> <esc>j
+    inoremap <S-right> <esc>ll
+    inoremap <S-left> <esc>
+
+    " split helpers
+    " new horizontal split
+    nnoremap <leader>H <C-w>s
+    " new vertical split
+    nnoremap <leader>V <C-w>v<C-w>l
+    " split navigation mapped to CTRL (capslock remap?)
+    nnoremap <C-h> <C-w>h
+    nnoremap <C-j> <C-w>j
+    nnoremap <C-k> <C-w>k
+    nnoremap <C-l> <C-w>l
+
+    " locations list / Quickfix (next/prev error)
+    nnoremap <C-S-right> <esc>:lnext<CR>
+    nnoremap <C-S-left> <esc>:lprevious<CR>
+
+
+    " folding
+    " set foldmethod=indent
+    " set foldcolumn=0
+    " http://vim.wikia.com/wiki/Folding
+    "augroup vimrc
+    "	au BufReadPre * setlocal foldmethod=indent
+    "	au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+    "augroup END
+    "inoremap <F9> <C-O>za
+    "nnoremap <F9> za
+    "onoremap <F9> <C-C>za
+    "vnoremap <F9> zf
+    "nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+    "vnoremap <Space> zf
+    "" unfold all zR
+    "nnoremap <C-f> zR
+
+    " make the tab key match bracket pairs. I use this to move around all the time
+    " and <tab> is a hell of a lot easier to type than %
+    nnoremap <S-tab> %
+    vnoremap <S-tab> %
+
+    " make search results appear in the middle of the screen
+    nmap n nzz
+    nmap N Nzz
+    nmap * *zz
+    nmap # #zz
+    nmap g* g*zz
+    nmap g# g#zz
+
+    " toggle between 'normal' and 'cursor always centered'
+    nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
+    " typeo corrections / remaps
+    map :W :w
+    map :Q :q
+    nnoremap Q q
+    nnoremap <C-q> q
+    inoremap / /
+    inoremap <F1> <ESC>
+    nnoremap <F1> <ESC>
+    vnoremap <F1> <ESC>
+
+    " allow cross-session copy paste with _Y _P
+    nmap    _Y      :!echo ""> ~/.vi_tmp<CR><CR>:w! ~/.vi_tmp<CR>
+    vmap    _Y      :w! ~/.vi_tmp<CR>
+    nmap    _P      :r ~/.vi_tmp<CR>
+
+    " OS X paste (pretty poor implementation)
+    if has('mac')
+        noremap  √ :r!pbpaste<CR>
+        noremap! √ <Esc>√
+    endif
+
+" }
+
+" plugin configuations  --------------------
 
 if has('gui_running')
     set background=light
@@ -393,10 +499,11 @@ let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 " Automatically create ctags list on file save
 " https://github.com/fntlnz/atags.vim
 let g:atags_build_commands_list = [
-    \ 'ag -g "" | ctags -L - --fields=+l -f tags.tmp',
-    \ 'awk "length($0) < 400" tags.tmp > tags',
-    \ 'rm tags.tmp'
-    \ ]
+    \"ctags -R -f tags.tmp",
+    \"awk 'length($0) < 400' tags.tmp > ~/tags",
+    \"rm tags.tmp"
+    \]
+" set tags=./tags,tags,.tags;
 map <Leader>t :call atags#generate()<cr>
 autocmd BufWritePost * call atags#generate()
 
@@ -469,6 +576,14 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 filetype plugin on
 
 "------ Filetypes ------"
+
+" color, syntax highlighting
+au BufRead,BufNewFile *.ctp set filetype=php   " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.thtml set filetype=php " special handling for .ctp, odd (must be above filetype plugin indent on)
+au BufRead,BufNewFile *.dust set filetype=html " special handling for .dust
+au BufRead,BufNewFile *.scss set filetype=css  " special handling for .dust
+au BufRead,BufNewFile *.txt set ft=sh          " opens .txt w/highlight
+
 " JavaScript
 " autocmd BufRead,BufNewFile *.json setfiletype javascript
 "autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
