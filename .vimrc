@@ -46,8 +46,8 @@ Bundle 'Lokaltog/vim-easymotion'
 " Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 " NerdCommenter - comment block commands
 Bundle 'scrooloose/nerdcommenter'
-" Syntastic - compiler checking for errors on the fly
-Bundle 'scrooloose/syntastic'
+" ALE - lint checking on the fly (async alternative to syntastic)
+Bundle 'w0rp/ale'
 " EditorConfig file support in vim
 Bundle 'editorconfig/editorconfig-vim'
 " TagBar - ctags support
@@ -545,31 +545,34 @@ augroup phpjsfix
 augroup END
 
 
+" ale language checkers / linter config
+let g:ale_linters = {
+   'javascript': ['eslint'],
+}
 " syntastic language checkers
-let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_checkers = ['eslint']
 " SWITCH TO STANDARD w/ ,,s
-nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
-nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
-let g:syntastic_python_checkers=['pylint']
+" nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
+" nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
+" let g:syntastic_python_checkers=['pylint']
 "vlet g:syntastic_handlebars_checkers  = ['handlebars']
 " vim syntax/style checking for CakePHP
 "   pear channel-discover pear.cakephp.org;
 "   pear install --alldeps cakephp/CakePHP_CodeSniffer;
-let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
+" let g:syntastic_php_checkers=['php', 'phpcs -p --extensions=php --standard=CakePHP', 'phpmd']
 " HTML extra tads
-let g:syntastic_html_tidy_blocklevel_tags = ['template']
-let g:syntastic_html_tidy_empty_tags = ['span']
-let g:syntastic_html_tidy_ignore_errors = [
-      \  '<html> attribute "lang" lacks value',
-      \  '<a> attribute "href" lacks value',
-      \  'trimming empty <span>',
-      \  'trimming empty <h1>'
-      \ ]
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+" let g:syntastic_html_tidy_blocklevel_tags = ['template']
+" let g:syntastic_html_tidy_empty_tags = ['span']
+" let g:syntastic_html_tidy_ignore_errors = [
+"      \  '<html> attribute "lang" lacks value',
+"      \  '<a> attribute "href" lacks value',
+"      \  'trimming empty <span>',
+"      \  'trimming empty <h1>'
+"      \ ]
+" let g:syntastic_always_populate_loc_list = 0
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 1
 " let g:syntastic_filetype_map = { 'html.handlebars': 'handlebars' }
 
 " ctrlp config - persistant cache
