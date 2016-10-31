@@ -1,12 +1,9 @@
 " config if available {
-    if filereadable(expand("~/.vimrc.before"))
-        source ~/.vimrc.before
+    if filereadable(expand("~/.vimrc-0-before"))
+        source ~/.vimrc-0-before
     endif
-    if filereadable(expand("~/.vimrc.before"))
-        source ~/.vimrc.before
-    endif
-    if filereadable(expand("~/.vimrc-0-setup"))
-        source ~/.vimrc-0-setup
+    if filereadable(expand("~/.vimrc-1-setup"))
+        source ~/.vimrc-1-setup
     endif
 " }
 
