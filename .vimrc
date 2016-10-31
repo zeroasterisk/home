@@ -9,150 +9,119 @@
 
 
 filetype off
-" Setting up Vundle - the vim plugin bundler
-" type in :BundleInstall
-let $GIT_SSL_NO_VERIFY = 'true'
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-	echo "Installing Vundle.."
-	echo ""
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-	let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-"""" User Bundles Begin """"
-
-" Reasonable defaulting for vim
-Bundle "tpope/vim-sensible"
-Bundle "tpope/vim-unimpaired"
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-repeat'
-" Color scheme
-Bundle 'nanotech/jellybeans.vim'
-"Bundle 'altercation/vim-colors-solarized'
-"Bundle 'marcus/vim-mustang'
-"Bundle 'Lokaltog/vim-distinguished'
-"Bundle 'w0ng/vim-hybrid'
-"Bundle 'yearofmoo/Vim-Darkmate'
-" EasyMotion soper-movement helper
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'vim-airline/vim-airline'
-Bundle 'vim-airline/vim-airline-themes'
-" NerdCommenter - comment block commands
-Bundle 'scrooloose/nerdcommenter'
-" syntastic - linter FTW (fast in neovim, slow as balls in vim)
-" Alternative w0rp/ale - but less configurable (in my 1 day of playing with it)
-Bundle 'scrooloose/syntastic'
-" EditorConfig file support in vim
-Bundle 'editorconfig/editorconfig-vim'
-" TagBar - ctags support
-" Bundle 'majutsushi/tagbar'
-" EasyTags - ctags manager
-" Bundle 'xolox/vim-easytags'
-" Bundle 'xolox/vim-misc'
-" Vim + Ag / Ack / Grep
-Bundle 'rking/ag.vim'
-" Vim Multiple Cursors
-Bundle 'terryma/vim-multiple-cursors'
-" Autoclose - Automatically close brackets
-Bundle 'Townk/vim-autoclose'
-" Sparkup lets you write HTML code faster
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Autoclose Tags - Automatically close HTMLish tags
-Bundle 'alvan/vim-closetag'
-" CTRL-P - Fuzzy file searching
-Bundle 'ctrlpvim/ctrlp.vim'
-" SuperTab easier autocomplets
-Bundle 'ervandew/supertab'
-" neocomplete autocomplete
-"   WARNING requires vim w/ lua
-"   https://github.com/Shougo/neocomplete.vim
-Bundle 'Shougo/neocomplete'
-" considering: https://github.com/Valloric/YouCompleteMe
-" Bundle 'Valloric/YouCompleteMe'
-" Vim pad - Note taking
-"DISABLED Bundle 'fmoralesc/vim-pad'
-" Evervim - evernote integration - doesn't seem to work.
-" Bundle 'kakkyz81/evervim'
-" Gundo - Visual undo tree
-"DISABLED Bundle 'sjl/gundo.vim.git'
-" Distpatch - async testing in vim in the background
-"DISABLED Bundle 'tpope/vim-dispatch.git'
-" Puppet Syntax
-Bundle 'puppetlabs/puppet-syntax-vim'
-" PHP plugin (ensuring latest)
-"Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'StanAngeloff/php.vim'
-" Git diffs in gutter
-Bundle 'airblade/vim-gitgutter'
-" webapi toolkit, with basic http/curl/wget & xml,html,json parsing and more
-Bundle 'mattn/webapi-vim'
-" create gists from text blocks
-Bundle 'mattn/gist-vim'
-" Movement by maping `s` to an `f` which looks for 2 characters
-"Bundle 'goldfeld/vim-seek'
-" PHP PRS-2 code formatter
-Bundle 'stephpy/vim-php-cs-fixer'
-" QuickFix panel open controls
-Bundle 'yssl/QFEnter'
-
-" Auto sense the tabs/spaces/width from the file being edited
-" Bundle "tpope/vim-sleuth"
-"using: ,,<space> & ,,<tab> to switch
-" align equals/colons
-Bundle "godlygeek/tabular"
-" Matchit - % bounces on html tags
-Bundle 'vim-scripts/matchit.zip'
-
-" SnipMate and its dependencies:
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-
-" Other sets of snippets (optional):
-Bundle "honza/vim-snippets"
-
-" -------------------
-" Language Specific Bundles
 "
-" HAML - Support for haml/sass/scss
-" Bundle 'tpope/vim-haml'
-" RagTag matching for <?php ?>
-" Bundle "tpope/vim-ragtag"
-" Graphvix dot file syntax and editing
-Bundle 'wannesm/wmgraphviz.vim'
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
+" Required:
+set runtimepath+=/Users/alan/.vim/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+call dein#begin('/Users/alan/.vim/dein')
+
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" Add or remove your plugins here:
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+" Reasonable defaulting for vim
+call dein#add('tpope/vim-sensible')
+call dein#add('tpope/vim-unimpaired')
+call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-repeat')
+" --- UI & Uitilities
+" airline is a faster/smaller version of powerline
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+" Color scheme
+call dein#add('nanotech/jellybeans.vim')
+" call dein#add('altercation/vim-colors-solarized')
+" call dein#add('marcus/vim-mustang')
+" call dein#add('Lokaltog/vim-distinguished')
+" call dein#add('w0ng/vim-hybrid')
+" call dein#add('yearofmoo/Vim-Darkmate')
+" Git diffs in gutter
+call dein#add('airblade/vim-gitgutter')
+" --- Utilities / UX
+" deoplete = neocomplete for neovim
+call dein#add('Shougo/deoplete.nvim')
+" EasyMotion soper-movement helper
+call dein#add('Lokaltog/vim-easymotion')
+" NerdCommenter - comment block commands
+call dein#add('scrooloose/nerdcommenter')
+" Matchit - % bounces on html tags
+call dein#add('vim-scripts/matchit.zip')
+" Vim Multiple Cursors
+call dein#add('terryma/vim-multiple-cursors')
+" --- Tools and Linters and Whatnot
+" syntastic - linter FTW (fast in neovim, slow as balls in vim)
+"   Alternative: w0rp/ale - but less configurable (in my 1 day of playing with it)
+call dein#add('scrooloose/syntastic')
+" align equals/colons
+call dein#add('godlygeek/tabular')
+" EditorConfig file support in vim
+call dein#add('editorconfig/editorconfig-vim')
+" Vim + Ag / Ack / Grep
+call dein#add('rking/ag.vim')
+" Autoclose - Automatically close brackets
+call dein#add('Townk/vim-autoclose')
+" Autoclose Tags - Automatically close HTMLish tags
+call dein#add('alvan/vim-closetag')
+" CTRL-P - Fuzzy file searching
+call dein#add('ctrlpvim/ctrlp.vim')
+" SuperTab easier autocomplets
+" call dein#add('ervandew/supertab')
+" Super auto-complete
+"   Alternative: https://github.com/Shougo/neocomplete.vim
+call dein#add('Shougo/deoplete.nvim')
+" CTags auto generation
+call dein#add('fntlnz/atags.vim')
+" ---- LANGUAGES ----
+" PHP plugin (ensuring latest)
+call dein#add('StanAngeloff/php.vim')
+" PHP PRS-2 code formatter
+call dein#add('stephpy/vim-php-cs-fixer')
+" webapi toolkit, with basic http/curl/wget & xml,html,json parsing and more
+call dein#add('mattn/webapi-vim')
+" create gists from text blocks
+call dein#add('mattn/gist-vim')
+" Graphvix dot file syntax and editing
+call dein#add('wannesm/wmgraphviz.vim')
 " --------- JS
 "  see: https://github.com/joyent/node/wiki/Vim-Plugins
-Bundle "mxw/vim-jsx"
-Bundle "pangloss/vim-javascript"
-Bundle "jelera/vim-javascript-syntax"
-Bundle "1995eaton/vim-better-javascript-completion"
-" JS Beautify vim plugin
-Bundle "maksimr/vim-jsbeautify"
-" vim-react-snippets:
-Bundle "justinj/vim-react-snippets"
-" Mustache syntax
-Bundle "juvenn/mustache.vim"
-" JS libraries for libs
-Bundle "othree/javascript-libraries-syntax.vim"
-
+call dein#add('mxw/vim-jsx')
+call dein#add('pangloss/vim-javascript')
+call dein#add('jelera/vim-javascript-syntax')
+call dein#add('1995eaton/vim-better-javascript-completion')
+call dein#add('maksimr/vim-jsbeautify')
+call dein#add('justinj/vim-react-snippets')
+call dein#add('juvenn/mustache.vim')
+call dein#add('othree/javascript-libraries-syntax.vim')
 " --------- elixir
 "  see: https://github.com/elixir-lang/vim-elixir
-Bundle "elixir-lang/vim-elixir"
+call dein#add('elixir-lang/vim-elixir')
 
-" User Bundles End
-if iCanHazVundle == 0
-	echo "Installing Bundles, please ignore key map error messages"
-	echo ""
-	:BundleInstall
-endif
-" Setting up Vundle - the vim plugin bundler end
+" You can specify revision/branch/tag.
+" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+
+"End dein Scripts-------------------------
 
 "basics
 set nocompatible   " don't be compatible with vi
@@ -421,36 +390,35 @@ let g:qfenter_vopen_map = ['<Leader><CR>', '<C-v>']
 " let g:qfenter_hopen_map = ['<Leader><Space>', '<C-h>']
 let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 
+" Automatically create ctags list on file save
+" https://github.com/fntlnz/atags.vim
+let g:atags_build_commands_list = [
+    \ 'ag -g "" | ctags -L - --fields=+l -f tags.tmp',
+    \ 'awk "length($0) < 400" tags.tmp > tags',
+    \ 'rm tags.tmp'
+    \ ]
+map <Leader>t :call atags#generate()<cr>
+autocmd BufWritePost * call atags#generate()
+
 " ------------------
-"  AutoComplete via https://github.com/Shougo/neocomplete.vim
+"  AutoComplete config
 
-"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplete#enable_smart_case = 1
+let g:deoplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+let g:deoplete#sources#syntax#min_keyword_length = 3
+let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+if !exists('g:deoplete#keyword_patterns')
+    let g:deoplete#keyword_patterns = {}
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:deoplete#keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+inoremap <expr><C-g>     deoplete#undo_completion()
+inoremap <expr><C-l>     deoplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -713,13 +681,6 @@ nnoremap <leader>G :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 endif
-"
-" CakePHP Testing
-" ,T run current test file (must be in the method code)
-nnoremap <leader>T :Ctestrun
-" ,t run current test filtered to method (must be in the method code)
-nnoremap <leader>t :Ctestrunmethod
-
 
 " custom saved macros
 " 1. start record `qq`
