@@ -304,6 +304,9 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
+" toggle between 'normal' and 'cursor always centered'
+nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+
 " typeo corrections / remaps
 map :W :w
 map :Q :q
