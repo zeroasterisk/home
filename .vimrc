@@ -86,7 +86,7 @@ call dein#add('ctrlpvim/ctrlp.vim')
 "   Alternative: https://github.com/Shougo/neocomplete.vim
 call dein#add('Shougo/deoplete.nvim')
 " CTags auto generation
-call dein#add('fntlnz/atags.vim')
+" call dein#add('fntlnz/atags.vim')
 " ---- LANGUAGES ----
 " PHP plugin (ensuring latest)
 call dein#add('StanAngeloff/php.vim')
@@ -492,14 +492,14 @@ let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 
 " Automatically create ctags list on file save
 " https://github.com/fntlnz/atags.vim
-let g:atags_build_commands_list = [
-    \"ctags -R -f tags.tmp",
-    \"awk 'length($0) < 400' tags.tmp > ~/tags",
-    \"rm tags.tmp"
-    \]
+" let g:atags_build_commands_list = [
+"     \"ctags -R -f tags.tmp",
+"     \"awk 'length($0) < 400' tags.tmp > ~/tags",
+"     \"rm tags.tmp"
+"     \]
+" map <Leader>t :call atags#generate()<cr>
+" autocmd BufWritePost * call atags#generate()
 " set tags=./tags,tags,.tags;
-map <Leader>t :call atags#generate()<cr>
-autocmd BufWritePost * call atags#generate()
 
 " ------------------
 "  AutoComplete config
