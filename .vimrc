@@ -54,8 +54,6 @@ call dein#add('nanotech/jellybeans.vim')
 " Git diffs in gutter
 call dein#add('airblade/vim-gitgutter')
 " --- Utilities / UX
-" deoplete = neocomplete for neovim
-call dein#add('Shougo/deoplete.nvim')
 " EasyMotion soper-movement helper
 call dein#add('Lokaltog/vim-easymotion')
 " NerdCommenter - comment block commands
@@ -81,10 +79,12 @@ call dein#add('alvan/vim-closetag')
 " CTRL-P - Fuzzy file searching
 call dein#add('ctrlpvim/ctrlp.vim')
 " SuperTab easier autocomplets
-" call dein#add('ervandew/supertab')
+call dein#add('ervandew/supertab')
 " Super auto-complete
-"   Alternative: https://github.com/Shougo/neocomplete.vim
 call dein#add('Shougo/deoplete.nvim')
+" snippets
+call dein#add('SirVer/ultisnips')
+call dein#add('honza/vim-snippets')
 " CTags auto generation
 " call dein#add('fntlnz/atags.vim')
 " ---- LANGUAGES ----
@@ -99,7 +99,12 @@ call dein#add('mattn/gist-vim')
 " Graphvix dot file syntax and editing
 call dein#add('wannesm/wmgraphviz.vim')
 " --------- JS
-"  see: https://github.com/joyent/node/wiki/Vim-Plugins
+"  https://github.com/joyent/node/wiki/Vim-Plugins
+"  https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
+"  $ npm install -g tern
+call dein#add('ternjs/tern_for_vim')
+call dein#add('carlitux/deoplete-ternjs')
+call dein#add('othree/jspc.vim')
 call dein#add('mxw/vim-jsx')
 call dein#add('pangloss/vim-javascript')
 call dein#add('jelera/vim-javascript-syntax')
@@ -157,8 +162,8 @@ set backup      " make backups
 " :source ~/.vimrc-spaces
 " :source ~/.vimrc-tabs
 " (look for shortcuts to switch, in the leader sections)
-nnoremap <leader><leader><space> :source ~/.vimrc-spaces<cr>
-nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
+nnoremap <leader><leader><SPACE> :source ~/.vimrc-spaces<CR>
+nnoremap <leader><leader><TAB> :source ~/.vimrc-tabs<CR>
 
 " vim UI/UX interface {
 
@@ -176,7 +181,7 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     set smartcase                   " Case sensitive when uc present
     set gdefault
     set wildmenu                    " Show list instead of just completing
-    set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+    set wildmode=list:longest,full  " Command <TAB> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
@@ -191,7 +196,7 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     set relativenumber " changes line numbers to relative ,# to toggle
     set title        " set window title
     " f5 toggles line numbers and copy/paste problem characters
-    nnoremap <F5> :set nonumber!<cr>:set foldcolumn=0<cr>:set list!<cr>
+    nnoremap <F5> :set nonumber!<CR>:set foldcolumn=0<CR>:set list!<CR>
     set pastetoggle=<F1>          " f1 toggles paste
     set showcmd                   " show when typing leader, etc.
     set ttyfast                   " fast connection
@@ -312,30 +317,30 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     nnoremap / /\v
     vnoremap / /\v
     "  This gets rid of the distracting highlighting
-    nnoremap <leader><space> :noh<cr>
+    nnoremap <leader><SPACE> :noh<CR>
 
     " movement
     " remap arrow keys in insert mode, so that they escape and move
-    inoremap <up> <esc>k
-    inoremap <down> <esc>j
+    inoremap <UP> <ESC>k
+    inoremap <DOWN> <ESC>j
 
     " Command-line navigation
-    cnoremap <C-x> <Right>
-    cnoremap <C-z> <Left>
+    cnoremap <C-x> <RIGHT>
+    cnoremap <C-z> <LEFT>
     " Ctrl+Left/Right to switch tabs
-    nnoremap <C-Left> gT
-    nnoremap <C-Right> gt
+    nnoremap <C-LEFT> gT
+    nnoremap <C-RIGHT> gt
     " Control+Tab (+Shift, for reverse direction) to switch through tabs
-    noremap <C-Tab> gt
-    noremap <C-S-Tab> gT
+    noremap <C-TAB> gt
+    noremap <C-S-TAB> gT
     " Control+t for new tab
     nnoremap <C-t> :tabnew<CR>
 
     " remap Shift+arrow in insert mode, escape and move, includes left/right
-    inoremap <S-up> <esc>k
-    inoremap <S-down> <esc>j
-    inoremap <S-right> <esc>ll
-    inoremap <S-left> <esc>
+    inoremap <S-UP> <ESC>k
+    inoremap <S-DOWN> <ESC>j
+    inoremap <S-RIGHT> <ESC>ll
+    inoremap <S-LEFT> <ESC>
 
     " split helpers
     " new horizontal split
@@ -343,14 +348,14 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     " new vertical split
     nnoremap <leader>V <C-w>v<C-w>l
     " split navigation mapped to CTRL (capslock remap?)
-    nnoremap <C-h> <C-w>h
-    nnoremap <C-j> <C-w>j
-    nnoremap <C-k> <C-w>k
-    nnoremap <C-l> <C-w>l
+    nnoremap <C-s-h> <C-w>h
+    nnoremap <C-S-j> <C-w>j
+    nnoremap <C-S-k> <C-w>k
+    nnoremap <C-S-l> <C-w>l
 
     " locations list / Quickfix (next/prev error)
-    nnoremap <C-S-right> <esc>:lnext<CR>
-    nnoremap <C-S-left> <esc>:lprevious<CR>
+    nnoremap <C-S-RIGHT> <ESC>:lnext<CR>
+    nnoremap <C-S-LEFT> <ESC>:lprevious<CR>
 
 
     " folding
@@ -365,15 +370,15 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     "nnoremap <F9> za
     "onoremap <F9> <C-C>za
     "vnoremap <F9> zf
-    "nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-    "vnoremap <Space> zf
+    "nnoremap <silent> <SPACE> @=(foldlevel('.')?'za':"\<SPACE>")<CR>
+    "vnoremap <SPACE> zf
     "" unfold all zR
     "nnoremap <C-f> zR
 
     " make the tab key match bracket pairs. I use this to move around all the time
-    " and <tab> is a hell of a lot easier to type than %
-    nnoremap <S-tab> %
-    vnoremap <S-tab> %
+    " and <TAB> is a hell of a lot easier to type than %
+    nnoremap <S-TAB> %
+    vnoremap <S-TAB> %
 
     " make search results appear in the middle of the screen
     nmap n nzz
@@ -404,7 +409,7 @@ nnoremap <leader><leader><tab> :source ~/.vimrc-tabs<cr>
     " OS X paste (pretty poor implementation)
     if has('mac')
         noremap  √ :r!pbpaste<CR>
-        noremap! √ <Esc>√
+        noremap! √ <ESC>√
     endif
 
 " }
@@ -461,13 +466,24 @@ if exists(":Tab")
 endif
 
 
-" snipmate config
-imap <C-j> <Plug>snipMateNextOrTrigger
-smap <C-j> <Plug>snipMateNextOrTrigger
-imap <C-J> <Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
-imap <A-J> <Plug>snipMateNextOrTrigger
-smap <A-J> <Plug>snipMateNextOrTrigger
+" snippets from neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " tagbars config
 " nmap <F8> :TagbarToggle<CR>  " f8 to turn on/off
@@ -487,8 +503,8 @@ smap <A-J> <Plug>snipMateNextOrTrigger
 " QuickFix panel shortcuts for opening files
 let g:qfenter_open_map = ['<CR>', '<2-LeftMouse>']
 let g:qfenter_vopen_map = ['<Leader><CR>', '<C-v>']
-" let g:qfenter_hopen_map = ['<Leader><Space>', '<C-h>']
-let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
+" let g:qfenter_hopen_map = ['<Leader><SPACE>', '<C-h>']
+let g:qfenter_topen_map = ['<Leader><TAB>', '<C-t>']
 
 " Automatically create ctags list on file save
 " https://github.com/fntlnz/atags.vim
@@ -497,9 +513,25 @@ let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 "     \"awk 'length($0) < 400' tags.tmp > ~/tags",
 "     \"rm tags.tmp"
 "     \]
-" map <Leader>t :call atags#generate()<cr>
+" map <Leader>t :call atags#generate()<CR>
 " autocmd BufWritePost * call atags#generate()
 " set tags=./tags,tags,.tags;
+
+" ------------------
+"  NerdCommenter config
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 " ------------------
 "  AutoComplete config
@@ -507,63 +539,41 @@ let g:qfenter_topen_map = ['<Leader><Tab>', '<C-t>']
 let g:deoplete#enable_at_startup = 1
 " Use smartcase.
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#disable_auto_complete = 0
 " Set minimum syntax keyword length.
-let g:deoplete#sources#syntax#min_keyword_length = 3
-let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+" let g:deoplete#sources#syntax#min_keyword_length = 3
+" let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
 
-" Define keyword.
-if !exists('g:deoplete#keyword_patterns')
-    let g:deoplete#keyword_patterns = {}
-endif
-let g:deoplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     deoplete#undo_completion()
-inoremap <expr><C-l>     deoplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
+let g:SuperTabClosePreviewOnPopupClose = 1
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
 
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+" no need to set these, because we did it the deoplete way above
+" omnifuncs
+" augroup omnifuncs
+"   autocmd!
+"   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" augroup end
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " ------------------
 "  file type tweaks
@@ -603,9 +613,9 @@ autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Beautify by filetype
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<CR>
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<CR>
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<CR>
 
 " vim-javascipt adds $ as a keyword
 augroup phpjsfix
@@ -619,8 +629,8 @@ let g:airline#extensions#tabline#enabled = 1
 " syntastic language checkers
 let g:syntastic_javascript_checkers = ['eslint']
 " SWITCH TO STANDARD w/ ,,s
-nnoremap <leader><leader>e :source ~/.vimrc-eslint<cr>
-nnoremap <leader><leader>s :source ~/.vimrc-standard<cr>
+nnoremap <leader><leader>e :source ~/.vimrc-eslint<CR>
+nnoremap <leader><leader>s :source ~/.vimrc-standard<CR>
 " let g:syntastic_python_checkers=['pylint']
 let g:syntastic_handlebars_checkers  = ['handlebars']
 " vim syntax/style checking for CakePHP
@@ -650,10 +660,10 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
 " let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules|tmp|logs|log|swagger)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+\ 'dir':  '\v[\/](\.(git|hg|svn)|node_modules|tmp|logs|log|swagger)$',
+\ 'file': '\v\.(exe|so|dll)$',
+\ 'link': 'some_bad_symbolic_links',
+\ }
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " PHP PSR-2 Code Formatter
@@ -670,33 +680,6 @@ let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by defaul
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
-
-" ---------------
-" General remaps/aliases
-
-" Quickly set comma or semicolon at the end of the string
-inoremap ,, <End>,
-inoremap ;; <End>;
-au FileType python inoremap :: <End>:
-
-" fugitive config
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>ge :Gedit<cr>
-" Gbrowes will link to cursor on github, visually select block and it will on github
-nnoremap <leader>gh :Gbrowse<cr>
-
-"  todo - figure out how to include custom ultisnips in .vimrc instead of .vim/
-"  pr( Debugger::trace() );
-
-" gundo
-nnoremap <F9> :GundoToggle<CR>
-
-" ag / ack / grep
-nnoremap <C-f> :Ag
-nnoremap <C-g> :AgAdd
-let g:ag_working_path_mode="r"
-
 " vimpad
 let g:pad_dir = "~/notes/"
 let g:pad_format = "text"
@@ -709,7 +692,7 @@ let g:EditorConfig_exclude_patterns = ['scp://.*']
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " Javascript libraries autocomplete
-let g:used_javascript_libs = 'underscore,react,chai,jasmine,handlebars'
+let g:used_javascript_libs = 'underscore,react,chai,jasmine,handlebars,lodash,jquery'
 
 " javascript bundle
 let g:html_indent_inctags = "html,body,head,tbody"
@@ -718,6 +701,26 @@ let g:html_indent_style1 = "inc"
 
 " JavaScript JSX/React
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" ---------------
+" General remaps/aliases
+
+" Quickly set comma or semicolon at the end of the string
+inoremap ,, <End>,
+inoremap ;; <End>;
+au FileType python inoremap :: <End>:
+
+" fugitive config
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>ge :Gedit<CR>
+" Gbrowes will link to cursor on github, visually select block and it will on github
+nnoremap <leader>gh :Gbrowse<CR>
+
+" ag / ack / grep
+nnoremap <C-f> :Ag
+" nnoremap <C-g> :AgAdd
+let g:ag_working_path_mode="r"
 
 " -------------------------
 "  fixing common mistakes
@@ -730,17 +733,17 @@ nnoremap nP gT
 " custom shortcuts: insert mode
 " ------------------------
 " this is a sexy little shortcut to break out of insert mode and save
-inoremap ;; <ESC>l :w<cr>
+inoremap ;; <ESC>l :w<CR>
 
 " -------------------------
 " custom shortcuts: normal mode
 " ------------------------
 " save
-nnoremap ;; :w<cr>
+nnoremap ;; :w<CR>
 
 " :suw = write as sudo
 " http://www.catonmat.net/blog/top-ten-one-liners-from-commandlinefu-explained/
-:nmap :suw :w !sudo tee %
+" :nmap :suw :w !sudo tee %
 
 " yank to clipboard shortcut
 nnoremap <leader>y "*y
@@ -748,9 +751,9 @@ nnoremap <leader>y "*y
 nnoremap <leader>v "*v
 
 " ,ev edit vimrc file on the fly
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
 " ,rv reload the vimrc file on the fly
-nnoremap <leader>rv :source ~/.vimrc
+nnoremap <leader>rv :source ~/.vimrc<CR>
 " surroud replace quotes
 map <leader>" cs'"
 map <leader>' cs"'
@@ -762,7 +765,7 @@ nnoremap <leader>.` ysiw`
 " duplicate current word, after a colon
 nnoremap <leader>.. yiwea:<SPACE><ESC>p
 " ,W strip all trailing whitespace
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
 " ,a ag helper
 nnoremap <leader>a :Ag
 " ,ft HTML fold tag
@@ -772,8 +775,8 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 " ,v reselect text that was just pasted
 nnoremap <leader>v V`]`
 " ,# set relative numbers to ruler
-nnoremap <F4> :set relativenumber<cr>
-nnoremap <F3> :set number<cr>
+nnoremap <F4> :set relativenumber<CR>
+nnoremap <F3> :set number<CR>
 " ,Y yank in word shortcut
 nnoremap <leader>Y yiw
 " ,R replace in word (keep the replacement in registry)
