@@ -8,7 +8,8 @@
     "ecmascript": 6,
     "jsx": true,
     "import/ignore": ["meteor"],
-    "import/core-modules": ["aws-sdk", "meteor"]
+    "import/core-modules": ["aws-sdk", "meteor"],
+    "import/resolver":{ "meteor": {"extensions": [".js", ".jsx"]} },
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -34,6 +35,7 @@
     "Factory": false,
     "Meteor": false,
     "Roles": false,
+    "Impersonate": false,
     "server": false,
     "SimpleSchema": false,
     "ValidatedMethod": false
@@ -45,18 +47,19 @@
     "semi": [2, "always"],
     "strict": 0,
     "no-unused-vars": 0,
+    "arrow-parens": 0,
     "camelcase": 0,
+    "import/extensions": 0,
     "import/no-unresolved": [2, { commonjs: true, amd: true, ignore: ["^meteor/"] }],
     "import/no-extraneous-dependencies": 0,
     "import/named": 2,
     "import/namespace": 2,
-    "import/default": 2,
     "import/export": 2,
     "new-cap": 0,
-    "no-undef": 0,
     "no-console": 0,
     "no-comma-dangle": 0,
     "no-param-reassign": 0,
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "no-return-assign": 0
   }
 }
