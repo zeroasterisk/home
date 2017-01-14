@@ -422,10 +422,18 @@ else
     set background=dark
 endif
 
+" --------------------------------------------
+" --- want to use these but no raw vim support
+" set macligatures
+" set guifont=Fira\ Code:h12
+" --------------------------------------------
+
 " Set font accourding to OS
 if has('gui_macvim')
-  set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline:h12
-  set linespace=5
+  set macligatures
+  set guifont=Fira\ Code:h12
+  " set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline:h12
+  " set linespace=5
 elseif has('gui_gtk') || has('gui_gtk2')
   set guifont="Ubuntu Mono":h15
   set linespace=3
