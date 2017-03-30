@@ -15,10 +15,10 @@
 #"/Development/Mobile/android-sdk-macosx"
 ### Added by the Heroku Toolbelt
 
-export EDITOR='vim'
+export EDITOR='nvim'
 #export VISUAL='vim'
 #export VISUAL="/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-export VISUAL='vim'
+export VISUAL='nvim'
 export PAGER='less'
 #export PAGER=vimpager
 alias less=$PAGER

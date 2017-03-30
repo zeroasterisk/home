@@ -4,8 +4,9 @@
 #     included from .zshrc
 if [[ "$OSTYPE" == darwin* ]]; then
 
-	alias vim=/usr/local/bin/nvim
+	#alias vim=/usr/local/bin/nvim
 	#alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+	alias brewski='brew update && brew upgrade && brew cleanup; brew doctor'
 
 	# mysql
 	alias mysql='/opt/local/lib/percona/bin/mysql'

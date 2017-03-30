@@ -7,3 +7,6 @@
 [submodule "Scripts/docker-cleanup-volumes"]
 	path = Scripts/docker-cleanup-volumes
 	url = https://github.com/chadoe/docker-cleanup-volumes.git
+[submodule "tools/alchemist-server"]
+	path = tools/alchemist-server
+	url = https://github.com/tonini/alchemist-server.git

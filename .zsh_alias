@@ -10,10 +10,9 @@ alias -g MVC="Model Controller View Lib" # eg: ag term MVC
 #   gws, gwd, gp, gfr
 alias gti='git'
 alias g='git'
+# overrides the git alias
 alias gs='git status'
 alias gd='git diff'
-alias gp='git push'
-alias gm='git merge'
 alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 # shortcuts and remaps

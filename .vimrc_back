@@ -116,6 +116,7 @@ call dein#add('othree/javascript-libraries-syntax.vim')
 " --------- elixir
 "  see: https://github.com/elixir-lang/vim-elixir
 call dein#add('elixir-lang/vim-elixir')
+call dein#add('slashmili/alchemist.vim')
 
 " You can specify revision/branch/tag.
 " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -429,19 +430,23 @@ endif
 " --------------------------------------------
 
 " Set font accourding to OS
+set termguicolors
 if has('gui_macvim')
   set macligatures
   set guifont=Fira\ Code:h12
   " set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline:h12
   " set linespace=5
 elseif has('gui_gtk') || has('gui_gtk2')
-  set guifont="Ubuntu Mono":h15
+  set guifont=Fira\ Code:h12
+  " set guifont="Ubuntu Mono":h15
   set linespace=3
 elseif has('gui_win32')
-  set guifont=Consolas\ for\ Powerline\ FixedD:h13
+  set guifont=Fira\ Code:h12
+  " set guifont=Consolas\ for\ Powerline\ FixedD:h13
   set linespace=3
 else
-  set guifont=Iconsolata-dz\ for\ Powerline:h15
+  set guifont=Fira\ Code:h12
+  " set guifont=Iconsolata-dz\ for\ Powerline:h15
   set linespace=3
 endif
 
@@ -543,11 +548,16 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " ------------------
 "  AutoComplete config
+" https://github.com/zeekay/vice-complete/blob/master/autoload/vice/deoplete.vim
 
-let g:deoplete#enable_at_startup = 1
-" Use smartcase.
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
+let g:deoplete#auto_completion_start_length      = 3
+let g:deoplete#enable_at_startup                 = 1
+let g:deoplete#enable_prefetch                   = 1
+let g:deoplete#enable_smart_case                 = 1
+" let g:deoplete#enable_camel_case = 1
+let g:deoplete#sources#buffer#cache_limit_size   = 500000
+let g:deoplete#sources#syntax#min_keyword_length = 3
+let g:deoplete#skip_auto_completion_time         = "1.0"
 let g:deoplete#disable_auto_complete = 0
 " Set minimum syntax keyword length.
 " let g:deoplete#sources#syntax#min_keyword_length = 3
@@ -558,19 +568,69 @@ autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
   \ 'jspc#omni'
 \]
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#sources#omni#input_patterns = {}
+let g:deoplete#force_omni_input_patterns = {}
+
+" we don't want the completion menu to auto pop-up when we are in text files
+let g:deoplete#lock_buffer_name_pattern = '\v(\.md|\.txt|\.git\/COMMIT_EDITMSG)'
+
+" Define keyword.
+let g:deoplete#keyword_patterns.default = '\h\w*'
+" let g:deoplete#keyword_patterns.html    = '</\?\%([[:alnum:]_:-]\+\s*\)\?\%(/\?>\)\?\|&\h\%(\w*;\)\?\|\h[[:alnum:]_:-]*'
+
+" Enable heavy omni completion, which require computational power and may stall the vim.
+let g:deoplete#sources#omni#input_patterns.c          = '\h\w\w*\|[^.[:digit:] *\t]\%(\.\|->\)'
+let g:deoplete#sources#omni#input_patterns.coffee     = '\h\w*\|[^. \t]\.\w*'
+let g:deoplete#sources#omni#input_patterns.cpp        = '\h\w\w*\|[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:deoplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+let g:deoplete#sources#omni#input_patterns.perl       = '\h\w*->\h\w*\|\h\w*::'
+let g:deoplete#sources#omni#input_patterns.php        = '[^. \t]->\h\w*\|\h\w*::'
+let g:deoplete#sources#omni#input_patterns.ruby       = '[^. *\t]\.\h\w*\|\h\w*::'
 
 set completeopt=longest,menuone,preview
 let g:deoplete#sources = {}
 let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'
+let g:tern_map_keys = 0
+let g:tern#filetypes = [
+    \ 'jsx',
+    \ 'javascript.jsx',
+    \ 'vue',
+    \ '...'
+\ ]
+
+" <CR> closes popup
+" inoremap <expr><CR> vice#deoplete#smart_cr()
+
+" <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Make arrow keys work properly in popup
+" inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+" inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr><Left> deoplete#mappings#cancel_popup() . "\<Left>"
+" inoremap <expr><Right> deoplete#mappings#cancel_popup() . "\<Right>"
+
+" inoremap <expr>OA pumvisible() ? "\<C-p>" : "\<Up>"
+" inoremap <expr>OB pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr>OD deoplete#mappings#cancel_popup() . "\<Left>"
+" inoremap <expr>OC deoplete#mappings#cancel_popup() . "\<Right>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+
+
 " no need to set these, because we did it the deoplete way above
 " omnifuncs
 " augroup omnifuncs
@@ -636,6 +696,10 @@ let g:airline#extensions#tabline#enabled = 1
 
 " syntastic language checkers
 let g:syntastic_javascript_checkers = ['eslint']
+" ensure eslint is running from package root, via npm run
+" let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+" ensure eslint is running from global, via bash
+" let g:syntastic_javascript_eslint_exe = '[ -f $(npm bin)/eslint ] && $(npm bin)/eslint || eslint'
 " SWITCH TO STANDARD w/ ,,s
 nnoremap <leader><leader>e :source ~/.vimrc-eslint<CR>
 nnoremap <leader><leader>s :source ~/.vimrc-standard<CR>
