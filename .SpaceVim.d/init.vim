@@ -12,6 +12,7 @@ let g:spacevim_enable_key_frequency = 1
 let g:tagman_ctags_binary = "gtags"
 
 let g:spacevim_custom_plugins = [
+    \ ['junegunn/fzf.vim'],
     \ ['tweekmonster/fzf-filemru'],
     \ ['grassdog/tagman.vim'],
     \ ['ervandew/supertab'],
@@ -74,6 +75,33 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+
+" FZF
+" let g:fzf_history_dir = '~/tmp/fzf-history'
+" let g:fzf_buffers_jump = 1
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+function! FzfCompletionPop(findstart, base)
+  let l:res = function(&omnifunc)(a:findstart, a:base)
+
+  if a:findstart
+    return l:res
+  endif
+
+  return fzf#run({ 'source': l:res, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
+endfunction
+"
+" This command now supports CTRL-T, CTRL-V, and CTRL-X key bindings
+" and opens fzf according to g:fzf_layout setting.
+command! Buffers call fzf#run(fzf#wrap(
+    \ {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}))
 
 " ------------------
 " ctrlp config
@@ -185,7 +213,7 @@ nnoremap <C-RIGHT> gt
 noremap <C-TAB> gt
 noremap <C-S-TAB> gT
 " Control+t for new tab
-nnoremap <C-t> :tabnew<CR>
+" nnoremap <C-t> :tabnew<CR>
 
 " remap Shift+arrow in insert mode, escape and move, includes left/right
 inoremap <S-UP> <ESC>k
@@ -229,22 +257,28 @@ nnoremap <C-F> :FZF
 nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
 " find all buffers
 nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
-imap <c-x><c-l> <plug>(fzf-complete-line)
-" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-function! FzfCompletionPop(findstart, base)
-  let l:res = function(&omnifunc)(a:findstart, a:base)
-
-  if a:findstart
-    return l:res
-  endif
-
-  return fzf#run({ 'source': l:res, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
-endfunction
+" playing with insert mode completions (WIP)
 imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" -------------------------
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})" -------------------------
+" Replace the default dictionary completion with fzf-based fuzzy completion
+function! s:make_sentence(lines)
+  return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
+endfunction
+
+inoremap <expr> <c-x><c-s> fzf#complete({
+  \ 'source':  'cat /usr/share/dict/words',
+  \ 'reducer': function('<sid>make_sentence'),
+  \ 'options': '--multi --reverse --margin 15%,0',
+  \ 'left':    20})
+
+
 " custom shortcuts: insert mode
 " ------------------------
 " this is a sexy little shortcut to break out of insert mode and save
