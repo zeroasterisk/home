@@ -74,11 +74,15 @@ google/
 .*
 .vagrant.d/
 *.cfg
-*.bak
-
+Audiobooks/
+Things/
+credentials/
+fonts/
 
 
 config
+*.pem
+*.bak
 *private
 *.p.*
 *.sublime-project
