@@ -5,10 +5,15 @@ let g:spacevim_colorscheme =  "jellybeans"
 
 " let mapleader = "\<space>"
 let mapleader = ","
-let g:spacevim_windows_leader = '_'
-let g:spacevim_unite_leader = '-'
+let g:spacevim_windows_leader = "<F7>"
+let g:spacevim_unite_leader = "<F6>"
+let g:spacevim_enable_key_frequency = 1
+
+let g:tagman_ctags_binary = "gtags"
 
 let g:spacevim_custom_plugins = [
+    \ ['grassdog/tagman.vim'],
+    \ ['ervandew/supertab'],
     \ ['nanotech/jellybeans.vim'],
     \ ['mxw/vim-jsx', { 'on_ft' : ['javascript'] }],
     \ ['othree/jspc.vim', { 'on_ft' : ['javascript'] }],
@@ -124,9 +129,9 @@ autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Beautify by filetype
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<CR>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<CR>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<CR>
+" autocmd FileType javascript noremap <buffer>  <c-s-b> :call JsBeautify()<CR>
+" autocmd FileType html noremap <buffer> <c-s-b> :call HtmlBeautify()<CR>
+" autocmd FileType css noremap <buffer> <c-s-b> :call CSSBeautify()<CR>
 " -------------------------
 " UNBREAK SpaceVim
 " ------------------------
@@ -202,6 +207,43 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+" fuzzy find
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md
+" find most recently used files
+nnoremap <C-R> :FZFMru
+" find all files (using ripgrep)
+nnoremap <C-F> :FZF
+" find all files in git
+nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
+" find all buffers
+nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
+imap <c-x><c-l> <plug>(fzf-complete-line)
+" https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+command! FZFMru call fzf#run({
+\ 'source':  reverse(s:all_files()),
+\ 'sink':    'edit',
+\ 'options': '-m -x +s',
+\ 'down':    '80%' })
+
+function! s:all_files()
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
+
+function! FzfCompletionPop(findstart, base)
+  let l:res = function(&omnifunc)(a:findstart, a:base)
+
+  if a:findstart
+    return l:res
+  endif
+
+  return fzf#run({ 'source': l:res, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
+endfunction
+imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
 
 " -------------------------
 " custom shortcuts: insert mode
