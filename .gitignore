@@ -78,6 +78,7 @@ Audiobooks/
 Things/
 credentials/
 fonts/
+.npmrc
 
 
 config
