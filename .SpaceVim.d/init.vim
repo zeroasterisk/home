@@ -3,8 +3,8 @@ let g:spacevim_max_column     = 80
 " let g:spacevim_guifont      = "Fira\\ Code"
 let g:spacevim_colorscheme =  "jellybeans"
 
-" let mapleader = "\<space>"
-let mapleader = ","
+let mapleader = "\<space>"
+" let mapleader = ","
 let g:spacevim_windows_leader = "<F7>"
 let g:spacevim_unite_leader = "<F6>"
 let g:spacevim_enable_key_frequency = 1
@@ -249,14 +249,29 @@ vnoremap <F1> <ESC>
 
 " fuzzy find
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
+" https://github.com/junegunn/fzf.vim#commands
+" find most recently used files via v:oldfiles
+nnoremap <c-p> :History<cr>
 " find most recently used files
-nnoremap <c-p> :ProjectMru --tiebreak=end<cr>
+nnoremap <leader>f ProjectMru --tiebreak=end
 " find all files (using ripgrep)
-nnoremap <C-F> :FZF
+nnoremap <C-F> :Files
 " find all files in git
-nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
+nnoremap <C-f> :GFiles
+" ^ALT nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
+" find all files in git status (changed, untracked, etc, files)
+nnoremap <C-g> :GFiles?
 " find all buffers
-nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
+nnoremap <C-b> :Buffers
+" ^ALT nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
+" find all lines in all buffers
+nnoremap <C-B> :Lines
+" find all Marks
+nnoremap <C-m> :Marks
+" find all Commits for the current buffer
+nnoremap <C-G> :BCommits
+" find all Commits for project
+nnoremap <leader>G :Commits
 " playing with insert mode completions (WIP)
 imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
 " Insert mode completion
