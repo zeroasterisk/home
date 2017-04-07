@@ -12,17 +12,29 @@ let g:spacevim_enable_key_frequency = 1
 let g:tagman_ctags_binary = "gtags"
 
 let g:spacevim_custom_plugins = [
+    \ ['tweekmonster/fzf-filemru'],
     \ ['grassdog/tagman.vim'],
     \ ['ervandew/supertab'],
     \ ['nanotech/jellybeans.vim'],
-    \ ['mxw/vim-jsx', { 'on_ft' : ['javascript'] }],
-    \ ['othree/jspc.vim', { 'on_ft' : ['javascript'] }],
+    \ ['sheerun/vim-polyglot'],
     \ ['pangloss/vim-javascript', { 'on_ft' : ['javascript'] }],
-    \ ['jelera/vim-javascript-syntax', { 'on_ft' : ['javascript'] }],
-    \ ['1995eaton/vim-better-javascript-completion', { 'on_ft' : ['javascript'] }],
+    \ ['mxw/vim-jsx', { 'on_ft' : ['javascript'] }],
     \ ['justinj/vim-react-snippets', { 'on_ft' : ['javascript'] }],
-    \ ['othree/javascript-libraries-syntax.vim', { 'on_ft' : ['javascript'] }],
     \ ['slashmili/alchemist.vim', { 'on_ft' : 'elixir' }],
+    \ ]
+
+    " alternatives I didn't like as much
+    " \ ['othree/jspc.vim', { 'on_ft' : ['javascript'] }],
+    " \ ['othree/es.next.syntax.vim', { 'on_ft' : ['javascript'] }], <-- worse
+    " more auto-comlete snippets (unsure on)
+    " \ ['1995eaton/vim-better-javascript-completion', { 'on_ft' : ['javascript'] }],
+    " \ ['othree/javascript-libraries-syntax.vim', { 'on_ft' : ['javascript'] }],
+    " \ ['ternjs/tern_for_vim', { 'on_ft' : ['javascript'] }],
+
+" disabled ctrlp because fzf does what I want/need
+let g:spacevim_disabled_plugins=[
+    \ ['ctrlpvim/ctrlp.vim'],
+    \ ['voronkovich/ctrlp-nerdtree.vim'],
     \ ]
 
 set title                       " set window title
@@ -66,13 +78,12 @@ let g:NERDTrimTrailingWhitespace = 1
 " ------------------
 " ctrlp config
 " https://github.com/SpaceVim/SpaceVim/blob/604d953ea89a075bd5568697c018b24801d4c084/config/plugins/ctrlp.vim
-
-let g:ctrlp_working_path_mode = 'raw'
-let g:ctrlp_root_markers = ['package.json', 'settings.json']
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
-let g:ctrlp_user_command = 'cd %s && git ls-files -co --exclude-standard'
-let g:ctrlp_switch_buffer = 'et'
-let g:ctrlp_types = ['fil', 'mru', 'buf']
+" let g:ctrlp_working_path_mode = 'raw'
+" let g:ctrlp_root_markers = ['package.json', 'settings.json']
+" let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25,results:25'
+" let g:ctrlp_user_command = 'cd %s && git ls-files -co --exclude-standard'
+" let g:ctrlp_switch_buffer = 'et'
+" let g:ctrlp_types = ['fil', 'mru', 'buf']
 
 " Config for editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
@@ -89,7 +100,8 @@ let g:html_indent_style1 = "inc"
 
 " JavaScript JSX/React
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
+let g:xml_syntax_folding = 0 " disallow folding on XML (bad for JSX)
+let g:polyglot_disabled = ['xml', 'xls']
 
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
@@ -210,7 +222,7 @@ vnoremap <F1> <ESC>
 " fuzzy find
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md
 " find most recently used files
-nnoremap <C-R> :FZFMru
+nnoremap <c-p> :ProjectMru --tiebreak=end<cr>
 " find all files (using ripgrep)
 nnoremap <C-F> :FZF
 " find all files in git
@@ -220,19 +232,6 @@ nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-command! FZFMru call fzf#run({
-\ 'source':  reverse(s:all_files()),
-\ 'sink':    'edit',
-\ 'options': '-m -x +s',
-\ 'down':    '80%' })
-
-function! s:all_files()
-  return extend(
-  \ filter(copy(v:oldfiles),
-  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
-  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-endfunction
 
 function! FzfCompletionPop(findstart, base)
   let l:res = function(&omnifunc)(a:findstart, a:base)
