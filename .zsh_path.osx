@@ -1,4 +1,4 @@
-PATH=/opt/local/lib/percona/bin:$PATH
 PATH=/usr/local/git/bin:$PATH
+PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 
 export PATH=$PATH
