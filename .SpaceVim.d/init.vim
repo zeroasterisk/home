@@ -1,7 +1,13 @@
 let g:spacevim_default_indent = 2
-let g:spacevim_max_column     = 80
-" let g:spacevim_guifont      = "Fira\\ Code"
-let g:spacevim_colorscheme =  "jellybeans"
+let g:spacevim_max_column     = 100
+let g:spacevim_guifont      = "Fira\\ Code"
+" let g:spacevim_colorscheme =  "jellybeans"
+" let g:spacevim_colorscheme =  "onehalfdark"
+" let background = "dark"
+" let g:spacevim_colorscheme = "one"
+" let g:one_allow_italics = 1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 
 let mapleader = "\<space>"
 " let mapleader = ","
@@ -14,16 +20,30 @@ let g:tagman_ctags_binary = "gtags"
 let g:spacevim_custom_plugins = [
     \ ['junegunn/fzf.vim'],
     \ ['tweekmonster/fzf-filemru'],
-    \ ['grassdog/tagman.vim'],
     \ ['ervandew/supertab'],
-    \ ['nanotech/jellybeans.vim'],
-    \ ['sheerun/vim-polyglot'],
+    \ ['Vimjas/vim-python-pep8-indent', { 'on_ft' : 'python' }],
     \ ['pangloss/vim-javascript', { 'on_ft' : ['javascript'] }],
-    \ ['mxw/vim-jsx', { 'on_ft' : ['javascript'] }],
-    \ ['justinj/vim-react-snippets', { 'on_ft' : ['javascript'] }],
+    \ ['chemzqm/vim-jsx-improve', { 'on_ft' : ['javascript'] }],
+    \ ['samuelsimoes/vim-jsx-utils', { 'on_ft' : ['javascript'] }],
     \ ['slashmili/alchemist.vim', { 'on_ft' : 'elixir' }],
     \ ]
+    " debugging
+    " \ ['pangloss/vim-javascript', { 'on_ft' : ['javascript'] }],
+    " \ ['mxw/vim-jsx', { 'on_ft' : ['javascript'] }],
+    " \ ['chemzqm/vim-jsx-improve', { 'on_ft' : ['javascript'] }],
+    " \ ['maxmellon/vim-jsx-pretty', { 'on_ft' : ['javascript'] }],
+    " \ ['heavenshell/vim-jsdoc', { 'on_ft' : ['javascript'] }],
+    " \ ['vim-pandoc/vim-pandoc', { 'on_ft' : 'markdown' }],
+    " \ ['vim-pandoc/vim-pandoc-syntax', { 'on_ft' : 'markdown' }],
 
+    " misc
+    " \ ['nanotech/jellybeans.vim'],
+    " \ ['grassdog/tagman.vim'],
+    " \ ['rakr/vim-one'],
+    " \ ['sonph/onehalf'],
+    " \ ['sheerun/vim-polyglot', { 'on_ft' : ['python'] }],
+    " \ ['flowtype/vim-flow', { 'on_ft' : ['javascript'] }],
+    " \ ['justinj/vim-react-snippets', { 'on_ft' : ['javascript'] }],
     " alternatives I didn't like as much
     " \ ['othree/jspc.vim', { 'on_ft' : ['javascript'] }],
     " \ ['othree/es.next.syntax.vim', { 'on_ft' : ['javascript'] }], <-- worse
@@ -34,9 +54,13 @@ let g:spacevim_custom_plugins = [
 
 " disabled ctrlp because fzf does what I want/need
 let g:spacevim_disabled_plugins=[
-    \ ['ctrlpvim/ctrlp.vim'],
+    \ ['othree/yajs'],
+    \ ['jelera/vim-javascript-syntax'],
+    \ ['jiangmiao/simple-javascript-indenter'],
     \ ['voronkovich/ctrlp-nerdtree.vim'],
     \ ]
+
+" \ ['ctrlpvim/ctrlp.vim'],
 
 set title                       " set window title
 set list                        " Highlight problematic whitespace
@@ -129,8 +153,22 @@ let g:html_indent_style1 = "inc"
 " JavaScript JSX/React
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 let g:xml_syntax_folding = 0 " disallow folding on XML (bad for JSX)
+let g:vim_jsx_pretty_colorful_config = 1 " default 0
 let g:polyglot_disabled = ['xml', 'xls']
-
+let g:mta_filetypes = {
+    \ 'javascript.jsx': 1,
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ }
+" https://github.com/samuelsimoes/vim-jsx-utils
+nnoremap <leader>ja :call JSXEncloseReturn()<CR>
+nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
+nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
+nnoremap <leader>jc :call JSXChangeTagPrompt()<CR>
+nnoremap vat :call JSXSelectTag()<CR>
+"
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
 
@@ -188,7 +226,7 @@ nnoremap s s
 " :source ~/.vimrc-spaces
 " :source ~/.vimrc-tabs
 " (look for shortcuts to switch, in the leader sections)
-nnoremap <leader><leader><SPACE> :source ~/.vimrc-spaces<CR>
+nnoremap <leader><leader>s :source ~/.vimrc-spaces<CR>
 nnoremap <leader><leader><TAB> :source ~/.vimrc-tabs<CR>
 " search
 " fix Vim’s horribly broken default regex handling
@@ -196,7 +234,7 @@ nnoremap <leader><leader><TAB> :source ~/.vimrc-tabs<CR>
 nnoremap / /\v
 vnoremap / /\v
 "  This gets rid of the distracting highlighting
-nnoremap <leader><SPACE> :noh<CR>
+nnoremap <leader>ns :noh<CR>
 
 " movement
 " remap arrow keys in insert mode, so that they escape and move
@@ -213,7 +251,7 @@ nnoremap <C-RIGHT> gt
 noremap <C-TAB> gt
 noremap <C-S-TAB> gT
 " Control+t for new tab
-" nnoremap <C-t> :tabnew<CR>
+nnoremap <C-t> :tabnew<CR>
 
 " remap Shift+arrow in insert mode, escape and move, includes left/right
 inoremap <S-UP> <ESC>k
@@ -255,23 +293,23 @@ nnoremap <c-p> :History<cr>
 " find most recently used files
 nnoremap <leader>f ProjectMru --tiebreak=end
 " find all files (using ripgrep)
-nnoremap <C-F> :Files
+nnoremap <C-F> :Files<cr>
 " find all files in git
-nnoremap <C-f> :GFiles
+nnoremap <C-f> :GFiles<cr>
 " ^ALT nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
 " find all files in git status (changed, untracked, etc, files)
-nnoremap <C-g> :GFiles?
+nnoremap <C-g> :GFiles?<cr>
 " find all buffers
-nnoremap <C-b> :Buffers
+nnoremap <C-b> :Buffers<cr>
 " ^ALT nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
 " find all lines in all buffers
-nnoremap <C-B> :Lines
+nnoremap <C-B> :Lines<cr>
 " find all Marks
-nnoremap <C-m> :Marks
+nnoremap <C-m> :Marks<cr>
 " find all Commits for the current buffer
-nnoremap <C-G> :BCommits
+nnoremap <C-G> :BCommits<cr>
 " find all Commits for project
-nnoremap <leader>G :Commits
+nnoremap <leader>G :Commits<cr>
 " playing with insert mode completions (WIP)
 imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
 " Insert mode completion
@@ -344,6 +382,10 @@ nnoremap <leader>Y yiw
 " ,R replace in word (keep the replacement in registry)
 nnoremap <leader>R viwpyiw
 
+" determine the highlighting of the current term under the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
 " --------------------------------------------------------------------------------------------
