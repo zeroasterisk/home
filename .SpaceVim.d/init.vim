@@ -1,3 +1,4 @@
+let g:spacevim_enable_vimfiler_welcome = 0
 let g:spacevim_default_indent = 2
 let g:spacevim_max_column     = 100
 let g:spacevim_guifont      = "Fira\\ Code"
@@ -26,6 +27,7 @@ let g:spacevim_custom_plugins = [
     \ ['chemzqm/vim-jsx-improve', { 'on_ft' : ['javascript'] }],
     \ ['samuelsimoes/vim-jsx-utils', { 'on_ft' : ['javascript'] }],
     \ ['slashmili/alchemist.vim', { 'on_ft' : 'elixir' }],
+    \ ['dhruvasagar/vim-table-mode', { 'on_ft' : 'markdown' }],
     \ ]
     " debugging
     " \ ['pangloss/vim-javascript', { 'on_ft' : ['javascript'] }],
@@ -168,6 +170,12 @@ nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap <leader>jc :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
+"
+" Python plugin changes
+let g:python_host_prog = '/home/pdimarco/.virtualenvs/neovim2/bin/python'
+let g:python3_host_prog = '/home/pdimarco/.virtualenvs/neovim3/bin/python'
+let g:deoplete#sources#jedi#show_docstring = 1
+let g:syntastic_python_checkers = ['flake8', 'pylint', 'python']
 "
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
