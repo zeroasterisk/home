@@ -10,8 +10,8 @@ let g:spacevim_guifont      = "Fira\\ Code"
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
 
-let mapleader = "\<space>"
-" let mapleader = ","
+"let mapleader = "\<space>"
+let mapleader = ","
 let g:spacevim_windows_leader = "<F7>"
 let g:spacevim_unite_leader = "<F6>"
 let g:spacevim_enable_key_frequency = 1
@@ -22,11 +22,11 @@ let g:spacevim_custom_plugins = [
     \ ['junegunn/fzf.vim'],
     \ ['tweekmonster/fzf-filemru'],
     \ ['ervandew/supertab'],
-    \ ['Vimjas/vim-python-pep8-indent', { 'on_ft' : 'python' }],
+    \ ['janko-m/vim-test'],
+    \ ['powerman/vim-plugin-AnsiEsc'],
     \ ['pangloss/vim-javascript', { 'on_ft' : ['javascript'] }],
     \ ['chemzqm/vim-jsx-improve', { 'on_ft' : ['javascript'] }],
     \ ['samuelsimoes/vim-jsx-utils', { 'on_ft' : ['javascript'] }],
-    \ ['slashmili/alchemist.vim', { 'on_ft' : 'elixir' }],
     \ ['dhruvasagar/vim-table-mode', { 'on_ft' : 'markdown' }],
     \ ]
     " debugging
@@ -53,6 +53,8 @@ let g:spacevim_custom_plugins = [
     " \ ['1995eaton/vim-better-javascript-completion', { 'on_ft' : ['javascript'] }],
     " \ ['othree/javascript-libraries-syntax.vim', { 'on_ft' : ['javascript'] }],
     " \ ['ternjs/tern_for_vim', { 'on_ft' : ['javascript'] }],
+    " part of core now
+    " \ ['slashmili/alchemist.vim', { 'on_ft' : 'elixir' }],
 
 " disabled ctrlp because fzf does what I want/need
 let g:spacevim_disabled_plugins=[
@@ -170,12 +172,32 @@ nnoremap <leader>ji :call JSXEachAttributeInLine()<CR>
 nnoremap <leader>je :call JSXExtractPartialPrompt()<CR>
 nnoremap <leader>jc :call JSXChangeTagPrompt()<CR>
 nnoremap vat :call JSXSelectTag()<CR>
-"
+
 " Python plugin changes
-let g:python_host_prog = '/home/pdimarco/.virtualenvs/neovim2/bin/python'
-let g:python3_host_prog = '/home/pdimarco/.virtualenvs/neovim3/bin/python'
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:syntastic_python_checkers = ['flake8', 'pylint', 'python']
+"let g:python_host_prog = '/Users/alan/.virtualenvs/neovim2/bin/python'
+"let g:python3_host_prog = '/Users/alan/.virtualenvs/neovim3/bin/python'
+"let g:deoplete#sources#jedi#show_docstring = 1
+let g:polyglot_disabled = ['elm', 'elixir']
+
+" Linters config neomake > syntastic
+let g:spacevim_enable_neomake = 1
+let g:spacevim_lint_on_the_fly = 0
+let g:neomake_markdown_enabled_makers = []
+"" let g:syntastic_python_checkers = ['flake8', 'pylint', 'python']
+let g:neomake_python_enabled_makers = ['flake8']
+" Elixir settings
+let g:neomake_elixir_enabled_makers = ['credo']
+" let g:neomake_elixir_elixir_maker = {
+"             \ 'exe': 'elixirc',
+"             \ 'args': [
+"             \ '--ignore-module-conflict', '--warnings-as-errors',
+"             \ '--app', 'mix', '--app', 'ex_unit',
+"             \ '-o', '$TMPDIR', '%:p'
+"             \ ],
+"             \ 'errorformat':
+"             \ '%E** %s %f:%l: %m,' .
+"             \ '%W%f:%l'
+"             \ }
 "
 " strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e " automatically deletes trailing spaces on save
@@ -339,6 +361,15 @@ inoremap <expr> <c-x><c-s> fzf#complete({
   \ 'options': '--multi --reverse --margin 15%,0',
   \ 'left':    20})
 
+" vim-test shortcuts
+" https://github.com/janko-m/vim-test
+"  :TestNearest
+"    In a test file runs the test nearest to the cursor, otherwise runs the last nearest test. In test frameworks that don't support line numbers it will polyfill this functionality with regexes.
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " custom shortcuts: insert mode
 " ------------------------
