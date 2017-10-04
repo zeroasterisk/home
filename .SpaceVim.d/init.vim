@@ -2,15 +2,8 @@ let g:spacevim_enable_vimfiler_welcome = 0
 let g:spacevim_default_indent = 2
 let g:spacevim_max_column     = 100
 let g:spacevim_guifont      = "Fira\\ Code"
-" let g:spacevim_colorscheme =  "jellybeans"
-" let g:spacevim_colorscheme =  "onehalfdark"
-" let background = "dark"
-" let g:spacevim_colorscheme = "one"
-" let g:one_allow_italics = 1
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
 
-"let mapleader = "\<space>"
+" let mapleader = "\<space>"
 let mapleader = ","
 let g:spacevim_windows_leader = "<F7>"
 let g:spacevim_unite_leader = "<F6>"
@@ -58,10 +51,11 @@ let g:spacevim_custom_plugins = [
 
 " disabled ctrlp because fzf does what I want/need
 let g:spacevim_disabled_plugins=[
-    \ ['othree/yajs'],
-    \ ['jelera/vim-javascript-syntax'],
-    \ ['jiangmiao/simple-javascript-indenter'],
-    \ ['voronkovich/ctrlp-nerdtree.vim'],
+    \ 'floobits-neovim',
+    \ 'othree/yajs',
+    \ 'jelera/vim-javascript-syntax',
+    \ 'jiangmiao/simple-javascript-indenter',
+    \ 'voronkovich/ctrlp-nerdtree.vim',
     \ ]
 
 " \ ['ctrlpvim/ctrlp.vim'],
