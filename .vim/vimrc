@@ -4,8 +4,69 @@
 "  \ V /| | | | | | | | | (__
 "   \_/ |_|_| |_| |_|_|  \___|
 "
-" Ian's .vimrc file
+" Alan Blount
+" https://github.com/zeroasterisk/home
 "
+" Stolen from:
+" Ian's .vimrc file
+" https://github.com/mhinz/dotfiles/blob/master/.vim/vimrc
+
+
+" ----------------------------------------------------------------------------
+" Plugins via Plug
+" ----------------------------------------------------------------------------
+
+" Use Pathogen for plugin management. See update.sh in this directory.
+" runtime bundle/vim-pathogen/autoload/pathogen.vim
+" call pathogen#infect()
+" call pathogen#helptags()
+
+" Specify a directory for plugins
+" - For vim: ~/.vim/plugged
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'airblade/vim-gitgutter'
+Plug 'alampros/vim-styled-jsx'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ap/vim-css-color'
+Plug 'arcticicestudio/nord-vim'
+Plug 'docunext/closetag.vim'
+Plug 'ervandew/supertab'
+Plug 'haya14busa/incsearch.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+Plug 'jparise/vim-graphql'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/goyo.vim'
+" Plug 'kien/ctrlp.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'mileszs/ack.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'qpkorr/vim-bufkill'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
+Plug 'statico/vim-inform7'
+Plug 'slashmili/alchemist.vim'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-pathogen'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'w0rp/ale'
+Plug 'wellle/targets.vim'
+
+call plug#end()
+
 
 " ----------------------------------------------------------------------------
 " KEY MAPS
@@ -137,6 +198,162 @@ endfunction
 nnoremap <C-w>h :silent call KeepCurrentLine('h')<CR>
 nnoremap <C-w>l :silent call KeepCurrentLine('l')<CR>
 
+" movement
+" remap arrow keys in insert mode, so that they escape and move
+inoremap <UP> <ESC>k
+inoremap <DOWN> <ESC>j
+
+" Command-line navigation
+cnoremap <C-x> <RIGHT>
+cnoremap <C-z> <LEFT>
+" Ctrl+Left/Right to switch tabs
+nnoremap <C-LEFT> gT
+nnoremap <C-RIGHT> gt
+" Control+Tab (+Shift, for reverse direction) to switch through tabs
+noremap <C-TAB> gt
+noremap <C-S-TAB> gT
+" Control+t for new tab
+nnoremap <C-t> :tabnew<CR>
+
+" remap Shift+arrow in insert mode, escape and move, includes left/right
+inoremap <S-UP> <ESC>k
+inoremap <S-DOWN> <ESC>j
+inoremap <S-RIGHT> <ESC>ll
+inoremap <S-LEFT> <ESC>
+
+" split helpers
+" new horizontal split
+nnoremap <leader>H <C-w>s
+" new vertical split
+nnoremap <leader>V <C-w>v<C-w>l
+" split navigation mapped to CTRL (capslock remap?)
+nnoremap <C-s-h> <C-w>h
+nnoremap <C-S-j> <C-w>j
+nnoremap <C-S-k> <C-w>k
+nnoremap <C-S-l> <C-w>l
+
+" locations list / Quickfix (next/prev error)
+nnoremap <C-S-RIGHT> <ESC>:lnext<CR>
+nnoremap <C-S-LEFT> <ESC>:lprevious<CR>
+" toggle between 'normal' and 'cursor always centered'
+nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+" typeo corrections / remaps
+map :W :w
+map :Q :q
+nnoremap Q q
+nnoremap <C-q> q
+inoremap / /
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" fuzzy find
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md
+" https://github.com/junegunn/fzf.vim#commands
+" find most recently used files via v:oldfiles
+nnoremap <c-p> :History<cr>
+" find most recently used files
+nnoremap <leader>f ProjectMru --tiebreak=end
+" find all files (using ripgrep)
+nnoremap <C-F> :Files<cr>
+" find all files in git
+nnoremap <C-f> :GFiles<cr>
+" ^ALT nnoremap <C-f> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '80%'})<cr>
+" find all files in git status (changed, untracked, etc, files)
+nnoremap <C-g> :GFiles?<cr>
+" find all buffers
+nnoremap <C-b> :Buffers<cr>
+" ^ALT nnoremap <C-b> :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '80%'})<cr>
+" find all lines in all buffers
+nnoremap <C-B> :Lines<cr>
+" find all Marks
+nnoremap <C-m> :Marks<cr>
+" find all Commits for the current buffer
+nnoremap <C-G> :BCommits<cr>
+" find all Commits for project
+nnoremap <leader>G :Commits<cr>
+" playing with insert mode completions (WIP)
+imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})" -------------------------
+" Replace the default dictionary completion with fzf-based fuzzy completion
+function! s:make_sentence(lines)
+  return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
+endfunction
+
+inoremap <expr> <c-x><c-s> fzf#complete({
+  \ 'source':  'cat /usr/share/dict/words',
+  \ 'reducer': function('<sid>make_sentence'),
+  \ 'options': '--multi --reverse --margin 15%,0',
+  \ 'left':    20})
+
+" vim-test shortcuts
+" https://github.com/janko-m/vim-test
+"  :TestNearest
+"    In a test file runs the test nearest to the cursor, otherwise runs the last nearest test. In test frameworks that don't support line numbers it will polyfill this functionality with regexes.
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+" custom shortcuts: insert mode
+" ------------------------
+" this is a sexy little shortcut to break out of insert mode and save
+inoremap ;; <ESC>l :w<CR>
+
+" -------------------------
+" custom shortcuts: normal mode
+" ------------------------
+" save
+nnoremap ;; :w<CR>
+
+" :suw = write as sudo
+" http://www.catonmat.net/blog/top-ten-one-liners-from-commandlinefu-explained/
+" :nmap :suw :w !sudo tee %
+
+" yank to clipboard shortcut
+nnoremap <leader>y "*y
+" paste from clipboard shortcut
+nnoremap <leader>v "*v
+
+" ,ev edit vimrc file on the fly
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
+" ,rv reload the vimrc file on the fly
+nnoremap <leader>rv :source ~/.vimrc<CR>
+" surroud replace quotes
+map <leader>" cs'"
+map <leader>' cs"'
+map <leader>` cs'`
+" wrap word in quotes
+nnoremap <leader>.' ysiw'
+nnoremap <leader>." ysiw"
+nnoremap <leader>.` ysiw`
+" duplicate current word, after a colon
+nnoremap <leader>.. yiwea:<SPACE><ESC>p
+" ,W strip all trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+" ,a ag helper
+nnoremap <leader>a :Ag
+" ,ft HTML fold tag
+nnoremap <leader>ft Vatzf
+" ,S sort a list of CSS properties
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+" ,v reselect text that was just pasted
+nnoremap <leader>v V`]`
+
+" ,Y yank in word shortcut
+nnoremap <leader>Y yiw
+" ,R replace in word (keep the replacement in registry)
+nnoremap <leader>R viwpyiw
+
+
 " ----------------------------------------------------------------------------
 " ABBREVATIONS
 " ----------------------------------------------------------------------------
@@ -181,6 +398,8 @@ set cinkeys-=0#             " Comments don't fiddle with indenting
 set cino=                   " See :h cinoptions-values
 set commentstring=\ \ #%s   " When folds are created, add them to this
 set copyindent              " Make autoindent use the same chars as prev line
+set cursorline              " horizontal line on cursor
+set cursorcolumn            " vertical line on cursor
 set directory-=.            " Don't store temp files in cwd
 set encoding=utf8           " UTF-8 by default
 set expandtab               " No tabs
@@ -195,8 +414,9 @@ set formatoptions=tcqn1     " t - autowrap normal text
                             " n - autowrap lists
                             " 1 - break _before_ single-letter words
                             " 2 - use indenting from 2nd line of para
+set gdefault                    " set default /g flag on replacements
 set hidden                  " Don't prompt to save hidden windows until exit
-set history=200             " How many lines of history to save
+set history=2000            " How many lines of history to save
 set hlsearch                " Hilight searching
 set ignorecase              " Case insensitive
 set incsearch               " Search as you type
@@ -209,7 +429,7 @@ set matchtime=2             " Tenths of second to hilight matching paren
 set modelines=5             " How many lines of head & tail to look for ml's
 silent! set mouse=nvc       " Use the mouse, but not in insert mode
 set nobackup                " No backups left after done editing
-set nonumber                " No line numbers to start
+set number                  " Show relative line numbers + current line
 set visualbell t_vb=        " No flashing or beeping at all
 set nowritebackup           " No backups made while editing
 set printoptions=paper:letter " US paper
@@ -229,10 +449,21 @@ set suffixes+=.pyc          " Ignore these files when tab-completing
 set tabstop=2               " The One True Tab
 set textwidth=100           " 100 is the new 80
 set thesaurus+=~/.vim/mthes10/mthesaur.txt
-set notitle                 " Don't set the title of the Vim window
+set title                 " Do set the title of the Vim window
 set wildmenu                " Show possible completions on command line
 set wildmode=list:longest,full " List all options and complete
 set wildignore=*.class,*.o,*~,*.pyc,.git,node_modules  " Ignore certain files in tab-completion
+
+if has('clipboard')
+    if has('unnamedplus')  " When possible use + register for copy-paste
+        set clipboard=unnamed,unnamedplus
+    else         " On mac and Windows, use * register for copy-paste
+        set clipboard=unnamed
+    endif
+endif
+" set undodir=$HOME/.data/undofile
+" set backupdir=$HOME/.data/backup
+" set directory=$HOME/.data/swap
 
 " Essential for filetype plugins.
 filetype plugin indent on
@@ -255,11 +486,6 @@ command! BufCloseOthers %bd|e#
 " ----------------------------------------------------------------------------
 " PLUGIN SETTINGS
 " ----------------------------------------------------------------------------
-
-" Use Pathogen for plugin management. See update.sh in this directory.
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
 
 " For any plugins that use this, make their keymappings use comma
 let mapleader = ","
@@ -295,10 +521,13 @@ map g/ <Plug>(incsearch-stay)
 let g:vim_markdown_frontmatter = 1
 
 " ALE
+let g:ale_sign_column_always = 1
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Lightline
 let g:lightline = {
@@ -308,9 +537,9 @@ let g:lightline = {
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
 \ },
 \ 'component_expand': {
-\   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
 \ },
 \ 'component_type': {
 \   'readonly': 'error',
@@ -318,6 +547,11 @@ let g:lightline = {
 \   'linter_errors': 'error'
 \ },
 \ }
+
+" \   'linter_warnings': 'LightlineLinterWarnings',
+" \   'linter_errors': 'LightlineLinterErrors',
+" \   'linter_ok': 'LightlineLinterOK'
+
 function! LightlineLinterWarnings() abort
   let l:counts = ale#statusline#Count(bufnr(''))
   let l:all_errors = l:counts.error + l:counts.style_error
@@ -344,6 +578,22 @@ function! s:MaybeUpdateLightline()
     call lightline#update()
   end
 endfunction
+
+
+
+" NerdCommenter config
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
 
 " ----------------------------------------------------------------------------
 " COLORS

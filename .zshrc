@@ -91,3 +91,5 @@ export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/T0GRT2TH8/B20U0JGN4/J
 export SLACK_USERNAME=alan
 export SLACK_CHANNEL="@alan"
 export SLACK_ICON_URL="https://avatars0.githubusercontent.com/u/23422?s=460&v=4"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
