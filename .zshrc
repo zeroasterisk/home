@@ -84,3 +84,10 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# https://github.com/philippbosch/slack-webhook-cli
+export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+export SLACK_USERNAME=alan
+export SLACK_CHANNEL="@alan"
+export SLACK_ICON_URL="https://avatars0.githubusercontent.com/u/23422?s=460&v=4"

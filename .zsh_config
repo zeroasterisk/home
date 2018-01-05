@@ -20,8 +20,13 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 
+# elixir/erlang iex history
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+# Java
 export GRADLE_HOME="/opt/local/share/java/gradle"
 
+# Javascript
 #node paths disabled in favor of using `nvm`
 #export NPM_PACKAGES="$HOME/.npm-packages"
 #export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
