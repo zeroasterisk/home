@@ -31,11 +31,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'alampros/vim-styled-jsx'
 Plug 'altercation/vim-colors-solarized'
 Plug 'ap/vim-css-color'
-Plug 'arcticicestudio/nord-vim'
 Plug 'docunext/closetag.vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'ervandew/supertab'
-Plug 'fmoralesc/molokayo'
 Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jparise/vim-graphql'
@@ -65,6 +63,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+" Plug 'fmoralesc/molokayo'
+" Plug 'arcticicestudio/nord-vim'
 " Plug 'kien/ctrlp.vim'
 " Plug 'mhartington/oceanic-next'
 " Plug 'mhinz/vim-janah'
@@ -619,34 +619,35 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " colorscheme molokai
 colorscheme gruvbox
 
-if !has('gui_running')
-  let g:solarized_termcolors=256
-  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256
-  elseif has("terminfo")
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%p1%dm
-    set t_Sb=[4%p1%dm
-  else
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
-  endif
-  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
-  if $TMUX != ""
-    set t_ut=
-  endif
-endif
+" if !has('gui_running')
+"   let g:solarized_termcolors=256
+"   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+"     set t_Co=256
+"   elseif has("terminfo")
+"     colorscheme default
+"     set t_Co=8
+"     set t_Sf=[3%p1%dm
+"     set t_Sb=[4%p1%dm
+"   else
+"     colorscheme default
+"     set t_Co=8
+"     set t_Sf=[3%dm
+"     set t_Sb=[4%dm
+"   endif
+"   " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
+"   if $TMUX != ""
+"     set t_ut=
+"   endif
+" endif
 syntax on
 
+" COLOR TWEAKS FOR MOLOKAI <-- disabled
 " Window splits & ruler are too bright, so change to white on grey (non-GUI)
-highlight StatusLine       cterm=NONE ctermbg=blue ctermfg=white
-highlight StatusLineTerm   cterm=NONE ctermbg=blue ctermfg=white
-highlight StatusLineNC     cterm=NONE ctermbg=black ctermfg=white
-highlight StatusLineTermNC cterm=NONE ctermbg=black ctermfg=white
-highlight VertSplit        cterm=NONE ctermbg=black ctermfg=white
+" highlight StatusLine       cterm=NONE ctermbg=blue ctermfg=white
+" highlight StatusLineTerm   cterm=NONE ctermbg=blue ctermfg=white
+" highlight StatusLineNC     cterm=NONE ctermbg=black ctermfg=white
+" highlight StatusLineTermNC cterm=NONE ctermbg=black ctermfg=white
+" highlight VertSplit        cterm=NONE ctermbg=black ctermfg=white
 
 " taglist.vim's filenames is linked to LineNr by default, which is too dark
 highlight def link MyTagListFileName Statement
@@ -656,30 +657,30 @@ highlight def link MyTagListTagName Question
 highlight def link xmlCdata NONE
 
 " Some custom spell-checking colors
-highlight SpellBad     term=underline cterm=underline ctermbg=NONE ctermfg=205
-highlight SpellCap     term=underline cterm=underline ctermbg=NONE ctermfg=33
-highlight SpellRare    term=underline cterm=underline ctermbg=NONE ctermfg=217
-highlight SpellLocal   term=underline cterm=underline ctermbg=NONE ctermfg=72
+" highlight SpellBad     term=underline cterm=underline ctermbg=NONE ctermfg=205
+" highlight SpellCap     term=underline cterm=underline ctermbg=NONE ctermfg=33
+" highlight SpellRare    term=underline cterm=underline ctermbg=NONE ctermfg=217
+" highlight SpellLocal   term=underline cterm=underline ctermbg=NONE ctermfg=72
 
 " The Ignore color should be... ignorable
-silent! highlight Ignore cterm=bold ctermfg=black ctermbg=bg
-highlight clear FoldColumn
-highlight def link FoldColumn Ignore
-highlight clear Folded
-highlight link Folded Ignore
-highlight clear LineNr
-highlight! def link LineNr Ignore
+" silent! highlight Ignore cterm=bold ctermfg=black ctermbg=bg
+" highlight clear FoldColumn
+" highlight def link FoldColumn Ignore
+" highlight clear Folded
+" highlight link Folded Ignore
+" highlight clear LineNr
+" highlight! def link LineNr Ignore
 
 " Custom search colors
-highlight clear Search
-highlight Search term=NONE cterm=NONE ctermfg=white ctermbg=black
+" highlight clear Search
+" highlight Search term=NONE cterm=NONE ctermfg=white ctermbg=black
 
 " Make hilighted matching parents less annoying
-highlight clear MatchParen
-highlight link MatchParen Search
+" highlight clear MatchParen
+" highlight link MatchParen Search
 
 " Custom colors for NERDTree
-highlight def link NERDTreeRO NERDTreeFile
+" highlight def link NERDTreeRO NERDTreeFile
 
 " Make trailing spaces very visible
 highlight SpecialKey ctermbg=Yellow guibg=Yellow
@@ -699,7 +700,7 @@ highlight link markdownBold String
 highlight link markdownItalic Statement
 highlight link markdownCode Delimiter
 highlight link markdownCodeBlock Delimiter
-highlight link markdownListMarker Todo
+
 
 " Custom mode for distraction-free editing
 function! ProseMode()
