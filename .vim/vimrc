@@ -40,6 +40,7 @@ Plug 'maximbaz/lightline-ale'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'elixir-editors/vim-elixir'
 Plug 'junegunn/goyo.vim'
 " Plug 'kien/ctrlp.vim'
 Plug 'mhartington/oceanic-next'
@@ -150,6 +151,10 @@ nmap <C-l> <C-W>l
 " Resize panes when window/terminal gets resize
 autocmd VimResized * :wincmd =
 
+" After visual selection, move, maintain selection
+vnoremap > >gv
+vnoremap < <gv
+
 " Search for the word under the cursor in the current directory
 nmap <M-k>    mo:Ack! "\b<cword>\b" <CR>
 nmap <Esc>k   mo:Ack! "\b<cword>\b" <CR>
@@ -210,8 +215,8 @@ cnoremap <C-z> <LEFT>
 nnoremap <C-LEFT> gT
 nnoremap <C-RIGHT> gt
 " Control+Tab (+Shift, for reverse direction) to switch through tabs
-noremap <C-TAB> gt
-noremap <C-S-TAB> gT
+" noremap <C-TAB> gt
+" noremap <C-S-TAB> gT
 " Control+t for new tab
 nnoremap <C-t> :tabnew<CR>
 
@@ -741,6 +746,9 @@ au FileType markdown syn sync fromstart
 au Filetype gitcommit setlocal tw=80
 
 augroup END
+
+" strip trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 " ----------------------------------------------------------------------------
 " HOST-SPECIFIC VIM FILE
