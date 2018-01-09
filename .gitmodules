@@ -1,8 +1,8 @@
 [submodule ".zprezto"]
-	path = .zprezto
+	path = zsh_zprezto/zprezto
 	url = https://github.com/zeroasterisk/prezto.git
 [submodule ".tmux-powerline"]
-	path = .tmux-powerline
+	path = tmux/.tmux-powerline
 	url = https://github.com/erikw/tmux-powerline.git
 [submodule "Scripts/docker-cleanup-volumes"]
 	path = Scripts/docker-cleanup-volumes
