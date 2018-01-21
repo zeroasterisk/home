@@ -2,7 +2,7 @@
 ;   path = zsh_zprezto/zprezto
 ;   url = https://github.com/zeroasterisk/prezto.git
 [submodule ".tmux-powerline"]
-	path = tmux/.tmux-powerline
+	path = tmux_old/.tmux-powerline
 	url = https://github.com/erikw/tmux-powerline.git
 [submodule "tools/alchemist-server"]
 	path = tools/alchemist-server
@@ -10,3 +10,6 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
+[submodule "tmux"]
+	path = tmux
+	url = https://github.com/gpakosz/.tmux.git
