@@ -1,12 +1,12 @@
-[submodule ".zprezto"]
-	path = zsh_zprezto/zprezto
-	url = https://github.com/zeroasterisk/prezto.git
+; [submodule ".zprezto"]
+;   path = zsh_zprezto/zprezto
+;   url = https://github.com/zeroasterisk/prezto.git
 [submodule ".tmux-powerline"]
 	path = tmux/.tmux-powerline
 	url = https://github.com/erikw/tmux-powerline.git
-[submodule "Scripts/docker-cleanup-volumes"]
-	path = Scripts/docker-cleanup-volumes
-	url = https://github.com/chadoe/docker-cleanup-volumes.git
 [submodule "tools/alchemist-server"]
 	path = tools/alchemist-server
 	url = https://github.com/tonini/alchemist-server.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = git://github.com/robbyrussell/oh-my-zsh.git
