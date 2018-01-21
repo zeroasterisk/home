@@ -96,6 +96,13 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='mvim'
 fi
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    export PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -111,4 +118,8 @@ fi
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-source ~/.zsh_alias
+if [ -f "$HOME/.dotfiles/zsh/zsh_alias" ] ; then
+	source "$HOME/.dotfiles/zsh/zsh_alias"
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

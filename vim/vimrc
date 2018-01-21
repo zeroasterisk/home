@@ -70,6 +70,8 @@ Plug 'wellle/targets.vim'
 " Plug 'mhinz/vim-janah'
 " Plug 'tpope/vim-pathogen'
 
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 call plug#end()
 
 
@@ -766,9 +768,20 @@ autocmd BufWritePre * :%s/\s\+$//e
 " HOST-SPECIFIC VIM FILE
 " ----------------------------------------------------------------------------
 
+" Function to source only if file exists {
+function! SourceIfExists(file)
+  if filereadable(expand(a:file))
+    exe 'source' a:file
+  endif
+endfunction
+" }
+
 " Now load specifics to this host
-if filereadable(expand("~/.vimlocal"))
-  source ~/.vimlocal
+call SourceIfExists("~/.vimrc.local")
+call SourceIfExists("~/.vimrc.colors")
+call SourceIfExists("~/.vimlocal")
+if has('gui_running')
+  call SourceIfExists("~/.gvimrc.local")
 endif
 
 " Some plugin seems to search for something at startup, so this fixes that.

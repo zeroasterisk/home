@@ -15,6 +15,9 @@ alias gs='git status'
 alias gd='git diff'
 alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+# override tmux & screen
+alias tmux=tmx2
+alias screen=tmx2
 # shortcuts and remaps
 alias vim='nvim -p'
 alias vi='nvim -p'
