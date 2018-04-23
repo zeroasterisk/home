@@ -123,3 +123,8 @@ if [ -f "$HOME/.dotfiles/zsh/zsh_alias" ] ; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -d "$HOME/miniconda3" ] ; then
+  # added by Miniconda3 installer
+  export PATH="$HOME/miniconda3/bin:$PATH"
+fi
