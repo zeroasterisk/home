@@ -58,8 +58,6 @@ for path in .* ; do
       ;;
   esac
 done
-symlink $basedir/.vim/vimrc $HOME/.vimrc
-symlink $basedir/.vim/gvimrc $HOME/.gvimrc
 
 echo "Adding executables to ~/bin/..."
 mkdir -p $bindir
@@ -67,14 +65,16 @@ for path in bin/* ; do
   symlink $basedir/$path $bindir/$(basename $path)
 done
 
-echo "Setting up vim plugins..."
-.vim/update.sh
-
 echo "Setting up git..."
 cp $basedir/.gitconfig.base $HOME/.gitconfig
 if ! which git-lfs >/dev/null ; then
   git lfs install
 fi
+
+echo "Symlinking next-level dotfiles script..."
+echo "  see ${basedir}/bin/dotfiles"
+echo "  should setup vim and misc files"
+cp $basedir/bin/dotfiles
 
 postinstall=$HOME/.postinstall
 if [ -e $postinstall ]; then

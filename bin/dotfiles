@@ -6,6 +6,12 @@ yellow="\033[33m"
 blue="\033[34m"
 reset="\033[0m"
 
+
+ensure_dir() {
+    if [ ! -d "$1" ]; then
+	mkdir -p "$1"
+    fi
+}
 check_file() {
     if ! which "$1" >/dev/null; then
         echo " ${yellow}${1}${reset} % ${red}is not available${reset}"
@@ -16,55 +22,62 @@ check_file() {
             echo " ${yellow}${2}${reset} % ${red}is no symlink${reset}"
         fi
     else
-        ln -s "$3" "$2"
+        ln -sf "$3" "$2"
         echo " ${yellow}${2}${reset} % ${green}-> ${3}${reset}"
     fi
 }
 
+
+# first, just make sure some dirs exist (not symlinked)
 {
-    #check_file  bochs     ~/.bochsrc                       .dotfiles/bochs/bochsrc
+    ensure_dir ~/.config/nvim
+    ensure_dir ~/tmp
+
+
+    check_file  gem       ~/.gemrc                         ~/.dotfiles/gem/gemrc
+    check_file  git       ~/.git                           ~/.dotfiles/git
+    check_file  git       ~/.gitconfig                     ~/.dotfiles/git/gitconfig
+    check_file  gitk      ~/.gitk                          ~/.dotfiles/git/gitk
+    check_file  tmux      ~/.tmux.conf                     ~/.dotfiles/tmux/.tmux.conf
+    check_file  true      ~/.terminfo                      ~/.dotfiles/terminfo
+    check_file  true      ~/bin                            ~/.dotfiles/bin
+    check_file  vim       ~/.vim                           ~/.dotfiles/vim
+    check_file  vim       ~/.vimrc                         ~/.dotfiles/vim/vimrc
+    check_file  vim       ~/.config/nvim/init.vim          ~/.dotfiles/config/nvim/init.vim
+    check_file  zsh       ~/.zsh                           ~/.dotfiles/zsh
+    check_file  zsh       ~/.zshrc                         ~/.dotfiles/zsh/zshrc
+
+    # other stuff I usually don't need
+    # --------------------------------
+    # check_file  zsh       ~/.zsh_alias.tmx2                         ~/.dotfiles/zsh/.zsh_alias.tmx2
+    # consider other custom zsh files...?
+    #zsh_alias
+    #zsh_alias.docker
+    #zsh_alias.osx
+    #zsh_config
+    #zsh_config.osx
+    #zsh_path
+    #zsh_path.osx
+
+    # other stuff I usually don't need, but good prompts
+    # --------------------------------
+    #check_file  bochs     ~/.bochsrc                       ~/.dotfiles/bochs/bochsrc
     #check_file  cmus      ~/.cmus/kuku.theme               ~/.dotfiles/cmus/kuku.theme
-    #check_file  conky     ~/.conkyrc                       .dotfiles/conky/conkyrc
-    #check_file  emacs     ~/.emacs.d                       .dotfiles/emacs.d
-    #check_file  firefox   ~/.mozilla                       .dotfiles/mozilla
-    #check_file  gdb       ~/.gdbinit                       .dotfiles/gdb/gdbinit
-    #check_file  getmail   ~/.getmail                       .dotfiles/getmail
-    #check_file  gpg       ~/.gnupg                         .dotfiles/gnupg
-    #check_file  hg        ~/.hgrc                          .dotfiles/hg/hgrc
-    #check_file  irssi     ~/.irssi                         .dotfiles/irssi
-    #check_file  liferea   ~/.liferea_1.8                   .dotfiles/liferea/liferea_1.8
-    #check_file  liferea   ~/feedlist.opml                  .dotfiles/liferea/feedlist.opml
-    #check_file  msmtp     ~/.msmtprc                       .dotfiles/msmtp/msmtprc
-    #check_file  mutt      ~/.muttrc                        .dotfiles/mutt/muttrc
-    #check_file  true      ~/.pentadactyl                   .dotfiles/pentadactyl
-    #check_file  true      ~/.pentadactylrc                 .dotfiles/pentadactyl/pentadactylrc
-    #check_file  xmonad    ~/.xmonad                        .dotfiles/xmonad
-    #check_file  zsh       ~/.zshenv                        .dotfiles/zsh/zshenv
-
-    check_file  gem       ~/.gemrc                         .dotfiles/gem/gemrc
-    check_file  git       ~/.git                           .dotfiles/git
-    check_file  git       ~/.gitconfig                     .dotfiles/git/gitconfig
-    check_file  gitk      ~/.gitk                          .dotfiles/git/gitk
-    check_file  tmux      ~/.tmux.conf                     .dotfiles/tmux/tmux.conf
-    check_file  true      ~/.terminfo                      .dotfiles/terminfo
-    check_file  true      ~/bin                            .dotfiles/bin
-    check_file  vim       ~/.config                        .dotfiles/config
-    check_file  vim       ~/.vim                           .dotfiles/vim
-    check_file  vim       ~/.vimrc                         .dotfiles/vim/vimrc
-    check_file  vim       ~/.config/nvim                   .dotfiles/vim/config-nvim
-    check_file  zsh       ~/.zsh                           .dotfiles/zsh
-
-
-#zprezto
-#zpreztorc
-#zsh_alias
-#zsh_alias.docker
-#zsh_alias.osx
-#zsh_config
-#zsh_config.osx
-#zsh_path
-#zsh_path.osx
-#zshenv
-#zshrc
+    #check_file  conky     ~/.conkyrc                       ~/.dotfiles/conky/conkyrc
+    #check_file  emacs     ~/.emacs.d                       ~/.dotfiles/emacs.d
+    #check_file  firefox   ~/.mozilla                       ~/.dotfiles/mozilla
+    #check_file  gdb       ~/.gdbinit                       ~/.dotfiles/gdb/gdbinit
+    #check_file  getmail   ~/.getmail                       ~/.dotfiles/getmail
+    #check_file  gpg       ~/.gnupg                         ~/.dotfiles/gnupg
+    #check_file  hg        ~/.hgrc                          ~/.dotfiles/hg/hgrc
+    #check_file  irssi     ~/.irssi                         ~/.dotfiles/irssi
+    #check_file  liferea   ~/.liferea_1.8                   ~/.dotfiles/liferea/liferea_1.8
+    #check_file  liferea   ~/feedlist.opml                  ~/.dotfiles/liferea/feedlist.opml
+    #check_file  msmtp     ~/.msmtprc                       ~/.dotfiles/msmtp/msmtprc
+    #check_file  mutt      ~/.muttrc                        ~/.dotfiles/mutt/muttrc
+    #check_file  true      ~/.pentadactyl                   ~/.dotfiles/pentadactyl
+    #check_file  true      ~/.pentadactylrc                 ~/.dotfiles/pentadactyl/pentadactylrc
+    #check_file  xmonad    ~/.xmonad                        ~/.dotfiles/xmonad
+    #check_file  zsh       ~/.zshenv                        ~/.dotfiles/zsh/zshenv
 
 } | column -t -s %
