@@ -93,3 +93,9 @@ export SLACK_CHANNEL="@alan"
 export SLACK_ICON_URL="https://avatars0.githubusercontent.com/u/23422?s=460&v=4"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/alan/bin/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/alan/bin/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/alan/bin/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/alan/bin/google-cloud-sdk/completion.zsh.inc'; fi
