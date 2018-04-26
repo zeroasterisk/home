@@ -169,6 +169,7 @@ if [ -f $HOME/.asdf ] ; then
   . $HOME/.asdf/asdf.sh
   . $HOME/.asdf/completions/asdf.bash
 fi
+<<<<<<< HEAD
 
 # Android SDK & emuulator manager tools avdmanager
 if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
@@ -207,3 +208,9 @@ if [ -f '/Users/alanblount/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/alan/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/alan/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/alan/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/alan/google-cloud-sdk/completion.zsh.inc'; fi
