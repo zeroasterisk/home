@@ -414,7 +414,8 @@ set cursorcolumn            " vertical line on cursor
 set directory-=.            " Don't store temp files in cwd
 set encoding=utf8           " UTF-8 by default
 set expandtab               " No tabs
-set fileformats=unix,dos,mac  " Prefer Unix
+" set fileformats=unix,dos,mac  " Prefer Unix
+set fileformats=unix        " only allow unix (for the love of god!)
 set fillchars=vert:\ ,stl:\ ,stlnc:\ ,fold:-,diff:┄
                             " Unicode chars for diffs/folds, and rely on
                             " Colors for window borders

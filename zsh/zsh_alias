@@ -15,9 +15,6 @@ alias gs='git status'
 alias gd='git diff'
 alias grp='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
 alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
-# override tmux & screen
-alias tmux=tmx2
-alias screen=tmx2
 # shortcuts and remaps
 alias vim='nvim -p'
 alias vi='nvim -p'
@@ -26,20 +23,20 @@ alias m='meteor'
 alias c='cordova'
 alias s='sudo'
 
-# docker-machine
+# docker
 alias d='docker'
 [ -f ~/.zsh_alias.docker ] && source ~/.zsh_alias.docker
 
 # docker-machine
-alias d='docker'
-alias dm='docker-machine'
-alias dma='docker-machine active'
-alias dm-ssh='docker-machine ssh `docker-machine active`'
-alias dm-ip='docker-machine ip `docker-machine active`'
-alias dm-env='docker-machine env `docker-machine active`'
-alias dm-inspect='docker-machine inspect `docker-machine active`'
-alias dm-config='docker-machine config `docker-machine active`'
+# alias d='docker'
+# alias dm='docker-machine'
+# alias dma='docker-machine active'
+# alias dm-ssh='docker-machine ssh `docker-machine active`'
+# alias dm-ip='docker-machine ip `docker-machine active`'
+# alias dm-env='docker-machine env `docker-machine active`'
+# alias dm-inspect='docker-machine inspect `docker-machine active`'
+# alias dm-config='docker-machine config `docker-machine active`'
 
-
-
+# more aliases, custom, if they exist
+[ -f ~/.zsh_alias.tmx2 ] && source ~/.zsh_alias.tmx2
 
