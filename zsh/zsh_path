@@ -3,6 +3,7 @@ PATH=$HOME/bin:$PATH
 PATH=/usr/bin/local:/usr/local/bin:$PATH
 PATH=/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
 PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
+PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
 #PATH=$PATH:/opt/local/heroku/bin
 PATH=$PATH:/opt/local/lib/percona/bin

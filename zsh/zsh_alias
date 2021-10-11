@@ -23,6 +23,9 @@ alias m='meteor'
 alias c='cordova'
 alias s='sudo'
 
+# autocomplete sometimes causes frustration
+alias npm run storybook='nocorrect npm run storybook'
+
 # docker
 alias d='docker'
 [ -f ~/.zsh_alias.docker ] && source ~/.zsh_alias.docker
