@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export DOTFILES="${HOME}/dotfiles/"
+export DOTFILES="${HOME}/dotfiles"
+export DOTZSH="${DOTFILES}/zsh"
 export ZSH="${DOTFILES}/oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -71,7 +72,7 @@ plugins=(
   iterm2
   jsontools
   kubectl
-  osx
+  macos
   pip
   python
   ssh-agent
@@ -139,10 +140,11 @@ fi
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-if [ -f "$HOME/.dotfiles/zsh/zsh_alias" ] ; then
-	source "$HOME/.dotfiles/zsh/zsh_alias"
-fi
 
+[ -f "${DOTZSH}/zsh_config.zsh" ] && source "${DOTZSH}/zsh_config.zsh"
+[ -f "${DOTZSH}/zsh_alias.zsh" ] && source "${DOTZSH}/zsh_alias.zsh"
+[ -f "${DOTZSH}/zsh_path.zsh" ] && source "${DOTZSH}/zsh_path.zsh"
+[ -f "${DOTZSH}/zsh_alias_git.zsh" ] && source "${DOTZSH}/zsh_alias_git.zsh"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -153,9 +155,17 @@ fi
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
-. $HOME/.asdf/asdf.sh
+export PATH="$HOME/.asdf/bin:$PATH"
+if [ -f $HOME/.asdf ] ; then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+fi
 
-. $HOME/.asdf/completions/asdf.bash
+# Android SDK & emuulator manager tools avdmanager
+if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
+  export PATH="$ANDROID_HOME/tools/bin:$PATH"
+fi
+
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/Users/alanblount/Code/flutter/bin:$PATH"
 
