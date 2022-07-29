@@ -37,6 +37,7 @@ check_file() {
     ensure_dir ~/tmp
 
 
+# next make sure each of these files are symlinked (or exist)
     check_file  gem       ~/.gemrc                         ${SRC}/gem/gemrc
     check_file  git       ~/.git                           ${SRC}/git
     check_file  git       ~/.gitconfig                     ${SRC}/git/gitconfig
@@ -50,6 +51,7 @@ check_file() {
     check_file  vim       ~/.config/nvim/init.vim          ${SRC}/config/nvim/init.vim
     check_file  zsh       ~/.zsh                           ${SRC}/zsh
     check_file  zsh       ~/.zshrc                         ${SRC}/zsh/zshrc
+    check_file  zsh       ~/.p10k.zsh                      ${SRC}/zsh/p10k.zsh
 
     # other stuff I usually don't need
     # --------------------------------
