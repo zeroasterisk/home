@@ -9,6 +9,7 @@ PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
 PATH=$PATH:/opt/local/lib/percona/bin
 #PATH=$PATH:$HOME/.rvm/bin
 PATH=$PATH:$HOME/.composer/vendor/bin
+PATH=$PATH:$HOME/google-cloud-sdk/bin
 PATH=/opt/local/lib/percona/bin:$PATH
 PATH=/usr/local/git/bin:$PATH
 

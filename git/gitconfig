@@ -9,7 +9,9 @@ smtpencryption = tls
 smtpuser = zeroasterisk@gmail.com
 
 [github]
-user = zeroasterisk
+  user = zeroasterisk
+  HostName = github.com
+  IdentityFile = ~/.sshalt/id_ed25519
 
 
 
@@ -136,3 +138,5 @@ http-clone = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[pull]
+	rebase = true
