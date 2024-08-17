@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd $HOME/dotfiles
+
+git submodule add https://github.com/romkatv/powerlevel10k.git powerlevel10k
+
+ln -s $HOME/dotfiles/powerlevel10k $HOME/dotfiles/oh-my-zsh/custom/themes/powerlevel10k

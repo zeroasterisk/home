@@ -7,12 +7,15 @@
 [submodule "tools/alchemist-server"]
 	path = tools/alchemist-server
 	url = https://github.com/tonini/alchemist-server.git
-[submodule "oh-my-zsh"]
-	path = oh-my-zsh
-	url = git://github.com/robbyrussell/oh-my-zsh.git
 [submodule "tmux"]
 	path = tmux
 	url = https://github.com/gpakosz/.tmux.git
 [submodule "asdf"]
 	path = asdf
 	url = https://github.com/asdf-vm/asdf.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "powerlevel10k"]
+	path = powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
