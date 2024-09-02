@@ -120,10 +120,6 @@ fi
 if [ -d "$HOME/go/bin" ] ; then
     export PATH="$HOME/go/bin:$PATH"
 fi
-# added by Miniconda3 installer
-if [ -d "$HOME/miniconda3" ] ; then
-# export PATH="$HOME/miniconda3/bin:$PATH"  # commented out by conda initialize
-fi
 # if we havae a ~/.npm-global/bin source that
 #   https://docs.npmjs.com/getting-started/fixing-npm-permissions
 if [ -d "$HOME/.npm-global/bin" ]; then
@@ -159,17 +155,16 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[[ -f "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh" ]] && . "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/alanblount/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+[[ -f "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
 export PATH="$HOME/.asdf/bin:$PATH"
 if [ -f $HOME/.asdf ] ; then
   . $HOME/.asdf/asdf.sh
   . $HOME/.asdf/completions/asdf.bash
 fi
-<<<<<<< HEAD
 
 # Android SDK & emuulator manager tools avdmanager
 if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
@@ -177,40 +172,25 @@ if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
 fi
 
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/Users/alanblount/Code/flutter/bin:$PATH"
+export PATH="${HOME}/Code/flutter/bin:$PATH"
 
 # ruby and gems and cocoapods
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
 export PATH=$GEM_HOME/ruby/2.6.0/bin:$PATH
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/alanblount/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/alanblount/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/alanblount/opt/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/alanblount/opt/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/alanblount/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/alanblount/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then
+  . "${HOME}/google-cloud-sdk/path.zsh.inc";
+fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/alanblount/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/alanblount/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then
+  . "${HOME}/google-cloud-sdk/completion.zsh.inc";
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/alan/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/alan/google-cloud-sdk/path.zsh.inc'; fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/alan/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/alan/google-cloud-sdk/completion.zsh.inc'; fi
+
