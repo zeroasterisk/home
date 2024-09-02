@@ -160,11 +160,15 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
-export PATH="$HOME/.asdf/bin:$PATH"
+export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 if [ -f $HOME/.asdf ] ; then
   . $HOME/.asdf/asdf.sh
   . $HOME/.asdf/completions/asdf.bash
 fi
+if [ -f $HOME/.asdf/plugins/golang/set-env.zsh ] ; then
+  . $HOME/.asdf/plugins/golang/set-env.zsh
+fi
+
 
 # Android SDK & emuulator manager tools avdmanager
 if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
