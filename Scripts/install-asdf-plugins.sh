@@ -71,9 +71,11 @@ asdf global gcloud latest
 
 asdf plugin add neovim
 asdf install neovim stable
+asdf global neovim stable
 
 export CFLAGS="$CFLAGS -I$(brew --prefix)/include"
 export LDFLAGS="$LDFLAGS -L$(brew --prefix)/lib"
-export ASDF_FFMPEG_ENABLE="graph2dot libaom fontconfig freetype frei0r lame libass libvorbis libvpx opus rtmpdump sdl2 snappy theora x264 x265 xz"
+
+export ASDF_FFMPEG_ENABLE="graph2dot libaom fontconfig frei0r libass libvorbis libvpx sdl2 libx264 libfdk-aac libopus libmp3lame libass gpl nonfree"
 asdf install ffmpeg latest
 asdf global ffmpeg latest
