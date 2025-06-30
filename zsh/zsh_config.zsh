@@ -32,7 +32,42 @@ export GRADLE_HOME="/opt/local/share/java/gradle"
 #export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 #export PATH="$NPM_PACKAGES/bin:$PATH"
 
+if [[ "$OSTYPE" == darwin* ]]; then
 
+	# docker-machine env default
+	# export DOCKER_TLS_VERIFY="1"
+	# export DOCKER_HOST="tcp://192.168.99.100:2376"
+	# export DOCKER_CERT_PATH="/Users/alan/.docker/machine/machines/default"
+	# export DOCKER_MACHINE_NAME="default"
+
+	#export VISUAL="/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+	export VISUAL="/Applications/SublimeText.app/Contents/SharedSupport/bin/subl"
+	#export VISUAL="/Applications/MacVim.app/Contents/MacOS/MacVim"
+
+  # renamed user account "admin" to "alan"
+  # but the HOME is not different :(
+  if [[ -f /Users/alan/.zsh_config.osx ]]; then
+    export HOME=/Users/alan
+  fi
+
+  # CHROME_BIN for Selenium testing
+  #   so that we can test on Canary, and use Chrome
+  #CANARY_BIN="/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary"
+  #if [[ -f $CANARY_BIN ]]; then
+    #CHROME_BIN=$CANARY_BIN
+  #fi
+
+  export ANDROID_HOME=/Users/alan/Library/Android/sdk
+  export JAVA_HOME=$(/usr/libexec/java_home)
+
+  # VirtualBox default settings for docker-machine
+  #   4 CPU, 6 G RAM, 80 G HDD
+  VIRTUALBOX_CPU_COUNT=4
+  VIRTUALBOX_MEMORY_SIZE=6144
+  VIRTUALBOX_DISK_SIZE=80000
+
+  test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+fi
 
 ###-begin-pm2-completion-###
 ### credits to npm for the completion file model

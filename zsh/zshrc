@@ -96,16 +96,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 export EDITOR='vim'
-
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -119,7 +113,6 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 [ -f "${DOTZSH}/zsh_config.zsh" ] && source "${DOTZSH}/zsh_config.zsh"
 [ -f "${DOTZSH}/zsh_alias.zsh" ] && source "${DOTZSH}/zsh_alias.zsh"
 [ -f "${DOTZSH}/zsh_path.zsh" ] && source "${DOTZSH}/zsh_path.zsh"
-[ -f "${DOTZSH}/zsh_alias_git.zsh" ] && source "${DOTZSH}/zsh_alias_git.zsh"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -130,30 +123,6 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
-# most paths are in zsh_path.zsh
-export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
-if [ -f $HOME/.asdf ] ; then
-  . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
-fi
-if [ -f $HOME/.asdf/plugins/golang/set-env.zsh ] ; then
-  . $HOME/.asdf/plugins/golang/set-env.zsh
-fi
-# Android SDK & emuulator manager tools avdmanager
-if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
-  export PATH="$ANDROID_HOME/tools/bin:$PATH"
-fi
-
-# ruby and gems and cocoapods
-export GEM_HOME=$HOME/.gem
-export PATH=$GEM_HOME/bin:$PATH
-export PATH=$GEM_HOME/ruby/2.6.0/bin:$PATH
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then
-  . "${HOME}/google-cloud-sdk/path.zsh.inc";
-fi
-
 # The next line enables shell command completion for gcloud.
 if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then
   . "${HOME}/google-cloud-sdk/completion.zsh.inc";
@@ -161,6 +130,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-
