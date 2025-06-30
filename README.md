@@ -1,9 +1,17 @@
-Alan's home directorty & dot files
-====
+# Alan's Dotfiles
 
-note: vim directory is a submodule and it also contolled by
-[vundle](https://github.com/gmarik/vundle/)
+This repository contains my personal dotfiles and configurations.
 
-Launch vim, run :BundleInstall (or vim +BundleInstall +qall for CLI lovers)
+## 🚀 Install
 
+To install, run the following command from the root of this repository:
 
+```bash
+./dotfile_admin/install.sh --install
+```
+
+For more detailed instructions and other management commands (like `--upgrade` or `--uninstall`), please see the [Dotfiles Administration README](./dotfile_admin/README.md).
+
+## Vim
+
+The vim configuration is managed by `vim-plug`. After installation, you can update plugins by running `:PlugUpdate` from within Neovim.
