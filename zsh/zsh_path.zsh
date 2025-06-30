@@ -1,31 +1,17 @@
 
-path=(
-  $HOME/bin
-  /usr/bin/local
-  /usr/local/bin
-  /usr/local/pgsql/bin
-  /usr/local/php5/bin
-  /opt/local/bin
-  /opt/local/sbin
-  /usr/local/mysql/bin
-  /Applications/Xcode.app/Contents/Developer/usr/bin
-  /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
-  $HOME/opt/vert.x-2.1.1/bin
-  /opt/local/lib/percona/bin
-  $HOME/.composer/vendor/bin
-  $HOME/google-cloud-sdk/bin
-  /usr/local/git/bin
-  $HOME/dotfiles/asdf/installs/golang/1.23.1/bin
-  $HOME/dotfiles/asdf/installs/python/3.11.3/bin
-  $HOME/.npm-global/bin
-  /usr/local/opt/gnu-sed/libexec/gnubin
-  ${HOME}/Code/flutter/bin
-  $HOME/.gem/bin
-  $HOME/.gem/ruby/2.6.0/bin
-  $HOME/.asdf/bin
-  $HOME/.asdf/shims
-  $PATH
-)
+PATH=$HOME/bin:$PATH
+PATH=/usr/bin/local:/usr/local/bin:$PATH
+PATH=/usr/local/pgsql/bin:/usr/local/php5/bin:/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
+PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH
+PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+PATH=$PATH:$HOME/opt/vert.x-2.1.1/bin
+#PATH=$PATH:/opt/local/heroku/bin
+PATH=$PATH:/opt/local/lib/percona/bin
+#PATH=$PATH:$HOME/.rvm/bin
+PATH=$PATH:$HOME/.composer/vendor/bin
+PATH=$PATH:$HOME/google-cloud-sdk/bin
+PATH=/opt/local/lib/percona/bin:$PATH
+PATH=/usr/local/git/bin:$PATH
 
 # PATH CLEAUP
 # There's something funky as hell in the PATH before it gets to .zshenv (etc)
