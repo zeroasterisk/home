@@ -3,7 +3,7 @@ PATH=$HOME/homebrew/bin:$PATH
 PATH=$HOME/Library/Android/sdk/tools/bin:$PATH
 PATH=$HOME/Library/Android/sdk/platform-tools:$PATH
 # added by Miniconda3 4.3.21 installer
-PATH="/Users/alan/miniconda3/bin:$PATH"
+#PATH=$HOME/alan/miniconda3/bin:$PATH
 
 ###-tns-completion-start-###
 if [ -f /Users/alan/.tnsrc ]; then

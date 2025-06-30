@@ -10,6 +10,7 @@ alias -g MVC="Model Controller View Lib" # eg: ag term MVC
 #   gws, gwd, gp, gfr
 alias gti='git'
 alias g='git'
+alias gc='git commit -a -m "$(git diff head | llm -s -t commit-msg)" -e'
 # overrides the git alias
 alias gs='git status'
 alias gd='git diff'

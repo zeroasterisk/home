@@ -50,7 +50,7 @@ if ! zstyle -t ':prezto:module:git:alias' skip 'yes'; then
   alias gbX='git branch --delete --force'
 
   # Commit (c)
-  alias gc='git commit --verbose'
+  # alias gc='git commit --verbose'
   alias gca='git commit --verbose --all'
   alias gcm='git commit --message'
   alias gcS='git commit -S --verbose'
