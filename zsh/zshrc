@@ -82,8 +82,8 @@ plugins=(
   #jsontools
   #kubectl
   macos
-  pip
-  python
+  #pip
+  #python
   ssh-agent
   sudo
   tig
@@ -101,41 +101,11 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/gbin" ] ; then
-    export PATH="$HOME/gbin:$PATH"
-fi
-if [ -d "$HOME/.local/bin" ] ; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-if [ -d "$HOME/go/bin" ] ; then
-    export PATH="$HOME/go/bin:$PATH"
-fi
-# if we havae a ~/.npm-global/bin source that
-#   https://docs.npmjs.com/getting-started/fixing-npm-permissions
-if [ -d "$HOME/.npm-global/bin" ]; then
-  export PATH="$HOME/.npm-global/bin:$PATH"
-fi
-
-if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
-  export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
-fi
+export EDITOR='vim'
 
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -160,6 +130,7 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "${HOME}/.npm-global/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
+# most paths are in zsh_path.zsh
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 if [ -f $HOME/.asdf ] ; then
   . $HOME/.asdf/asdf.sh
@@ -168,15 +139,10 @@ fi
 if [ -f $HOME/.asdf/plugins/golang/set-env.zsh ] ; then
   . $HOME/.asdf/plugins/golang/set-env.zsh
 fi
-
-
 # Android SDK & emuulator manager tools avdmanager
 if [ -f $ANDROID_HOME/tools/bin/avdmanager ] ; then
   export PATH="$ANDROID_HOME/tools/bin:$PATH"
 fi
-
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="${HOME}/Code/flutter/bin:$PATH"
 
 # ruby and gems and cocoapods
 export GEM_HOME=$HOME/.gem
