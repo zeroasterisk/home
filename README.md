@@ -7,6 +7,9 @@ This repository contains my personal dotfiles and configurations.
 To install, run the following command from the root of this repository:
 
 ```bash
+cd ~
+git clone git@github.com:zeroasterisk/home.git dotfiles
+cd dotfiles
 ./dotfile_admin/install.sh --install
 ```
 

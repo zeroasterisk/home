@@ -7,7 +7,18 @@ This directory contains all the scripts for installing, updating, and managing t
 To get started, run the main installation script from the root of the repository:
 
 ```bash
+cd ~
+git clone git@github.com:zeroasterisk/home.git dotfiles
+cd dotfiles
 ./dotfile_admin/install.sh --install
+```
+
+## Prerequisite
+
+```bash
+cd ~
+git clone git@github.com:zeroasterisk/home.git dotfiles
+cd dotfiles
 ```
 
 ## Usage
@@ -31,6 +42,3 @@ The main script is `./install.sh`. It is safe by default and will display a help
 ./install.sh --uninstall
 ```
 
-### Source
-
-This repository is cloned from `git@github.com:zeroasterisk/home.git`.
