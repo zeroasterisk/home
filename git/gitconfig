@@ -140,3 +140,8 @@
   process = git-lfs filter-process
 [pull]
   rebase = true
+[url "sso://applied-ai-engineering/"]
+	insteadOf = https://applied-ai-engineering.googlesource.com/
+	insteadOf = https://applied-ai-engineering-review.googlesource.com/
+	insteadOf = http://applied-ai-engineering.googlesource.com/
+	insteadOf = http://applied-ai-engineering-review.googlesource.com/
