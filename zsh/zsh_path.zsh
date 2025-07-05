@@ -27,6 +27,8 @@ path=(
   $HOME/.asdf/bin
   $HOME/.asdf/shims
   $HOME/dotfiles/bin
+  $GOBIN
+  /opt/podman/bin
   /opt/local/lib/percona/bin
   /usr/local/git/bin
   $path
