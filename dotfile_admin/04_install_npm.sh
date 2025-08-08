@@ -37,8 +37,10 @@ packages=(
   pm2
 )
 
+installed_packages=$(npm list -g --depth=0)
+
 for package in "${packages[@]}"; do
-  if npm list -g --depth=0 | grep -q "$package@"; then
+  if echo "$installed_packages" | grep -q "$package@"; then
     info "npm package '$package' is already installed."
   else
     info "Installing npm package '$package'..."

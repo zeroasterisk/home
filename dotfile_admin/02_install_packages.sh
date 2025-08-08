@@ -31,10 +31,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   info "Installing Homebrew packages..."
 
   formulas=(
-    tmux git tig nmap htop tree nmap
+    tmux git tig htop tree nmap
     openssl readline sqlite3 xz zlib tcl-tk
     autoconf wxwidgets libxslt fop
-    automake git
+    automake
     wget curl
     jq
     ripgrep exa fd fzf ag
@@ -95,26 +95,6 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
       "ruby" "python" "perl" "golang" \
       "mtr" "nmap"
 
-  # Node.js
-  execute "curl" "-sL" "https://deb.nodesource.com/setup_4.x" "|" "sudo" "-E" "bash" "-"
-  execute "sudo" "apt-get" "install" "-y" "nodejs"
-
-  # Docker
-  execute "rm" "-rf" "/etc/apt/sources.list.d/docker.list"
-  execute "sudo" "apt-key" "adv" "--keyserver" "hkp://p80.pool.sks-keyservers.net:80" "--recv-keys" "58118E89F3A912897C070ADBF76221572C52609D"
-  V=`lsb_release -rs`
-  if [[ $V == "14.04" ]]; then
-  	execute "echo" "\"deb https://apt.dockerproject.org/repo ubuntu-trusty main\"" ">>" "/etc/apt/sources.list.d/docker.list"
-  elif [[ $V == "15.05" ]]; then
-  	execute "echo" "\"deb https://apt.dockerproject.org/repo ubuntu-vivid main\"" ">>" "/etc/apt/sources.list.d/docker.list"
-  elif [[ $V == "15.10" ]]; then
-  	execute "echo" "\"deb https://apt.dockerproject.org/repo ubuntu-wily main\"" ">>" "/etc/apt/sources.list.d/docker.list"
-  fi
-  execute "apt-get" "update"
-  execute "apt-get" "purge" "lxc-docker"
-  execute "apt-cache" "policy" "docker-engine"
-  execute "apt-get" "install" "-y" "linux-image-extra-$(uname -r)"
-
   # Elixir
   execute "wget" "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" "&&" "sudo" "dpkg" "-i" "erlang-solutions_1.0_all.deb"
   execute "sudo" "apt-get" "update"
@@ -128,6 +108,7 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   execute "sudo" "pip" "install" "ansible"
 
   # Silversearcher-ag
+  V=`lsb_release -rs`
   if [[ $V -gt 12 ]]; then
       execute "apt-get" "install" "-y" "silversearcher-ag"
   fi
