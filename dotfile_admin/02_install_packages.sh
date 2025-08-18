@@ -31,14 +31,13 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   info "Installing Homebrew packages..."
 
   formulas=(
-    tmux git tig htop tree nmap
-    zsh oh-my-zsh
+    tmux git tig htop tree nmap zsh gnu-tar gnupg
     openssl readline sqlite3 xz zlib tcl-tk
     autoconf wxwidgets libxslt fop
     automake git
     asdf
     wget curl jq
-    ripgrep exa fd fzf ag
+    ripgrep fd fzf ag
     fdk-aac lame libass libtool libvorbis libvpx
     opus sdl2 shtool texi2html theora wget x264 x265 xvid nasm zimg
     frei0r
@@ -58,8 +57,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     font-hack-nerd-font
     font-meslo-lg-nerd-font
   )
-
-  execute "brew" "tap" "homebrew/cask-fonts"
 
   for cask in "${casks[@]}"; do
     if brew list --cask | grep -q "^$cask$"; then
