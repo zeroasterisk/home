@@ -32,13 +32,13 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 
   formulas=(
     tmux git tig htop tree nmap
+    zsh oh-my-zsh
     openssl readline sqlite3 xz zlib tcl-tk
     autoconf wxwidgets libxslt fop
-    automake
-    wget curl
-    jq
+    automake git
+    asdf
+    wget curl jq
     ripgrep exa fd fzf ag
-    zsh oh-my-zsh
     fdk-aac lame libass libtool libvorbis libvpx
     opus sdl2 shtool texi2html theora wget x264 x265 xvid nasm zimg
     frei0r

@@ -19,6 +19,7 @@ bindkey -v
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!.meteor/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export ASDF_DATA_DIR="${HOME}/.asdf"
 
 # elixir/erlang iex history
 export ERL_AFLAGS="-kernel shell_history enabled"

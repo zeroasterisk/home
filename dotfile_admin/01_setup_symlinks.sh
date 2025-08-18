@@ -63,7 +63,6 @@ symlinks=(
   "$DOTFILES_DIR/git/gitk:$HOME/.gitk"
   "$DOTFILES_DIR/tmux/.tmux.conf:$HOME/.tmux.conf"
   "$DOTFILES_DIR/terminfo:$HOME/.terminfo"
-  "$DOTFILES_DIR/asdf:$HOME/.asdf"
   "$DOTFILES_DIR/bin:$HOME/bin"
   "$DOTFILES_DIR/vim:$HOME/.vim"
   "$DOTFILES_DIR/vim/vimrc:$HOME/.vimrc"
