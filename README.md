@@ -1,6 +1,16 @@
 # Alan's Dotfiles
 
-This repository contains my personal dotfiles and configurations, managed entirely via automated scripts. The environment uses [Homebrew](https://brew.sh/) for OS packages, [ASDF](https://asdf-vm.com/) for language runtimes, [vim-plug](https://github.com/junegunn/vim-plug) for NeoVim, and [TPM](https://github.com/tmux-plugins/tpm) for Tmux.
+This repository contains my personal dotfiles and configurations, managed entirely via automated scripts. The environment is optimized for development on macOS and Linux, leveraging native package managers to keep the core repository clean and portable.
+
+## 🛠 Built With
+
+- **Shell:** [Zsh](https://www.zsh.org/) + [Oh My Zsh](https://ohmyz.sh/) + [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- **Editor:** [NeoVim](https://neovim.io/) (managed via [vim-plug](https://github.com/junegunn/vim-plug))
+- **Terminal Multiplexer:** [Tmux](https://github.com/tmux/tmux) (managed via [TPM](https://github.com/tmux-plugins/tpm))
+- **Runtimes:** [ASDF](https://asdf-vm.com/) (versions pinned in `tool-versions`)
+- **OS Packages:** [Homebrew](https://brew.sh/) (macOS) or `apt` (Linux)
+
+---
 
 ## 🚀 Core Workflows
 
@@ -35,12 +45,23 @@ git push
 ```
 
 ### 4. Minimal Install (Limited Systems)
-For environments like a NAS or a minimal container, you can bypass all package managers (Brew/Apt, ASDF) and plugins, and exclusively symlink your core dotfiles:
+For environments like a NAS or a minimal container, you can bypass all package managers and plugins, and exclusively symlink your core dotfiles:
 
 ```bash
 cd ~/dotfiles
 ./dotfile_admin/install.sh --minimal
 ```
+
+---
+
+## 📂 Repository Structure
+
+- `zsh/`: Modular Zsh configuration (aliases, path, env, completions).
+- `vim/`: NeoVim configuration split into `plugins.vim`, `mappings.vim`, and `options.vim`.
+- `dotfile_admin/`: The automation engine that powers installation and upgrades.
+- `bin/`: Custom scripts and utilities added to your `$PATH`.
+- `tmux.conf.local`: Personalized Tmux configuration (based on gpakosz/.tmux).
+- `tool-versions`: Global ASDF runtime version pins.
 
 ## More Details
 For more detailed instructions and other management commands (like `--dry-run` or `--uninstall`), please see the [Dotfiles Administration README](./dotfile_admin/README.md).
