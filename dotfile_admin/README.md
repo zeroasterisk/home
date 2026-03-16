@@ -34,6 +34,14 @@ cd ~/dotfiles
 git push
 ```
 
+### 4. Minimal Install (Limited Systems)
+For environments like a NAS or a minimal container, you can bypass all package managers and plugins, and exclusively symlink your core dotfiles (tmux, vim, zsh):
+
+```bash
+cd ~/dotfiles
+./dotfile_admin/install.sh --minimal
+```
+
 ## Full Usage
 
 The main script is `./install.sh`. It is safe by default and will display a help message if run without any arguments.
@@ -47,6 +55,9 @@ The main script is `./install.sh`. It is safe by default and will display a help
 
 # Install everything (safe to run multiple times)
 ./install.sh --install
+
+# Install ONLY symlinks for limited systems (e.g., NAS)
+./install.sh --minimal
 
 # Upgrade all packages to latest, update .tool-versions, and git commit
 ./install.sh --upgrade

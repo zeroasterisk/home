@@ -34,5 +34,13 @@ cd ~/dotfiles
 git push
 ```
 
+### 4. Minimal Install (Limited Systems)
+For environments like a NAS or a minimal container, you can bypass all package managers (Brew/Apt, ASDF) and plugins, and exclusively symlink your core dotfiles:
+
+```bash
+cd ~/dotfiles
+./dotfile_admin/install.sh --minimal
+```
+
 ## More Details
 For more detailed instructions and other management commands (like `--dry-run` or `--uninstall`), please see the [Dotfiles Administration README](./dotfile_admin/README.md).
