@@ -89,30 +89,24 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   execute "apt-get" "update"
   execute "apt-get" "install" "-y" "build-essential" "libssl-dev" \
       "git" "zsh" "tmux" "htop" \
-      "ruby" "python" "perl" "golang" \
-      "mtr" "nmap"
+      "ruby" "python3" "perl" "golang" \
+      "mtr" "nmap" "curl" "wget" "jq" \
+      "ripgrep" "fd-find"
 
   # Silversearcher-ag
-  V=`lsb_release -rs`
-  if [[ $V -gt 12 ]]; then
+  if apt-cache show silversearcher-ag &>/dev/null; then
       execute "apt-get" "install" "-y" "silversearcher-ag"
   fi
 
-  # Elixir
-  #execute "wget" "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" "&&" "sudo" "dpkg" "-i" "erlang-solutions_1.0_all.deb"
-  #execute "sudo" "apt-get" "update"
-  #execute "sudo" "apt-get" "install" "-y" "esl-erlang" "elixir"
-
-  # Pip
-  execute "sudo" "apt-get" "install" "-y" "python-pip" "python-dev" "build-essential"
-  execute "sudo" "pip" "install" "--upgrade" "pip"
-  execute "sudo" "pip" "install" "-U" "pip" "setuptools"
-  execute "sudo" "pip" "install" "wheel"
-  execute "sudo" "pip" "install" "ansible"
-
+  # Python & Build Tools
+  execute "apt-get" "install" "-y" "python3-pip" "python3-dev" "python3-venv" "build-essential"
+  
+  # Note: Global pip installs are discouraged on modern Debian/Ubuntu systems 
+  # (PEP 668). We rely on ASDF and pipx (configured in 03_install_asdf.sh) 
+  # for Python tools like Ansible.
 
   # Cleanup
-  execute "apt-get" "autoremove"
+  execute "apt-get" "autoremove" "-y"
 
   success "apt packages installed successfully."
 else
