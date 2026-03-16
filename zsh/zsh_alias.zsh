@@ -23,7 +23,7 @@ alias v='nvim -p'
 alias cc='CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude --allow-dangerously-skip-permissions --dangerously-skip-permissions'
 
 # autocomplete sometimes causes frustration
-alias npm run storybook='nocorrect npm run storybook'
+alias storybook='nocorrect npm run storybook'
 
 # docker
 alias d='docker'
