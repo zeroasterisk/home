@@ -35,7 +35,7 @@ install_plugin() {
 
   info "Installing latest version of '$name'..."
   execute "asdf" "install" "$name" "latest"
-  execute "asdf" "set" "$name" "latest"
+  execute "asdf" "set" "-u" "$name" "latest"
 }
 
 # ------------------------------------------------------------------------------

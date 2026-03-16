@@ -19,9 +19,8 @@ alias grr='git pull --rebase origin "$(git-branch-current 2> /dev/null)" && git 
 alias vim='nvim -p'
 alias vi='nvim -p'
 alias v='nvim -p'
-alias m='meteor'
-alias c='cordova'
-alias s='sudo'
+# Dev shortcuts
+alias cc='CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude --allow-dangerously-skip-permissions --dangerously-skip-permissions'
 
 # autocomplete sometimes causes frustration
 alias npm run storybook='nocorrect npm run storybook'
@@ -29,6 +28,14 @@ alias npm run storybook='nocorrect npm run storybook'
 # docker
 alias d='docker'
 [ -f ~/.zsh_alias.docker ] && source ~/.zsh_alias.docker
+
+# Shortcuts for nas
+# Push files to a remote host (Generic)
+alias rpush='rsync -avzP -e "ssh -o ClearAllForwardings=yes"'
+# Pull files from a remote host (Generic)
+alias rpull='rsync -avzP -e "ssh -o ClearAllForwardings=yes"'
+# Dry-run for rsync (The Safety Switch)
+alias rtest='rsync -avzP -n -e "ssh -o ClearAllForwardings=yes"'
 
 # docker-machine
 # alias d='docker'
@@ -68,8 +75,10 @@ zstyle -s ':prezto:module:git:log:brief' format '_git_log_brief_format' \
 zstyle -s ':prezto:module:git:status:ignore' submodules '_git_status_ignore_submodules' \
   || _git_status_ignore_submodules='none'
 
+
+
 #
-# Aliases
+# Aliases from git
 #
 
 if ! zstyle -t ':prezto:module:git:alias' skip 'yes'; then

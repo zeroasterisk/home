@@ -21,15 +21,16 @@ path=(
   /usr/local/mysql/bin
   /Applications/Xcode.app/Contents/Developer/usr/bin
   "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-  $HOME/opt/vert.x-2.1.1/bin
-  $HOME/.composer/vendor/bin
   $HOME/google-cloud-sdk/bin
+  $HOME/.composer/vendor/bin
   $HOME/.asdf/bin
   $HOME/.asdf/shims
+  $HOME/.jetski/jetski/bin
+  $HOME/.antigravity/antigravity/bin
   $HOME/dotfiles/bin
+  $HOME/dotfiles/asdf/installs/golang/1.25.0/bin
   $GOBIN
   /opt/podman/bin
-  /opt/local/lib/percona/bin
   /usr/local/git/bin
   $path
 )

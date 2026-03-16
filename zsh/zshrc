@@ -91,6 +91,8 @@ export EDITOR='vim'
 [ -f "${DOTZSH}/zsh_config.zsh" ] && source "${DOTZSH}/zsh_config.zsh"
 [ -f "${DOTZSH}/zsh_alias.zsh" ] && source "${DOTZSH}/zsh_alias.zsh"
 [ -f "${DOTZSH}/zsh_path.zsh" ] && source "${DOTZSH}/zsh_path.zsh"
+[ -f "${DOTZSH}/zsh_env.zsh" ] && source "${DOTZSH}/zsh_env.zsh"
+[ -f "${DOTZSH}/zsh_env.zsh.local" ] && source "${DOTZSH}/zsh_env.zsh.local"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -101,6 +103,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+<<<<<<< HEAD
 
 # Alias to local gemini cli binary
 alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
@@ -134,4 +137,19 @@ gcert() {
   fixup_ssh_auth_sock
   command gcert "$@"
 }
+
+# Auto-switch gcloud config on directory change
+autoload -U add-zsh-hook
+load-gcloud-config() {
+  if [[ -f .gcloud-config ]]; then
+    local conf=$(cat .gcloud-config)
+    export CLOUDSDK_ACTIVE_CONFIG_NAME="$conf"
+    echo "☁️ gcloud: $conf"
+  else
+    # Optional: unset to revert to default when leaving the folder
+    unset CLOUDSDK_ACTIVE_CONFIG_NAME
+  fi
+}
+add-zsh-hook chpwd load-gcloud-config
+load-gcloud-config # run once on startup
 
