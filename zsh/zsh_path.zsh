@@ -21,7 +21,6 @@ path=(
   /usr/local/mysql/bin
   /Applications/Xcode.app/Contents/Developer/usr/bin
   "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-  $HOME/google-cloud-sdk/bin
   $HOME/.composer/vendor/bin
   $HOME/.asdf/bin
   $HOME/.asdf/shims
@@ -61,15 +60,4 @@ path=(
   $path
 )
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then
-  . "${HOME}/google-cloud-sdk/path.zsh.inc";
-fi
-
 export MANPATH="/opt/local/share/man:$MANPATH"
-
-###-tns-completion-start-###
-if [ -f /Users/alan/.tnsrc ]; then
-    source /Users/alan/.tnsrc
-fi
-###-tns-completion-end-###
