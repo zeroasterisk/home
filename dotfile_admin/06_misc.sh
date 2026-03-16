@@ -23,3 +23,13 @@ else
   # Optional: Still try to install missing plugins when the script is run
   nvim --headless +PlugInstall +qall
 fi
+
+# Tmux Plugin Manager (TPM)
+if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+  echo "Installing Tmux Plugin Manager (TPM)..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  ~/.tmux/plugins/tpm/bin/install_plugins
+else
+  echo "Tmux Plugin Manager (TPM) is already installed."
+  ~/.tmux/plugins/tpm/bin/update_plugins all
+fi

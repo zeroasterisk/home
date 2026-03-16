@@ -70,6 +70,7 @@ symlinks=(
   "$DOTFILES_DIR/zsh:$HOME/.zsh"
   "$DOTFILES_DIR/zsh/zshrc:$HOME/.zshrc"
   "$DOTFILES_DIR/zsh/p10k.zsh:$HOME/.p10k.zsh"
+  "$DOTFILES_DIR/tool-versions:$HOME/.tool-versions"
 )
 
 for symlink in "${symlinks[@]}"; do
