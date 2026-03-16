@@ -101,11 +101,37 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Alias to local gemini cli binary
 alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
-alias gemini='/google/bin/releases/gemini-cli/tools/gemini'
+
+# Configure g4d completions if present
+[[ ! -f /etc/bash_completion.d/g4d ]] || source /etc/bash_completion.d/g4d
+# Configure glinux custom files if present
+[[ ! -f "${DOTZSH}/glinux.sh" ]] || source "${DOTZSH}/glinux.sh"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/usr/local/google/home/alanblount/google-cloud-sdk/path.zsh.inc' ]; then . '/usr/local/google/home/alanblount/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/usr/local/google/home/alanblount/google-cloud-sdk/completion.zsh.inc' ]; then . '/usr/local/google/home/alanblount/google-cloud-sdk/completion.zsh.inc'; fi
+
+fixup_ssh_auth_sock() {
+  if [[ -n ${SSH_AUTH_SOCK} && ! -e ${SSH_AUTH_SOCK} ]]; then
+    local new_sock=$(echo /tmp/ssh-*/agent.*(-UNom[1]))
+    if [[ -n ${new_sock} ]]; then
+      export SSH_AUTH_SOCK=${new_sock}
+    fi
+  fi
+}
+
+# Run before each command
+autoload -U add-zsh-hook
+add-zsh-hook preexec fixup_ssh_auth_sock
+
+# Or, alias gcert to run the fixup first
+gcert() {
+  fixup_ssh_auth_sock
+  command gcert "$@"
+}
+

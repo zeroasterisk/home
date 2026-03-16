@@ -92,10 +92,16 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
       "ruby" "python" "perl" "golang" \
       "mtr" "nmap"
 
+  # Silversearcher-ag
+  V=`lsb_release -rs`
+  if [[ $V -gt 12 ]]; then
+      execute "apt-get" "install" "-y" "silversearcher-ag"
+  fi
+
   # Elixir
-  execute "wget" "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" "&&" "sudo" "dpkg" "-i" "erlang-solutions_1.0_all.deb"
-  execute "sudo" "apt-get" "update"
-  execute "sudo" "apt-get" "install" "-y" "esl-erlang" "elixir"
+  #execute "wget" "https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" "&&" "sudo" "dpkg" "-i" "erlang-solutions_1.0_all.deb"
+  #execute "sudo" "apt-get" "update"
+  #execute "sudo" "apt-get" "install" "-y" "esl-erlang" "elixir"
 
   # Pip
   execute "sudo" "apt-get" "install" "-y" "python-pip" "python-dev" "build-essential"
@@ -104,11 +110,6 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   execute "sudo" "pip" "install" "wheel"
   execute "sudo" "pip" "install" "ansible"
 
-  # Silversearcher-ag
-  V=`lsb_release -rs`
-  if [[ $V -gt 12 ]]; then
-      execute "apt-get" "install" "-y" "silversearcher-ag"
-  fi
 
   # Cleanup
   execute "apt-get" "autoremove"
