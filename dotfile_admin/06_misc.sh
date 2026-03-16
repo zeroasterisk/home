@@ -16,6 +16,10 @@ if [[ ! -f "$HOME/.local/share/nvim/site/autoload/plug.vim" ]]; then
   echo "Install NeoVim vim-plug"
   curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  echo "Installing Vim plugins..."
+  nvim --headless +PlugInstall +qall
 else
   echo "NeoVim vim-plug is already installed."
+  # Optional: Still try to install missing plugins when the script is run
+  nvim --headless +PlugInstall +qall
 fi
