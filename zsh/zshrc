@@ -152,3 +152,9 @@ load-gcloud-config() {
 }
 add-zsh-hook chpwd load-gcloud-config
 load-gcloud-config # run once on startup
+
+# Added by Antigravity
+export PATH="/Users/alanblount/.antigravity/antigravity/bin:$PATH"
+
+# opencode
+export PATH=/Users/alanblount/.opencode/bin:$PATH
