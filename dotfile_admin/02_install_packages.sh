@@ -38,6 +38,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     asdf
     wget curl jq
     ripgrep fd fzf ag
+    uv bun
     fdk-aac lame libass libtool libvorbis libvpx
     opus sdl2 shtool texi2html theora wget x264 x265 xvid nasm zimg
     frei0r
