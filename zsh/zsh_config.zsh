@@ -42,7 +42,9 @@ if [[ "$OSTYPE" == darwin* ]]; then
   fi
 
   export ANDROID_HOME=/Users/alan/Library/Android/sdk
-  export JAVA_HOME=$(/usr/libexec/java_home)
+  if /usr/libexec/java_home >/dev/null 2>&1; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+  fi
 
   # VirtualBox default settings for docker-machine
   #   4 CPU, 6 G RAM, 80 G HDD

@@ -3,34 +3,36 @@
 # Add custom paths to the front of the PATH
 # typeset -U ensures that the path is unique
 typeset -U path
-
 path=(
-  $HOME/bin
-  $HOME/gbin
+  $GOBIN
+  $HOME/.antigravity/antigravity/bin
+  $HOME/.asdf/bin
+  $HOME/.asdf/installs/rust/1.89.0/bin
+  $HOME/.asdf/shims
+  $HOME/.bun/bin
+  $HOME/.composer/vendor/bin
+  $HOME/.jetski/jetski/bin
   $HOME/.local/bin
-  $HOME/go/bin
+  $HOME/.local/share/pnpm
   $HOME/.npm-global/bin
   $HOME/Code/flutter/bin
-  /usr/local/opt/gnu-sed/libexec/gnubin
-  /usr/bin/local
-  /usr/local/bin
-  /usr/local/pgsql/bin
-  /usr/local/php5/bin
+  $HOME/bin
+  $HOME/dotfiles/asdf/installs/golang/1.25.0/bin
+  $HOME/dotfiles/bin
+  $HOME/gbin
+  $HOME/go/bin
+  /Applications/Xcode.app/Contents/Developer/usr/bin
   /opt/local/bin
   /opt/local/sbin
-  /usr/local/mysql/bin
-  /Applications/Xcode.app/Contents/Developer/usr/bin
-  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-  $HOME/.composer/vendor/bin
-  $HOME/.asdf/bin
-  $HOME/.asdf/shims
-  $HOME/.jetski/jetski/bin
-  $HOME/.antigravity/antigravity/bin
-  $HOME/dotfiles/bin
-  $HOME/dotfiles/asdf/installs/golang/1.25.0/bin
-  $GOBIN
   /opt/podman/bin
+  /usr/bin/local
+  /usr/local/bin
   /usr/local/git/bin
+  /usr/local/mysql/bin
+  /usr/local/opt/gnu-sed/libexec/gnubin
+  /usr/local/pgsql/bin
+  /usr/local/php5/bin
+  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
   $path
 )
 

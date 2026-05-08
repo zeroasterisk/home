@@ -17,7 +17,7 @@ export ZSH="${DOTFILES}/oh-my-zsh"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="steeef"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -153,28 +153,12 @@ load-gcloud-config() {
 add-zsh-hook chpwd load-gcloud-config
 load-gcloud-config # run once on startup
 
-# TODO: migrate to the zsh_path.zsh file
-
-# Added by Antigravity
-export PATH="/Users/alanblount/.antigravity/antigravity/bin:$PATH"
-
-# opencode
-export PATH=/Users/alanblount/.opencode/bin:$PATH
-
-# pnpm
-export PNPM_HOME="/usr/local/google/home/alanblount/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
 # bun completions
 [ -s "/usr/local/google/home/alanblount/.bun/_bun" ] && source "/usr/local/google/home/alanblount/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
-# cargo install path
-export PATH="$HOME/.asdf/installs/rust/1.89.0/bin:$PATH"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/.google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/.google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.google-cloud-sdk/completion.zsh.inc"; fi

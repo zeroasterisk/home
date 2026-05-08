@@ -57,11 +57,14 @@ execute "mkdir" "-p" "$HOME/tmp"
 
 # List of files and directories to symlink
 symlinks=(
+  "$DOTFILES_DIR/asdf:$HOME/.asdf"
+  "$DOTFILES_DIR/oh-my-zsh:$HOME/.oh-my-zsh"
   "$DOTFILES_DIR/gem/gemrc:$HOME/.gemrc"
   "$DOTFILES_DIR/git:$HOME/.git"
   "$DOTFILES_DIR/git/gitconfig:$HOME/.gitconfig"
   "$DOTFILES_DIR/git/gitk:$HOME/.gitk"
   "$DOTFILES_DIR/tmux/.tmux.conf:$HOME/.tmux.conf"
+  "$DOTFILES_DIR/tmux.conf.local:$HOME/.tmux.conf.local"
   "$DOTFILES_DIR/terminfo:$HOME/.terminfo"
   "$DOTFILES_DIR/bin:$HOME/bin"
   "$DOTFILES_DIR/vim:$HOME/.vim"

@@ -152,3 +152,8 @@ dev*
 .eclipse/
 .npm/
 .pearrc
+
+# Local and temporary files
+asdf/
+zsh/zsh_env.zsh.local
+zsh/package-lock.json
