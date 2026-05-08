@@ -79,3 +79,4 @@ execute "asdf" "install"
 execute "asdf" "reshim"
 
 success "asdf plugins and tools checked successfully."
+
