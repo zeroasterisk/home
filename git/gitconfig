@@ -144,3 +144,5 @@
 	insteadOf = https://applied-ai-engineering-review.googlesource.com/
 	insteadOf = http://applied-ai-engineering.googlesource.com/
 	insteadOf = http://applied-ai-engineering-review.googlesource.com/
+[url "git@depot.code.corp.goog:"]
+	insteadOf = https://depot.code.corp.goog/

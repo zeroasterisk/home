@@ -153,8 +153,28 @@ load-gcloud-config() {
 add-zsh-hook chpwd load-gcloud-config
 load-gcloud-config # run once on startup
 
+# TODO: migrate to the zsh_path.zsh file
+
 # Added by Antigravity
 export PATH="/Users/alanblount/.antigravity/antigravity/bin:$PATH"
 
 # opencode
 export PATH=/Users/alanblount/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/usr/local/google/home/alanblount/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# bun completions
+[ -s "/usr/local/google/home/alanblount/.bun/_bun" ] && source "/usr/local/google/home/alanblount/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# cargo install path
+export PATH="$HOME/.asdf/installs/rust/1.89.0/bin"
