@@ -99,8 +99,6 @@
 [hub]
   http-clone = true
 
-[credential]
-  helper = osxkeychain
 
 [init]
   defaultBranch = main

@@ -177,4 +177,4 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # cargo install path
-export PATH="$HOME/.asdf/installs/rust/1.89.0/bin"
+export PATH="$HOME/.asdf/installs/rust/1.89.0/bin:$PATH"

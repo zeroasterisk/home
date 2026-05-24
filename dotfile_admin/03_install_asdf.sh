@@ -10,6 +10,8 @@ set -e
 # Source the helper functions
 source "$(dirname "$0")/lib/helpers.sh"
 
+# TODO fix problem, if this is running as sudo, then asdf isn't running as the local user
+
 # ------------------------------------------------------------------------------
 # Main Logic
 # ------------------------------------------------------------------------------
