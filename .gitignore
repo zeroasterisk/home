@@ -75,10 +75,16 @@ google/
 .thumbnails
 .travis/
 .*
-# chezmoi control files (tracked despite .* above)
+# chezmoi files tracked despite .* above
 !.chezmoi.toml.tmpl
 !.chezmoiignore
 !.chezmoiroot
+!home/.chezmoiscripts
+!home/.chezmoiscripts/**
+!home/.chezmoidata
+!home/.chezmoidata/**
+!home/.chezmoitemplates
+!home/.chezmoitemplates/**
 .vagrant.d/
 *.cfg
 Audiobooks/
