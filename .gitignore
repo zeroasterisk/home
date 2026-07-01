@@ -13,4 +13,6 @@
 .*
 
 # local secrets and overrides — never commit
+# (note: dot_tmux.conf.local IS tracked — it's not a secret)
 *.local
+!home/dot_tmux.conf.local
