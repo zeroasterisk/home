@@ -1,0 +1,122 @@
+# ~/.zshrc — managed by chezmoi
+# No OMZ. Zsh + starship + modular files.
+
+# ── History ──────────────────────────────────────────────────────────────────
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt EXTENDED_HISTORY       # record timestamps
+setopt SHARE_HISTORY          # share across sessions
+setopt HIST_IGNORE_DUPS       # no consecutive duplicates
+setopt HIST_IGNORE_SPACE      # don't record lines starting with space
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY            # expand before executing !foo
+
+# ── Options ───────────────────────────────────────────────────────────────────
+setopt AUTO_CD                # type dir name to cd
+setopt CORRECT                # command spell-correction
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+
+# ── Keybindings ───────────────────────────────────────────────────────────────
+bindkey -v                    # vi mode
+bindkey '^R' history-incremental-search-backward
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^[[A' up-line-or-history
+bindkey '^[[B' down-line-or-history
+# history substring search (if installed via plugin)
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
+
+# ── Modular config ────────────────────────────────────────────────────────────
+DOTZSH="${HOME}/.zsh"
+for _f in path env aliases completions; do
+  [[ -f "${DOTZSH}/${_f}.zsh" ]] && source "${DOTZSH}/${_f}.zsh"
+done
+unset _f
+
+# ── Local overrides (gitignored, never committed) ─────────────────────────────
+[[ -f "${DOTZSH}/local.zsh" ]] && source "${DOTZSH}/local.zsh"
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# ── Completions ───────────────────────────────────────────────────────────────
+autoload -Uz compinit
+# Only rebuild compinit once per day
+if [[ -n "${ZDOTDIR:-$HOME}/.zcompdump"(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+
+# ── Tool integrations ─────────────────────────────────────────────────────────
+
+# fzf
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+# asdf
+if [[ -f "${HOME}/.asdf/asdf.sh" ]]; then
+  source "${HOME}/.asdf/asdf.sh"
+  fpath=("${HOME}/.asdf/completions" $fpath)
+fi
+
+# bun
+[[ -s "${HOME}/.bun/_bun" ]] && source "${HOME}/.bun/_bun"
+
+# Google Cloud SDK
+for _gcloud_dir in \
+  "${HOME}/google-cloud-sdk" \
+  "${HOME}/.google-cloud-sdk" \
+  "/usr/local/google/home/{{ .chezmoi.username }}/google-cloud-sdk"; do
+  if [[ -d "${_gcloud_dir}" ]]; then
+    [[ -f "${_gcloud_dir}/path.zsh.inc" ]]       && source "${_gcloud_dir}/path.zsh.inc"
+    [[ -f "${_gcloud_dir}/completion.zsh.inc" ]] && source "${_gcloud_dir}/completion.zsh.inc"
+    break
+  fi
+done
+unset _gcloud_dir
+
+# g4d completions (gLinux only)
+[[ -f /etc/bash_completion.d/g4d ]] && source /etc/bash_completion.d/g4d
+
+# ── SSH agent fixup (gLinux / tmux sessions) ──────────────────────────────────
+_fixup_ssh_auth_sock() {
+  if [[ -n ${SSH_AUTH_SOCK} && ! -e ${SSH_AUTH_SOCK} ]]; then
+    local _new
+    _new=$(echo /tmp/ssh-*/agent.*(-UNom[1]) 2>/dev/null)
+    [[ -n ${_new} ]] && export SSH_AUTH_SOCK=${_new}
+  fi
+}
+autoload -U add-zsh-hook
+add-zsh-hook preexec _fixup_ssh_auth_sock
+
+# Wrap gcert so SSH socket is fresh first
+gcert() { _fixup_ssh_auth_sock; command gcert "$@"; }
+
+# ── Auto-switch gcloud config on directory change ─────────────────────────────
+_load_gcloud_config() {
+  if [[ -f .gcloud-config ]]; then
+    export CLOUDSDK_ACTIVE_CONFIG_NAME="$(< .gcloud-config)"
+    echo "gcloud: ${CLOUDSDK_ACTIVE_CONFIG_NAME}"
+  else
+    unset CLOUDSDK_ACTIVE_CONFIG_NAME
+  fi
+}
+add-zsh-hook chpwd _load_gcloud_config
+_load_gcloud_config  # run once on startup
+
+# ── Starship prompt ───────────────────────────────────────────────────────────
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  # Fallback: simple prompt if starship isn't installed yet
+  PS1='%F{green}%n@%m%f %F{blue}%~%f %# '
+fi

@@ -1,0 +1,102 @@
+# ~/.config/starship/config.toml — managed by chezmoi
+# https://starship.rs/config/
+
+# Don't add a blank line before the prompt
+add_newline = true
+
+# Timeout for commands (ms)
+command_timeout = 500
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$python\
+$golang\
+$nodejs\
+$rust\
+$elixir\
+$cmd_duration\
+$line_break\
+$character"""
+
+# ── Directory ─────────────────────────────────────────────────────────────────
+[directory]
+style = "blue bold"
+truncation_length = 4
+truncate_to_repo = true
+read_only = " ro"
+
+# ── Git ───────────────────────────────────────────────────────────────────────
+[git_branch]
+symbol = " "
+style = "purple"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[git_status]
+style = "red"
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = "!"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+stashed = "$"
+modified = "~"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "yellow"
+
+# ── Languages (only shown when relevant) ──────────────────────────────────────
+[python]
+symbol = "py "
+style = "yellow"
+format = '[$symbol$version]($style) '
+detect_files = ["requirements.txt", "pyproject.toml", ".python-version", "Pipfile"]
+
+[golang]
+symbol = "go "
+style = "cyan"
+format = '[$symbol$version]($style) '
+
+[nodejs]
+symbol = "node "
+style = "green"
+format = '[$symbol$version]($style) '
+
+[rust]
+symbol = "rs "
+style = "red"
+format = '[$symbol$version]($style) '
+
+[elixir]
+symbol = "ex "
+style = "purple"
+format = '[$symbol$version]($style) '
+
+# ── Performance ───────────────────────────────────────────────────────────────
+[cmd_duration]
+min_time = 2000
+format = "[${duration}](yellow) "
+show_milliseconds = false
+
+# ── Prompt character ──────────────────────────────────────────────────────────
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+# ── Disabled modules ─────────────────────────────────────────────────────────
+[aws]
+disabled = true
+[gcloud]
+disabled = true
+[package]
+disabled = true
+[docker_context]
+disabled = true

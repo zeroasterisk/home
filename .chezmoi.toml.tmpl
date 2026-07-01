@@ -1,0 +1,16 @@
+{{- $name := promptStringOnce . "name" "Full name" -}}
+{{- $email := promptStringOnce . "email" "Personal email" -}}
+{{- $work := promptBoolOnce . "work" "Is this a work machine (Google/gLinux)?" -}}
+{{- $github := promptStringOnce . "github" "GitHub username" -}}
+
+[data]
+  name    = {{ $name | quote }}
+  email   = {{ $email | quote }}
+  github  = {{ $github | quote }}
+  work    = {{ $work }}
+  os      = {{ .chezmoi.os | quote }}
+  arch    = {{ .chezmoi.arch | quote }}
+  {{- if $work }}
+  gcp_project  = "alanblount-sandbox"
+  gcp_region   = "us-east5"
+  {{- end }}

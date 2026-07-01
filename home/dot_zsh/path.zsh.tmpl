@@ -1,0 +1,61 @@
+# ~/.zsh/path.zsh — managed by chezmoi
+# PATH construction, cross-platform.
+# typeset -U ensures unique entries.
+
+typeset -U path
+
+# ── Common paths (all platforms) ──────────────────────────────────────────────
+path=(
+  "${HOME}/.local/bin"
+  "${HOME}/bin"
+  "${HOME}/go/bin"
+  "${HOME}/.asdf/bin"
+  "${HOME}/.asdf/shims"
+  "${HOME}/.bun/bin"
+  "${HOME}/.cloudcode/bin"
+  "${HOME}/.npm-global/bin"
+  "${HOME}/.local/share/pnpm"
+  "${HOME}/dotfiles/bin"
+  $path
+)
+
+# ── macOS-specific ────────────────────────────────────────────────────────────
+{{- if eq .chezmoi.os "darwin" }}
+path=(
+  "${HOME}/homebrew/bin"
+  /opt/homebrew/bin
+  /usr/local/bin
+  /opt/local/bin
+  /opt/local/sbin
+  "${HOME}/Library/Android/sdk/tools/bin"
+  "${HOME}/Library/Android/sdk/platform-tools"
+  "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+  $path
+)
+{{- end }}
+
+# ── Linux-specific ────────────────────────────────────────────────────────────
+{{- if eq .chezmoi.os "linux" }}
+path=(
+  /usr/local/bin
+  /usr/bin
+  /bin
+  $path
+)
+{{- end }}
+
+# ── asdf golang shim (sets GOROOT, GOPATH, GOBIN via plugin hook) ─────────────
+if [[ -f "${HOME}/.asdf/plugins/golang/set-env.zsh" ]]; then
+  source "${HOME}/.asdf/plugins/golang/set-env.zsh"
+fi
+
+# GOBIN fallback if not set by asdf
+if [[ -z "${GOBIN}" && -d "${HOME}/go/bin" ]]; then
+  export GOBIN="${HOME}/go/bin"
+fi
+
+# ── Ruby gems ─────────────────────────────────────────────────────────────────
+export GEM_HOME="${HOME}/.gem"
+path=("${GEM_HOME}/bin" $path)
+
+export MANPATH="/opt/local/share/man:${MANPATH}"

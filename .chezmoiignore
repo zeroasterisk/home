@@ -1,0 +1,27 @@
+# Files in the repo that chezmoi should not manage
+# (chezmoi only manages files under home/)
+
+README.md
+install.sh
+.chezmoi.toml.tmpl
+
+# Old dotfiles tree — kept on branch for reference, not applied
+zsh/
+vim/
+git/
+config/
+dotfile_admin/
+oh-my-zsh/
+powerlevel10k/
+tmux/
+tmux_old/
+tools/
+bin/
+etc/
+tmp/
+tool-versions
+tmux.conf.local
+Makefile
+
+# Dotfiles that chezmoi does NOT manage (local-only)
+**/*.local
