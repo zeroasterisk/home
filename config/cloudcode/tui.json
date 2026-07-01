@@ -13,6 +13,9 @@
     "input_select_buffer_home": "ctrl+shift+home",
     "input_select_buffer_end": "ctrl+shift+end",
 
-    "editor_open": "ctrl+x e"
+    "editor_open": "ctrl+x e",
+
+    "input_submit": "return",
+    "input_newline": "shift+return"
   }
 }
