@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # run_onchange_install-packages.sh — managed by chezmoi
-# Runs whenever this file changes (e.g. you add a package to a list).
-# Idempotent: checks before installing, continues past failures.
+# Runs whenever this file changes (e.g. you add a package).
+# Idempotent: skips already-installed packages, continues past failures.
+#
+# To add a package: add it to BOTH the apt and brew lists, then chezmoi apply.
+# Package name differences are noted inline with comments.
 
 set -uo pipefail
 
@@ -10,234 +13,215 @@ ok()   { printf '\033[1;32m  ✓ %s\033[0m\n' "$*"; }
 skip() { printf '\033[1;33m  - %s\033[0m\n' "$*"; }
 warn() { printf '\033[1;31m  ! %s\033[0m\n' "$*"; }
 
-# ── System packages ───────────────────────────────────────────────────────────
-
+# ── Linux (apt) ───────────────────────────────────────────────────────────────
 {{ if eq .chezmoi.os "linux" -}}
-log "Installing system packages (apt)..."
+log "System packages (apt)..."
 
-APT_CORE=(
+PACKAGES=(
+  # core shell + tools
   zsh
   tmux
   git
   curl
   wget
   jq
-  ripgrep       # rg
-  fd-find       # fd (note: binary is 'fdfind' on Debian, symlink to fd)
-  fzf
   htop
   tree
   unzip
-  build-essential
-  libssl-dev
-  # zsh plugins
+  build-essential   # mac: xcode-select --install
+  libssl-dev        # mac: handled by brew openssl
+
+  # search (mac: ripgrep, fd, fzf — same names)
+  ripgrep
+  fd-find           # mac: fd  |  binary is 'fdfind', symlinked below
+  fzf
+
+  # zsh plugins (mac: brew install; zsh-history-substring-search via curl)
   zsh-autosuggestions
   zsh-syntax-highlighting
-)
 
-{{ if .work -}}
-APT_WORK=(
-  # jj is not in apt; installed separately if needed
-  mtr-tiny
+  {{ if .work -}}
+  # work extras
+  mtr-tiny          # mac: mtr
   nmap
+  {{- end }}
+
+  # ── Extras — uncomment + chezmoi apply to install ──────────────────────────
+  # tig             # git TUI          (same on brew)
+  # bat             # better cat       (mac: bat | apt binary: batcat)
+  # ncdu            # disk usage TUI   (same on brew)
+  # gh              # GitHub CLI       (needs external repo on older Debian)
+  # podman          # containers       (same on brew)
 )
-{{- end }}
-
-# ── Optional extras — uncomment to include ────────────────────────────────────
-# APT_EXTRAS=(
-#   tig           # git TUI
-#   silversearcher-ag  # ag (largely replaced by rg)
-#   ncdu          # disk usage TUI
-#   bat           # better cat (binary: batcat on Debian)
-#   gh            # GitHub CLI (needs external repo on older Debian)
-#   podman        # container runtime
-#   neovim        # if not using asdf-managed neovim
-# )
-
-PACKAGES=("${APT_CORE[@]}")
-{{ if .work -}}
-PACKAGES+=("${APT_WORK[@]}")
-{{- end }}
 
 for pkg in "${PACKAGES[@]}"; do
-  # skip comment lines
   [[ "${pkg}" == \#* ]] && continue
   if dpkg -l "${pkg}" &>/dev/null 2>&1; then
-    skip "${pkg} already installed"
+    skip "${pkg}"
   else
-    sudo apt-get install -y "${pkg}" 2>/dev/null && ok "${pkg}" || warn "${pkg} failed — skipping"
+    sudo apt-get install -y "${pkg}" 2>/dev/null && ok "${pkg}" || warn "${pkg} failed"
   fi
 done
 
-# fd symlink: Debian installs as fdfind
+# Debian installs fd as 'fdfind' — symlink to 'fd'
 if command -v fdfind &>/dev/null && ! command -v fd &>/dev/null; then
   mkdir -p "${HOME}/.local/bin"
   ln -sf "$(command -v fdfind)" "${HOME}/.local/bin/fd"
-  ok "fd symlinked from fdfind"
+  ok "fd -> fdfind symlink created"
 fi
 
+# zsh-history-substring-search not in apt — install manually
+HSS="${HOME}/.zsh/plugins/zsh-history-substring-search.zsh"
+if [[ ! -f "${HSS}" ]]; then
+  mkdir -p "${HOME}/.zsh/plugins"
+  curl -fsSL https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh \
+    -o "${HSS}" && ok "zsh-history-substring-search" || warn "zsh-history-substring-search failed"
+else
+  skip "zsh-history-substring-search"
+fi
+
+# ── macOS (brew) ──────────────────────────────────────────────────────────────
 {{ else if eq .chezmoi.os "darwin" -}}
-log "Installing system packages (brew)..."
+log "System packages (brew)..."
 
 if ! command -v brew &>/dev/null; then
-  warn "Homebrew not found — install it first: https://brew.sh"
+  warn "Homebrew not found — install: https://brew.sh"
   exit 0
 fi
 
-BREW_CORE=(
+FORMULAE=(
+  # core shell + tools
   zsh
   tmux
   git
   curl
   wget
   jq
+  htop
+  tree
+
+  # search (linux: ripgrep, fd-find, fzf — same names except fd-find->fd)
   ripgrep
   fd
   fzf
-  htop
-  tree
+
+  # zsh plugins (linux: apt + manual curl for hss)
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-history-substring-search
-)
 
-{{ if .work -}}
-BREW_WORK=(
-  mtr
+  {{ if .work -}}
+  # work extras
+  mtr               # linux: mtr-tiny
   nmap
+  {{- end }}
+
+  # ── Extras — uncomment + chezmoi apply to install ──────────────────────────
+  # tig             # git TUI          (same on apt)
+  # bat             # better cat       (linux apt binary: batcat)
+  # ncdu            # disk usage TUI   (same on apt)
+  # gh              # GitHub CLI       (same on apt)
+  # podman          # containers       (same on apt)
+  # font-fira-code-nerd-font  # cask
+  # font-hack-nerd-font       # cask
 )
-{{- end }}
-
-# ── Optional extras — uncomment to include ────────────────────────────────────
-# BREW_EXTRAS=(
-#   tig
-#   bat
-#   gh
-#   ncdu
-#   podman
-#   neovim        # if not using asdf-managed neovim
-#   font-fira-code-nerd-font   # nerd fonts (cask)
-#   font-hack-nerd-font
-# )
-
-FORMULAE=("${BREW_CORE[@]}")
-{{ if .work -}}
-FORMULAE+=("${BREW_WORK[@]}")
-{{- end }}
 
 for formula in "${FORMULAE[@]}"; do
   [[ "${formula}" == \#* ]] && continue
   if brew list "${formula}" &>/dev/null 2>&1; then
-    skip "${formula} already installed"
+    skip "${formula}"
   else
-    brew install "${formula}" && ok "${formula}" || warn "${formula} failed — skipping"
+    brew install "${formula}" && ok "${formula}" || warn "${formula} failed"
   fi
 done
 
 {{- end }}
 
-# ── asdf ─────────────────────────────────────────────────────────────────────
-log "Setting up asdf..."
+# ── asdf ──────────────────────────────────────────────────────────────────────
+log "asdf setup..."
 
 ASDF_DIR="${HOME}/.asdf"
-
 if [[ ! -d "${ASDF_DIR}" ]]; then
   git clone https://github.com/asdf-vm/asdf.git "${ASDF_DIR}" --branch v0.16.7
   ok "asdf cloned"
 else
-  skip "asdf already present"
+  skip "asdf"
 fi
 
-# Source asdf so we can use it immediately
 # shellcheck disable=SC1091
 [[ -f "${ASDF_DIR}/asdf.sh" ]] && source "${ASDF_DIR}/asdf.sh"
 
 if ! command -v asdf &>/dev/null; then
-  warn "asdf not on PATH after sourcing — skipping plugin installs"
+  warn "asdf not on PATH — skipping runtime installs"
   exit 0
 fi
 
-# ── asdf plugin + runtime installer ──────────────────────────────────────────
-install_asdf_plugin() {
-  local name="$1"
-  local url="${2:-}"
-  if asdf plugin list | grep -q "^${name}$"; then
-    skip "asdf plugin ${name} already added"
-  else
-    if [[ -n "${url}" ]]; then
-      asdf plugin add "${name}" "${url}" && ok "asdf plugin add ${name}" || warn "asdf plugin add ${name} failed"
-    else
-      asdf plugin add "${name}" && ok "asdf plugin add ${name}" || warn "asdf plugin add ${name} failed"
-    fi
-  fi
+_plugin() {
+  local name="$1" url="${2:-}"
+  asdf plugin list 2>/dev/null | grep -q "^${name}$" && { skip "plugin ${name}"; return; }
+  asdf plugin add "${name}" ${url:+"${url}"} && ok "plugin ${name}" || warn "plugin ${name} failed"
 }
 
-install_asdf_version() {
-  local name="$1"
-  local version="$2"
-  if asdf list "${name}" 2>/dev/null | grep -q "${version}"; then
-    skip "asdf ${name} ${version} already installed"
-  else
-    asdf install "${name}" "${version}" && ok "asdf ${name} ${version}" || warn "asdf ${name} ${version} failed"
-  fi
+_runtime() {
+  local name="$1" version="$2"
+  asdf list "${name}" 2>/dev/null | grep -q "${version}" && { skip "${name} ${version}"; return; }
+  asdf install "${name}" "${version}" && ok "${name} ${version}" || warn "${name} ${version} failed"
   asdf set --home "${name}" "${version}" 2>/dev/null || true
 }
 
 # ── Core runtimes — always installed ─────────────────────────────────────────
-log "Installing core asdf runtimes..."
+log "asdf core runtimes..."
 
-install_asdf_plugin "nodejs"
-install_asdf_version "nodejs" "25.9.0"
+_plugin "nodejs"
+_runtime "nodejs" "25.9.0"
 
-install_asdf_plugin "python"
-install_asdf_version "python" "3.12.10"
+_plugin "python"
+_runtime "python" "3.12.10"
 
-install_asdf_plugin "golang" "https://github.com/asdf-community/asdf-golang.git"
-install_asdf_version "golang" "1.25.0"
+_plugin "golang" "https://github.com/asdf-community/asdf-golang.git"
+_runtime "golang" "1.25.0"
 
-install_asdf_plugin "neovim"
-install_asdf_version "neovim" "0.11.1"
+_plugin "neovim"
+_runtime "neovim" "0.11.1"
 
-# ── Optional extras — uncomment to auto-install ───────────────────────────────
-# These are tools I've used and liked. Uncomment + chezmoi apply to install.
+# ── Extras — uncomment + chezmoi apply to install ─────────────────────────────
+# _plugin "rust" "https://github.com/code-lever/asdf-rust.git"
+# _runtime "rust" "1.89.0"
 
-# install_asdf_plugin "rust" "https://github.com/code-lever/asdf-rust.git"
-# install_asdf_version "rust" "1.89.0"
+# _plugin "erlang" "https://github.com/asdf-vm/asdf-erlang.git"
+# _runtime "erlang" "28.0"
 
-# install_asdf_plugin "erlang" "https://github.com/asdf-vm/asdf-erlang.git"
-# install_asdf_version "erlang" "28.0"
+# _plugin "elixir" "https://github.com/asdf-vm/asdf-elixir.git"
+# _runtime "elixir" "1.18.0"
 
-# install_asdf_plugin "elixir" "https://github.com/asdf-vm/asdf-elixir.git"
-# install_asdf_version "elixir" "1.18.0"
+# _plugin "bun"
+# _runtime "bun" "latest"
 
-# install_asdf_plugin "yarn"
-# install_asdf_version "yarn" "latest"
+# _plugin "deno"
+# _runtime "deno" "latest"
 
-# install_asdf_plugin "pipx"
-# install_asdf_version "pipx" "latest"
+# _plugin "yarn"
+# _runtime "yarn" "latest"
 
-# install_asdf_plugin "bun"
-# install_asdf_version "bun" "latest"
+# _plugin "pipx"
+# _runtime "pipx" "latest"
 
-# install_asdf_plugin "deno"
-# install_asdf_version "deno" "latest"
+# _plugin "elm" "https://github.com/asdf-community/asdf-elm.git"
+# _runtime "elm" "0.19.1"
 
-# install_asdf_plugin "elm" "https://github.com/asdf-community/asdf-elm.git"
-# install_asdf_version "elm" "0.19.1"
+# _plugin "flutter"
+# _runtime "flutter" "3.35.0"
 
-# install_asdf_plugin "flutter"
-# install_asdf_version "flutter" "3.35.0"
+# _plugin "protoc" "https://github.com/paxosglobal/asdf-protoc.git"
+# _runtime "protoc" "32.0"
 
-# install_asdf_plugin "protoc" "https://github.com/paxosglobal/asdf-protoc.git"
-# install_asdf_version "protoc" "32.0"
+# _plugin "yt-dlp"
+# _runtime "yt-dlp" "latest"
 
-# install_asdf_plugin "yt-dlp"
-# install_asdf_version "yt-dlp" "latest"
+# _plugin "firebase"
+# _runtime "firebase" "14.0.0"
 
-# install_asdf_plugin "firebase"
-# install_asdf_version "firebase" "14.0.0"
+# _plugin "gcloud" "https://github.com/jthegedus/asdf-gcloud"
+# _runtime "gcloud" "535.0.0"
 
-# install_asdf_plugin "gcloud" "https://github.com/jthegedus/asdf-gcloud"
-# install_asdf_version "gcloud" "535.0.0"
-
-log "Package install complete."
+log "Done."
