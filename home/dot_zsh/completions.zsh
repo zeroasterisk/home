@@ -12,11 +12,18 @@ fi
 
 # History substring search (pure-zsh, no plugin manager needed)
 # Bind after compinit so widgets exist
-if [[ -f /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
-  source /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-fi
+for _hss in \
+  /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh \
+  /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh \
+  "${HOME}/.zsh/plugins/zsh-history-substring-search.zsh"; do
+  if [[ -f "${_hss}" ]]; then
+    source "${_hss}"
+    bindkey '^[[A' history-substring-search-up
+    bindkey '^[[B' history-substring-search-down
+    break
+  fi
+done
+unset _hss
 
 # zsh-autosuggestions (Debian/Ubuntu package or Homebrew)
 for _autosuggest in \
