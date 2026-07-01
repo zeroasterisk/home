@@ -6,7 +6,7 @@ flutter 3.35.1-stable
 gcloud 535.0.0
 golang 1.25.0
 neovim 0.11.4
-nodejs 24.7.0
+nodejs 25.9.0
 pipx 1.7.1
 protoc 32.0
 python 3.12.6

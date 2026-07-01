@@ -10,6 +10,7 @@ path=(
   $HOME/.asdf/installs/rust/1.89.0/bin
   $HOME/.asdf/shims
   $HOME/.bun/bin
+  $HOME/.cloudcode/bin/cloudcode
   $HOME/.composer/vendor/bin
   $HOME/.jetski/jetski/bin
   $HOME/.local/bin
