@@ -3,8 +3,32 @@
 # Runs whenever this file changes (e.g. you add a package).
 # Idempotent: skips already-installed packages, continues past failures.
 #
-# To add a package: add it to BOTH the apt and brew lists, then chezmoi apply.
-# Package name differences are noted inline with comments.
+# ── HOW TO EDIT THIS FILE ─────────────────────────────────────────────────────
+#
+# Adding a system package:
+#   1. Add it to BOTH the apt (linux) and brew (darwin) lists below.
+#   2. Note any name difference as a comment (e.g. fd-find vs fd, mtr-tiny vs mtr).
+#   3. Run: chezmoi apply
+#
+# Adding an asdf runtime:
+#   1. Uncomment (or add) the _plugin + _runtime pair in the extras section.
+#   2. Run: chezmoi apply
+#   3. If it needs system deps (e.g. erlang needs libssl-dev), add those to
+#      the apt/brew lists first.
+#
+# Upgrading a pinned version:
+#   1. Change the version string in the _runtime call.
+#   2. Run: chezmoi apply  — the new version installs alongside the old one.
+#   3. The old version is left in place; remove manually with: asdf uninstall <name> <old>
+#
+# Promoting an extra to core:
+#   1. Uncomment the _plugin/_runtime lines and move them up to the core block.
+#
+# On a new machine:
+#   chezmoi init --source ~/dotfiles && chezmoi apply
+#   (or use install.sh which does the same thing)
+#
+# ─────────────────────────────────────────────────────────────────────────────
 
 set -uo pipefail
 
