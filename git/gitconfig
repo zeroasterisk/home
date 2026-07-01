@@ -1,6 +1,13 @@
 [user]
   name = alan bount
   email = alan@zeroasterisk.com
+  signingKey = ~/.ssh/id_ed25519
+
+[includeIf "gitdir:/google/"]
+  path = ~/.config/git/work.gitconfig
+
+[includeIf "gitdir:~/Workspaces/google-git/"]
+  path = ~/.config/git/work.gitconfig
 
 [sendemail]
   smtpserver = smtp.gmail.com
@@ -65,7 +72,7 @@
 
 [core]
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  pager = less -FXRS -x2
+	pager = cat
   symlinks = true
   editor = vim
   autocrlf = input
@@ -144,3 +151,11 @@
 	insteadOf = http://applied-ai-engineering-review.googlesource.com/
 [url "git@depot.code.corp.goog:"]
 	insteadOf = https://depot.code.corp.goog/
+[gpg]
+	format = ssh
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+[gpg "ssh"]
+	allowedSignersFile = /usr/local/google/home/alanblount/.ssh/allowed_signers

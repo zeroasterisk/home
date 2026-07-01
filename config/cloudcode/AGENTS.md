@@ -74,6 +74,23 @@ name or symlink into `~/.config/cloudcode/skills/`.
 - Never force-push to `main`/`master`.
 - Branch off `main`; PRs via `gh pr create`.
 
+### Workspace layout & git identity
+
+```
+~/Workspaces/
+  google-git/   # Git-on-Borg / depot repos → alanblount@google.com
+  open-source/  # GitHub OSS repos           → alan@zeroasterisk.com
+  scratchpad/   # No-remote experiments       → alan@zeroasterisk.com
+```
+
+Identity is applied automatically via `includeIf` in `~/dotfiles/git/gitconfig`:
+- `gitdir:/google/**` and `gitdir:~/Workspaces/google-git/**` → `~/.config/git/work.gitconfig`
+- Everything else inherits the personal default.
+
+When cloning a new repo, place it in the right directory — identity follows location,
+no per-repo config needed. If unsure: GitHub → `open-source/` or `scratchpad/`;
+Borg/depot → `google-git/`.
+
 ## 5. Google Cloud / Vertex AI
 
 - Default project is `alanblount-sandbox` — safe to experiment, not production.
