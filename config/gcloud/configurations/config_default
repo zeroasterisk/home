@@ -1,0 +1,9 @@
+[core]
+project = alanblount-sandbox
+account = alanblount@google.com
+
+[context_aware]
+use_client_certificate = true
+
+[compute]
+region = us-east5

@@ -21,7 +21,7 @@ alias vi='nvim -p'
 alias v='nvim -p'
 
 # Dev shortcuts
-alias cc='CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude --allow-dangerously-skip-permissions --dangerously-skip-permissions'
+alias cc='cloudcode'
 
 # autocomplete sometimes causes frustration
 alias storybook='nocorrect npm run storybook'

@@ -84,7 +84,14 @@ fonts/
 .npmrc
 
 
+# config/ is ignored by default; explicitly track safe dotfiles
 config
+!config/cloudcode/AGENTS.md
+!config/cloudcode/cloudcode.json
+!config/cloudcode/tui.json
+!config/gh/config.yml
+!config/gcloud/configurations/config_default
+!config/nvim/init.vim
 *.pem
 *.bak
 *private
