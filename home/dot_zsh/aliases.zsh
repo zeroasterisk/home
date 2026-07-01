@@ -13,7 +13,27 @@ alias cc='cloudcode'
 alias g='git'
 alias gti='git'           # typo guard
 alias gs='git status'
-alias gd='git diff'
+alias gd='git diff'       # NB: old prezto had gd=git ls-files; use gdc/gdx below for that
+
+# index / staging
+alias gia='git add'
+alias giA='git add --patch'
+alias giu='git add --update'
+alias gid='git diff --no-ext-diff --cached'
+alias gir='git reset'
+alias giR='git reset --patch'
+alias gix='git rm -r --cached'
+
+# conflicts
+alias gCl='git --no-pager diff --name-only --diff-filter=U'
+alias gCo='git checkout --ours --'
+alias gCt='git checkout --theirs --'
+
+# data (ls-files)
+alias gdc='git ls-files --cached'
+alias gdx='git ls-files --deleted'
+alias gdm='git ls-files --modified'
+alias gdu='git ls-files --other --exclude-standard'
 
 # branch
 alias gb='git branch'
@@ -64,6 +84,7 @@ alias gstx='git stash drop'
 alias glo='git log --oneline --decorate --graph'
 alias gl='git log --topo-order --pretty=format:"%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B"'
 alias glg='git log --oneline --all --graph'
+alias glc='git shortlog --summary --numbered'
 
 # merge
 alias gm='git merge'
@@ -83,8 +104,11 @@ alias gSI='git submodule update --init --recursive'
 alias gws='git status --short'
 alias gwS='git status'
 alias gwd='git diff --no-ext-diff'
+alias gwD='git diff --no-ext-diff --word-diff'
 alias gwR='git reset --hard'
 alias gwr='git reset --soft'
+alias gwc='git clean -n'
+alias gwC='git clean -f'
 
 # ── Docker ────────────────────────────────────────────────────────────────────
 alias d='docker'
@@ -94,6 +118,9 @@ alias d='docker'
 alias rpush='rsync -avzP -e "ssh -o ClearAllForwardings=yes"'
 alias rpull='rsync -avzP -e "ssh -o ClearAllForwardings=yes"'
 alias rtest='rsync -avzP -n -e "ssh -o ClearAllForwardings=yes"'
+
+# ── Global aliases ────────────────────────────────────────────────────────────
+alias -g MVC="Model Controller View Lib"   # e.g.: rg term MVC
 
 # ── Misc ──────────────────────────────────────────────────────────────────────
 alias storybook='nocorrect npm run storybook'

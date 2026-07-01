@@ -31,6 +31,17 @@ bindkey '^[[B' down-line-or-history
 # history substring search (if installed via plugin)
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
+# press Esc twice to prepend sudo (replaces OMZ sudo plugin)
+sudo-command-line() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER == sudo\ * ]]; then
+    LBUFFER="${LBUFFER#sudo }"
+  else
+    LBUFFER="sudo $LBUFFER"
+  fi
+}
+zle -N sudo-command-line
+bindkey '\e\e' sudo-command-line
 
 # ── Modular config ────────────────────────────────────────────────────────────
 DOTZSH="${HOME}/.zsh"
@@ -42,6 +53,24 @@ unset _f
 # ── Local overrides (gitignored, never committed) ─────────────────────────────
 [[ -f "${DOTZSH}/local.zsh" ]] && source "${DOTZSH}/local.zsh"
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# ── dotenv: auto-source .env in current directory (replaces OMZ dotenv plugin)
+_dotenv_load() {
+  local env_file="${PWD}/.env"
+  if [[ -f "${env_file}" && -r "${env_file}" ]]; then
+    # Only source if it looks safe — no subshells, no exports of PATH
+    if ! grep -qE '^\s*PATH=' "${env_file}" 2>/dev/null; then
+      set -a; source "${env_file}"; set +a
+    fi
+  fi
+}
+add-zsh-hook chpwd _dotenv_load
+_dotenv_load
+
+# ── ssh-agent: ensure agent is running (replaces OMZ ssh-agent plugin) ────────
+if [[ -z "${SSH_AUTH_SOCK}" ]] || ! ssh-add -l &>/dev/null; then
+  eval "$(ssh-agent -s)" &>/dev/null
+fi
 
 # ── Completions ───────────────────────────────────────────────────────────────
 autoload -Uz compinit
