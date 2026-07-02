@@ -63,7 +63,7 @@ set softtabstop=2           " Spaces 'feel' like tabs
 set suffixes+=.pyc          " Ignore these files when tab-completing
 set tabstop=2               " The One True Tab
 set textwidth=100           " 100 is the new 80
-set thesaurus+=~/.vim/mthes10/mthesaur.txt
+" set thesaurus+=~/.vim/mthes10/mthesaur.txt  " disabled: ~/.vim is Vim not Neovim
 set title                 " Do set the title of the Vim window
 set wildmenu                " Show possible completions on command line
 set wildmode=list:longest,full " List all options and complete

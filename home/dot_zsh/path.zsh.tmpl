@@ -59,4 +59,6 @@ fi
 export GEM_HOME="${HOME}/.gem"
 path=("${GEM_HOME}/bin" $path)
 
+{{- if eq .chezmoi.os "darwin" }}
 export MANPATH="/opt/local/share/man:${MANPATH}"
+{{- end }}

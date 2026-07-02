@@ -41,8 +41,8 @@ let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
-nmap <silent> <C-k> <Plugin>(ale_previous_wrap)
-nmap <silent> <C-j> <Plugin>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Lightline
 let g:lightline = {

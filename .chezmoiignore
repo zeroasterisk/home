@@ -23,5 +23,5 @@ tool-versions
 tmux.conf.local
 Makefile
 
-# Dotfiles that chezmoi does NOT manage (local-only)
-**/*.local
+# dot_tmux.conf.local IS managed (it's config, not secrets)
+# Do not add a blanket *.local rule here — it would block it.

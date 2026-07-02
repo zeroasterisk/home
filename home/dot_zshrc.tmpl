@@ -1,7 +1,7 @@
 # ~/.zshrc — managed by chezmoi
 # No OMZ. Zsh + starship + modular files.
 
-# ── History ──────────────────────────────────────────────────────────────────
+# ── History ───────────────────────────────────────────────────────────────────
 HISTFILE="${HOME}/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=50000
@@ -13,25 +13,28 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY            # expand before executing !foo
 
 # ── Options ───────────────────────────────────────────────────────────────────
-setopt AUTO_CD                # type dir name to cd
-setopt CORRECT                # command spell-correction
+setopt AUTO_CD
+setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt ALWAYS_TO_END
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 
+# ── autoload early — required before any add-zsh-hook or compinit calls ───────
+autoload -Uz compinit
+autoload -U add-zsh-hook
+
 # ── Keybindings ───────────────────────────────────────────────────────────────
-bindkey -v                    # vi mode
+bindkey -v
 bindkey '^R' history-incremental-search-backward
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 bindkey '^[[A' up-line-or-history
 bindkey '^[[B' down-line-or-history
-# history substring search (if installed via plugin)
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
-# press Esc twice to prepend sudo (replaces OMZ sudo plugin)
+# Esc+Esc to prepend sudo (replaces OMZ sudo plugin)
 sudo-command-line() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER == sudo\ * ]]; then
@@ -45,7 +48,7 @@ bindkey '\e\e' sudo-command-line
 
 # ── Modular config ────────────────────────────────────────────────────────────
 DOTZSH="${HOME}/.zsh"
-for _f in path env aliases completions; do
+for _f in path env aliases; do
   [[ -f "${DOTZSH}/${_f}.zsh" ]] && source "${DOTZSH}/${_f}.zsh"
 done
 unset _f
@@ -54,44 +57,12 @@ unset _f
 [[ -f "${DOTZSH}/local.zsh" ]] && source "${DOTZSH}/local.zsh"
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
-# ── dotenv: auto-source .env in current directory (replaces OMZ dotenv plugin)
-_dotenv_load() {
-  local env_file="${PWD}/.env"
-  if [[ -f "${env_file}" && -r "${env_file}" ]]; then
-    # Only source if it looks safe — no subshells, no exports of PATH
-    if ! grep -qE '^\s*PATH=' "${env_file}" 2>/dev/null; then
-      set -a; source "${env_file}"; set +a
-    fi
-  fi
-}
-add-zsh-hook chpwd _dotenv_load
-_dotenv_load
-
-# ── ssh-agent: ensure agent is running (replaces OMZ ssh-agent plugin) ────────
-if [[ -z "${SSH_AUTH_SOCK}" ]] || ! ssh-add -l &>/dev/null; then
-  eval "$(ssh-agent -s)" &>/dev/null
-fi
-
-# ── Completions ───────────────────────────────────────────────────────────────
-autoload -Uz compinit
-# Only rebuild compinit once per day
-if [[ -n "${ZDOTDIR:-$HOME}/.zcompdump"(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
-
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
-
-# ── Tool integrations ─────────────────────────────────────────────────────────
+# ── Tool integrations (fpath must be complete before compinit) ────────────────
 
 # fzf
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# asdf
+# asdf — source and add completions to fpath BEFORE compinit
 if [[ -f "${HOME}/.asdf/asdf.sh" ]]; then
   source "${HOME}/.asdf/asdf.sh"
   fpath=("${HOME}/.asdf/completions" $fpath)
@@ -104,7 +75,11 @@ fi
 for _gcloud_dir in \
   "${HOME}/google-cloud-sdk" \
   "${HOME}/.google-cloud-sdk" \
-  "/usr/local/google/home/{{ .chezmoi.username }}/google-cloud-sdk"; do
+  {{- if .work }}
+  "/usr/local/google/home/{{ .chezmoi.username }}/google-cloud-sdk" \
+  {{- end }}
+  ""; do
+  [[ -z "${_gcloud_dir}" ]] && continue
   if [[ -d "${_gcloud_dir}" ]]; then
     [[ -f "${_gcloud_dir}/path.zsh.inc" ]]       && source "${_gcloud_dir}/path.zsh.inc"
     [[ -f "${_gcloud_dir}/completion.zsh.inc" ]] && source "${_gcloud_dir}/completion.zsh.inc"
@@ -116,7 +91,29 @@ unset _gcloud_dir
 # g4d completions (gLinux only)
 [[ -f /etc/bash_completion.d/g4d ]] && source /etc/bash_completion.d/g4d
 
-# ── SSH agent fixup (gLinux / tmux sessions) ──────────────────────────────────
+# ── Completions — compinit after all fpath additions ─────────────────────────
+# Only rebuild once per day
+if [[ -n "${ZDOTDIR:-$HOME}/.zcompdump"(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+
+# ── Completions.zsh — plugins that bind widgets (must be after compinit) ──────
+[[ -f "${DOTZSH}/completions.zsh" ]] && source "${DOTZSH}/completions.zsh"
+
+# ── SSH agent ─────────────────────────────────────────────────────────────────
+# Ensure agent is running
+if [[ -z "${SSH_AUTH_SOCK:-}" ]] || ! ssh-add -l &>/dev/null; then
+  eval "$(ssh-agent -s)" &>/dev/null
+fi
+
+# Fixup stale socket in tmux/screen sessions
 _fixup_ssh_auth_sock() {
   if [[ -n ${SSH_AUTH_SOCK} && ! -e ${SSH_AUTH_SOCK} ]]; then
     local _new
@@ -124,11 +121,20 @@ _fixup_ssh_auth_sock() {
     [[ -n ${_new} ]] && export SSH_AUTH_SOCK=${_new}
   fi
 }
-autoload -U add-zsh-hook
 add-zsh-hook preexec _fixup_ssh_auth_sock
-
-# Wrap gcert so SSH socket is fresh first
 gcert() { _fixup_ssh_auth_sock; command gcert "$@"; }
+
+# ── dotenv: auto-source .env on directory change (replaces OMZ dotenv) ────────
+_dotenv_load() {
+  local env_file="${PWD}/.env"
+  if [[ -f "${env_file}" && -r "${env_file}" ]]; then
+    if ! grep -qE '^\s*PATH=' "${env_file}" 2>/dev/null; then
+      set -a; source "${env_file}"; set +a
+    fi
+  fi
+}
+add-zsh-hook chpwd _dotenv_load
+_dotenv_load
 
 # ── Auto-switch gcloud config on directory change ─────────────────────────────
 _load_gcloud_config() {
@@ -140,12 +146,11 @@ _load_gcloud_config() {
   fi
 }
 add-zsh-hook chpwd _load_gcloud_config
-_load_gcloud_config  # run once on startup
+_load_gcloud_config
 
 # ── Starship prompt ───────────────────────────────────────────────────────────
 if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 else
-  # Fallback: simple prompt if starship isn't installed yet
   PS1='%F{green}%n@%m%f %F{blue}%~%f %# '
 fi

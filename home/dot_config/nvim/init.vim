@@ -112,4 +112,14 @@ endfunction
 call SourceIfExists("~/.vimrc.local")
 call SourceIfExists("~/.vimlocal")
 
+" ── Prose mode (distraction-free writing) ─────────────────────────────────────
+function! ProseMode()
+  call goyo#execute(0, [])
+  set spell noci nosi noai nolist noshowmode noshowcmd
+  set complete+=s
+  set bg=light
+  colorscheme solarized
+endfunction
+command! ProseMode call ProseMode()
+
 silent! nohlsearch

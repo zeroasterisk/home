@@ -5,20 +5,49 @@ Zsh + starship. No Oh-My-Zsh.
 
 ## Bootstrap a new machine
 
+### macOS
+
 ```sh
-# 1. Clone and enter the repo
+# 1. Install Xcode command line tools (required for git, compilers)
+xcode-select --install
+
+# 2. Clone the repo
 git clone https://github.com/zeroasterisk/home.git ~/dotfiles
-cd ~/dotfiles
-git checkout reboot
+cd ~/dotfiles && git checkout reboot
 
-# 2. Install chezmoi + starship + system packages + asdf runtimes
-./install.sh
-
-# 3. Apply dotfiles
-chezmoi apply
+# 3. Run install (installs Homebrew if missing, then everything else)
+./install.sh --apply
 ```
 
-`install.sh` is idempotent — safe to re-run.
+### Linux (Debian / Ubuntu / gLinux)
+
+```sh
+# 1. Clone the repo
+git clone https://github.com/zeroasterisk/home.git ~/dotfiles
+cd ~/dotfiles && git checkout reboot
+
+# 2. Run install
+./install.sh --apply
+```
+
+### One-liner (fresh machine, no git yet)
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/zeroasterisk/home/reboot/install.sh | bash -s -- --apply
+```
+
+`install.sh --apply` is idempotent — safe to re-run.
+
+**What `install.sh` does:**
+1. macOS: installs Homebrew if missing
+2. Installs chezmoi + starship + zsh plugins
+3. Clones the repo if not already local
+4. Writes `~/.config/chezmoi/chezmoi.toml` with `sourceDir`
+5. Runs `chezmoi apply --init` (prompts for name/email/work on first run)
+   - This triggers `run_onchange_install-packages.sh` which installs system packages + asdf runtimes
+6. Sets zsh as the default shell
+
+After it completes: `exec zsh` or open a new terminal.
 
 ## Day-to-day usage
 
@@ -29,7 +58,7 @@ chezmoi apply
 # Preview what would change before applying
 chezmoi diff
 
-# Edit a managed file (opens source, applies on save)
+# Edit a managed file in its source location
 chezmoi edit ~/.zshrc
 
 # Pull latest from git and apply
@@ -40,33 +69,35 @@ cd ~/dotfiles && git pull && chezmoi apply
 
 ```
 ~/dotfiles/
-  install.sh                  # bootstrap: chezmoi + starship + packages + asdf
-  .chezmoi.toml.tmpl          # per-machine config (prompted once on init)
-  .chezmoiroot                # tells chezmoi: source root = home/
-  .chezmoiignore              # files chezmoi ignores
+  install.sh                        # bootstrap script
+  .chezmoi.toml.tmpl                # per-machine config (prompted once on init)
+  .chezmoiroot                      # source root = home/
+  .chezmoiignore                    # patterns chezmoi skips
   home/
-    dot_zshrc.tmpl            → ~/.zshrc
+    dot_zshrc.tmpl                  → ~/.zshrc
     dot_zsh/
-      path.zsh.tmpl           → ~/.zsh/path.zsh
-      env.zsh.tmpl            → ~/.zsh/env.zsh
-      aliases.zsh             → ~/.zsh/aliases.zsh
-      completions.zsh         → ~/.zsh/completions.zsh
+      path.zsh.tmpl                 → ~/.zsh/path.zsh
+      env.zsh.tmpl                  → ~/.zsh/env.zsh
+      aliases.zsh                   → ~/.zsh/aliases.zsh
+      completions.zsh               → ~/.zsh/completions.zsh
     dot_config/
-      starship/config.toml    → ~/.config/starship/config.toml
-      git/config.tmpl         → ~/.config/git/config
-      git/git_template/hooks/ → ~/.config/git/git_template/hooks/
-      nvim/                   → ~/.config/nvim/
-      cloudcode/              → ~/.config/cloudcode/
-      gh/config.yml           → ~/.config/gh/config.yml
-    dot_tmux.conf.local       → ~/.tmux.conf.local
-    dot_tool-versions         → ~/.tool-versions
+      starship/config.toml          → ~/.config/starship/config.toml
+      git/config.tmpl               → ~/.config/git/config
+      git/git_template/hooks/       → ~/.config/git/git_template/hooks/
+      nvim/                         → ~/.config/nvim/
+      cloudcode/                    → ~/.config/cloudcode/
+      gh/config.yml                 → ~/.config/gh/config.yml
+    dot_tmux.conf                   → ~/.tmux.conf
+    dot_tmux.conf.local             → ~/.tmux.conf.local (unused — legacy)
+    dot_tool-versions               → ~/.tool-versions
+    dot_ctags                       → ~/.ctags
     .chezmoiscripts/
       run_onchange_install-packages.sh.tmpl   # runs on chezmoi apply when changed
 ```
 
 ## Adding a package
 
-Open `.chezmoiscripts/run_onchange_install-packages.sh.tmpl`.
+Open `home/.chezmoiscripts/run_onchange_install-packages.sh.tmpl`.
 Add to **both** the apt and brew lists (name differences noted inline).
 Run `chezmoi apply` — the script re-runs because the file changed.
 
@@ -77,9 +108,9 @@ same script. Run `chezmoi apply`.
 
 ## Machine-specific config
 
-chezmoi prompts for `name`, `email`, `github`, and `work` once on first init
+chezmoi prompts for `name`, `email`, `github`, and `work` once on first run
 and stores answers in `~/.config/chezmoi/chezmoi.toml`. Edit that file to
-change them. Templates branch on `.work` and `.chezmoi.os` (`linux`/`darwin`).
+change them. Templates branch on `.work` (bool) and `.chezmoi.os` (`linux`/`darwin`).
 
 ## Local secrets / overrides
 
@@ -92,21 +123,25 @@ Both are sourced automatically at the end of `.zshrc` if they exist.
 
 ## nvim
 
-Plugins managed by [vim-plug](https://github.com/junegunn/vim-plug).
-On first launch after a fresh install, vim-plug bootstraps itself and runs
-`:PlugInstall` automatically. No manual step needed.
+Plugins managed by [vim-plug](https://github.com/junegunn/vim-plug), which
+bootstraps itself automatically on first launch. No manual step needed.
 
 To add a plugin: edit `home/dot_config/nvim/plugins.vim`, run `chezmoi apply`,
-then `:PlugInstall` inside nvim.
+then open nvim and run `:PlugInstall`.
+
+## tmux
+
+Standalone config at `~/.tmux.conf`. No external framework required.
+`Prefix + r` reloads the config live.
 
 ## Prompt
 
 [Starship](https://starship.rs). Config at `~/.config/starship/config.toml`.
-Falls back to a plain `PS1` if starship isn't installed yet.
+Falls back to a plain `PS1` if starship is not installed.
 
 ## No Oh-My-Zsh
 
-OMZ is gone. What replaced it:
+OMZ is gone. Replaced by:
 
 | Was | Now |
 |---|---|
@@ -116,3 +151,6 @@ OMZ is gone. What replaced it:
 | OMZ vi mode | `bindkey -v` |
 | OMZ git aliases | `~/.zsh/aliases.zsh` |
 | OMZ plugins (autosuggestions etc.) | apt/brew packages sourced directly |
+| OMZ sudo plugin | Esc+Esc keybinding in `.zshrc` |
+| OMZ dotenv plugin | `_dotenv_load` chpwd hook in `.zshrc` |
+| OMZ ssh-agent plugin | ssh-agent startup guard in `.zshrc` |

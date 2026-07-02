@@ -54,6 +54,10 @@ alias gcF='git commit --verbose --amend'
 alias gco='git checkout'
 alias gcO='git checkout --patch'
 alias gcp='git cherry-pick --ff'
+alias gcr='git revert'
+alias gcs='git show'
+alias gfc='git clone'
+alias gfcr='git clone --recurse-submodules'
 
 # fetch / pull / push
 alias gf='git fetch'

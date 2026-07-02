@@ -247,7 +247,7 @@ nnoremap <leader>v "*v
 " ,ev edit vimrc file on the fly
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
 " ,rv reload the vimrc file on the fly
-nnoremap <leader>rv :source ~/.vimrc<CR>
+nnoremap <leader>rv :source $MYVIMRC<CR>
 " surroud replace quotes
 map <leader>" cs'"
 map <leader>' cs"'
