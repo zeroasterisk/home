@@ -16,3 +16,9 @@
 # (note: dot_tmux.conf.local IS tracked — it's not a secret)
 *.local
 !home/dot_tmux.conf.local
+
+# runtime-generated / on-disk remnants from old tree — not source
+bin/
+tool-versions
+vim/
+zsh/
