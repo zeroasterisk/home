@@ -2,12 +2,14 @@
 {{- $email := promptStringOnce . "email" "Personal email" -}}
 {{- $work := promptBoolOnce . "work" "Is this a work machine (Google/gLinux)?" -}}
 {{- $github := promptStringOnce . "github" "GitHub username" -}}
+{{- $minimal := promptBoolOnce . "minimal" "Minimal install? (skip packages + asdf, dotfiles only)" -}}
 
 [data]
   name    = {{ $name | quote }}
   email   = {{ $email | quote }}
   github  = {{ $github | quote }}
   work    = {{ $work }}
+  minimal = {{ $minimal }}
   os      = {{ .chezmoi.os | quote }}
   arch    = {{ .chezmoi.arch | quote }}
   {{- if $work }}
