@@ -80,6 +80,8 @@ PACKAGES=(
   nmap
   {{- end }}
 
+  neovim           # terminal-based editor
+
   # ── Extras — uncomment + chezmoi apply to install ──────────────────────────
   # tig             # git TUI          (same on brew)
   # bat             # better cat       (mac: bat | apt binary: batcat)
@@ -159,6 +161,8 @@ FORMULAE=(
   nmap
   {{- end }}
 
+  neovim            # terminal-based editor (linux: apt package neovim)
+
   # ── Extras — uncomment + chezmoi apply to install ──────────────────────────
   # tig             # git TUI          (same on apt)
   # bat             # better cat       (linux apt binary: batcat)
@@ -223,9 +227,6 @@ _runtime "python" "3.12.10"
 
 _plugin "golang" "https://github.com/asdf-community/asdf-golang.git"
 _runtime "golang" "1.25.11"
-
-_plugin "neovim"
-_runtime "neovim" "0.11.4"
 
 # ── Extras — uncomment + chezmoi apply to install ─────────────────────────────
 # _plugin "rust" "https://github.com/code-lever/asdf-rust.git"
