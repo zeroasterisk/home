@@ -168,5 +168,9 @@ fi
 # tig — git TUI (opens if installed)
 # no alias needed: just type 'tig'; listed here as a reminder it should be installed
 
+# ── Google / corp ─────────────────────────────────────────────────────────────
+# gcert7: 7-day (168h) certificate, no corp/prod SSH — for long-lived local dev
+alias gcert7='gcert --lifetime=168h --nocorpssh --noprodssh'
+
 # ── Misc ──────────────────────────────────────────────────────────────────────
 alias storybook='nocorrect npm run storybook'
