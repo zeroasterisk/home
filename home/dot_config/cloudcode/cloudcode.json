@@ -1,13 +1,53 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "google-vertex-anthropic/claude-sonnet-4-6@default",
+  "model": "google-vertex/gemini-flash-latest",
+  "agent": {
+    "plan": {
+      "model": "google-vertex/gemini-flash-latest"
+    },
+    "build": {
+      "model": "google-vertex/gemini-flash-latest"
+    },
+    "worker": {
+      "model": "google-vertex/gemini-3.8-flash",
+      "mode": "primary",
+      "description": "General worker agent using gemini-3.8-flash"
+    },
+    "deep-thinker": {
+      "model": "google-vertex-anthropic/claude-fable-5-1@default",
+      "mode": "primary",
+      "description": "Deep thinking agent using Claude Fable 5.1"
+    }
+  },
   "formatter": false,
-  "permission": "allow",
+  "permission": {
+    "*": "allow"
+  },
   "lsp": false,
   "tools": {
     "question": false
   },
+  "memory": {
+    "enabled": true
+  },
+  "provider": {
+    "google-vertex": {
+      "options": {
+        "project": "alanblount-demo",
+        "location": "global"
+      }
+    },
+    "google-vertex-anthropic": {
+      "options": {
+        "project": "alanblount-demo",
+        "location": "global"
+      }
+    }
+  },
   "skills": {
-    "bundles": ["google-corp", "google3"]
+    "bundles": [
+      "google-corp",
+      "google3"
+    ]
   }
 }
