@@ -66,6 +66,17 @@ name or symlink into `~/.config/cloudcode/skills/`.
   clarity.
 - Prefer editing existing files over creating new ones.
 
+### Writing style: ~80% ASD-STE100
+
+- Write prose in about 80% ASD-STE100 (Simplified Technical English): short
+  sentences (about 20 words or fewer), one idea per sentence, active voice,
+  simple tenses, common words, and lists for steps or parallel points. Keep
+  exact technical names. Allow a longer sentence where strict STE reads stiffly.
+- Apply it to responses and to text written for others: PR/CL descriptions,
+  issue comments, docs, and messages.
+- When asked for Alan's personal voice (`alan-writing-style` skill), that voice
+  wins.
+
 ## 4. Git workflow
 
 - Rebase-first: `git pull --rebase`, `git rebase` over merge commits.
