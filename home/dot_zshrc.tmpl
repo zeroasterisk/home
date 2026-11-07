@@ -154,3 +154,11 @@ if command -v starship &>/dev/null; then
 else
   PS1='%F{green}%n@%m%f %F{blue}%~%f %# '
 fi
+
+# ── Installer-managed tool env (skipped when the tool is absent) ──────────────
+# ~/.local/bin is already on PATH via path.zsh.
+[[ -f "${HOME}/.config/vite-plus/env" ]] && . "${HOME}/.config/vite-plus/env"
+# >>> t3code-telemetry-lockdown >>>
+export T3CODE_TELEMETRY_ENABLED=false
+export T3CODE_OTEL_SDK_DISABLED=true
+# <<< t3code-telemetry-lockdown <<<

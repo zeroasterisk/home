@@ -14,6 +14,10 @@
   path = ~/.config/git/work.gitconfig
 [includeIf "gitdir:~/Workspaces/google-git/"]
   path = ~/.config/git/work.gitconfig
+{{- if .work }}
+[includeIf "gitdir:~/Workspaces/cloud-ai-opm-skills/"]
+  path = ~/.config/git/work.gitconfig
+{{- end }}
 
 # ── Core ──────────────────────────────────────────────────────────────────────
 [core]
@@ -111,6 +115,10 @@
 
 [url "git@depot.code.corp.goog:"]
   insteadOf = https://depot.code.corp.goog/
+
+[credential "https://depot.code.corp.goog"]
+  helper =
+  helper = !/usr/bin/gh auth git-credential
 {{- end }}
 
 # ── sendemail ─────────────────────────────────────────────────────────────────
@@ -119,3 +127,7 @@
   smtpserverport = 587
   smtpencryption = tls
   smtpuser       = {{ .email }}
+
+# ── Machine-local overrides (not in git; skipped when missing) ────────────────
+[include]
+  path = ~/.config/git/local.gitconfig

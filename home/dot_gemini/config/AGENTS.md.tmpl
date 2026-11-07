@@ -1,0 +1,21 @@
+# Global Agent Rules
+
+## Communication & Artifact Preferences
+- **High Signal-to-Noise**: Keep communication concise, punchy, detailed, and action-packed, using links to dig deeper.
+- **Artifact Reuse**: Re-use and update existing canonical artifacts (GPaste, g3doc, Workspace Docs, Gist) with version control; do not create new artifacts/urls for revisions unless explicitly requested.
+- **Artifact Sharing**: Share artifacts via GPaste, g3doc, Workspace Docs, or Gist as designated by Alan.
+
+## Writing Style: ~80% ASD-STE100
+- Write prose in about 80% ASD-STE100 (Simplified Technical English): short sentences (about 20 words or fewer), one idea per sentence, active voice, simple tenses, common words, and lists for steps or parallel points. Keep exact technical names. Allow a longer sentence where strict STE reads stiffly.
+- Apply it to responses and to text written for others: PR/CL descriptions, issue comments, docs, and messages.
+- When asked for Alan's personal voice (`alan-writing-style` skill), that voice wins.
+{{- /* Google-internal tool notes live in a local file that is never committed. */}}
+{{- $local := joinPath .chezmoi.homeDir ".gemini/config/AGENTS.local.md" }}
+{{- if stat $local }}
+
+{{ include $local | trimSuffix "\n" }}
+{{- end }}
+
+## Truthfulness & Mock Discipline
+- **No Unauthorized Mocks**: Mocks, simulations, or synthetic fallback data are NEVER acceptable without prior explicit authorization from Alan. Always execute against live services or explicitly report errors, roadblocks, or missing quota.
+- **Reporting Authenticity**: If an API call fails (e.g. 429 quota exhaustion, auth failure, permission denied), report the exact failure and diagnostic commands transparently. Never simulate a passing state, generate synthetic outputs, or mask error codes.

@@ -88,8 +88,9 @@ cd ~/dotfiles && git pull && chezmoi apply
       git/config.tmpl               → ~/.config/git/config
       git/git_template/hooks/       → ~/.config/git/git_template/hooks/
       nvim/                         → ~/.config/nvim/
-      cloudcode/                    → ~/.config/cloudcode/
+      cloudcode/                    → ~/.config/cloudcode/ (cloudcode.json keeps local skills.paths/plugin)
       gh/config.yml                 → ~/.config/gh/config.yml
+    dot_gemini/config/AGENTS.md.tmpl → ~/.gemini/config/AGENTS.md (Jetski rules)
     dot_tmux.conf                   → ~/.tmux.conf
     dot_tmux.conf.local             → ~/.tmux.conf.local (unused — legacy)
     dot_tool-versions               → ~/.tool-versions
@@ -121,8 +122,16 @@ Never committed. Put them in:
 
 - `~/.zsh/local.zsh` — env vars, tokens, machine-specific aliases
 - `~/.zshrc.local` — anything else
+- `~/.config/git/local.gitconfig` — extra git config (included last)
+- `~/.gemini/config/AGENTS.local.md` — private Jetski rules, inlined into
+  `~/.gemini/config/AGENTS.md` on `chezmoi apply`
 
-Both are sourced automatically at the end of `.zshrc` if they exist.
+Each one is loaded only if it exists. The zsh and git files load at runtime;
+the Jetski file needs a `chezmoi apply` after edits.
+
+`~/.config/cloudcode/cloudcode.json` is applied by a `modify_` script that
+keeps the machine's `skills.paths` and `plugin` (written by `skills/sync.sh`),
+so private skill paths never reach this repo.
 
 ## nvim
 
