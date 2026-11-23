@@ -124,6 +124,9 @@ Built-in skill bundles, plus my skills repo
 - Never amend a commit that has been pushed to remote.
 - Never force-push to `main`/`master`.
 - Branch off `main`; PRs via `gh pr create`.
+- Public repos (GitHub): never put the CloudCode session link or any internal URL,
+  path, or codename in a PR, issue, or commit message. GitHub keeps PR-body edit
+  history, so a later edit does not remove it.
 
 ### Workspace layout & git identity
 
