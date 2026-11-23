@@ -28,9 +28,10 @@ is NOT pre-authorization for new CLs. </do_not_act_before_instructions>
 
 Before the first file edit, write one line: `Tier: <trivial|small|medium|large>
 (<reason>)`. Pick by blast radius and clarity, not line count. An open question
-in the ask ("not sure how X should work") makes it at least medium. In a git
-repo, a spec-gate hook blocks edits until `.agent/tier` (the tier word) is
-written this session; medium or large also need the spec file below.
+in the ask ("not sure how X should work") makes it at least medium. When the
+spec-gate plugin is installed, it blocks edits in a git repo until `.agent/tier`
+(the tier word) is written this session; medium or large also need the spec
+file below.
 
 - **Trivial/small**: one place, clear ask, easy to revert. Apply the rules below.
   No spec, no skill.
@@ -86,7 +87,7 @@ written this session; medium or large also need the spec file below.
 
 ## 3. Skills
 
-Built-in bundles `google-corp` and `google3`, plus my skills repo
+Built-in skill bundles, plus my skills repo
 `~/Workspaces/open-source/skills`. Its `./sync.py` wires the skill paths into
 `cloudcode.json`; edit skills in the repo, not under `~/.config`.
 
