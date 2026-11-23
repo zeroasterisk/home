@@ -146,7 +146,7 @@ Borg/depot → `google-git/`.
 - Default project is `alanblount-sandbox` — safe to experiment, not production.
 - Prefer Vertex AI endpoints over direct Anthropic/OpenAI APIs.
 - ADK agents: use `agents-cli` tooling; skills at `~/.agents/skills/`.
-- Application credentials: `~/alanblount-sandbox-b4787d905b28.json` (local
+- Application credentials: `~/alanblount-sandbox-*.json` (local
   only, never committed).
 
 ## 7. Web & internal pages
