@@ -1,2 +1,3 @@
-# Local agent state (spec-gate tier file, scratch specs)
-.agent/
+# spec-gate per-session state (tier word and scratch spec)
+.agent/tier
+.agent/spec.md
