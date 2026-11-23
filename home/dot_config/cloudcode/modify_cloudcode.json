@@ -8,13 +8,13 @@ import sys
 BASE = json.loads(r"""
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "google-vertex/gemini-flash-latest",
+  "model": "google-vertex/gemini-4-neon",
   "agent": {
     "plan": {
-      "model": "google-vertex/gemini-flash-latest"
+      "model": "google-vertex/gemini-4-neon"
     },
     "build": {
-      "model": "google-vertex/gemini-flash-latest"
+      "model": "google-vertex/gemini-4-neon"
     },
     "worker": {
       "model": "google-vertex/gemini-3.8-flash",
