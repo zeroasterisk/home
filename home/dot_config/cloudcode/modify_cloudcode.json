@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # chezmoi modify_ script: writes the shared CloudCode config and keeps this
 # machine's skills.paths and plugin list, which point at what is installed here
-# (skills/sync.sh generates skills.paths).
+# (skills/sync.py generates skills.paths).
 import json
 import sys
 
